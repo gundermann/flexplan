@@ -52,7 +52,7 @@ public class FlextimeDaySetupActivity extends Activity {
 		timeTo.setIs24HourView(true);
 
 		Button addBreakButton = (Button) findViewById(R.id.add_break_button);
-		addBreakButton.setOnClickListener(new AddBreakListener());
+		addBreakButton.setOnClickListener(new AddBreakListener(getApplicationContext()));
 
 		Button saveButton = (Button) findViewById(R.id.save_flextimeday_button);
 		saveButton.setOnClickListener(new SaveFlextimeDayListener(
