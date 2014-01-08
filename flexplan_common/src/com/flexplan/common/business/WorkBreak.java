@@ -1,6 +1,6 @@
 package com.flexplan.common.business;
 
-public interface WorkBreak {
+public interface WorkBreak extends Comparable<WorkBreak>{
 
 	long getStartTime();
 

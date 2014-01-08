@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Felxplan</string>
+    <string name="add_break">Pause hinzufügen</string>
+    <string name="save_flextimeday">Speichern</string>
+    <string name="timeFromTo">-</string>
+
+</resources>

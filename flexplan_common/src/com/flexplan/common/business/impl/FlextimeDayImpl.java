@@ -1,6 +1,6 @@
 package com.flexplan.common.business.impl;
 
-import java.util.List;
+import java.util.TreeSet;
 
 import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.common.business.WorkBreak;
@@ -10,12 +10,13 @@ public class FlextimeDayImpl implements FlextimeDay{
 	private long date;
 	private long startTime;
 	private long endTime;
-	private List<WorkBreak> breaks;
+	private TreeSet<WorkBreak> breaks;
 
 	public FlextimeDayImpl(long date, long startTime, long endTime){
 		this.date = date;
 		this.startTime = startTime;
 		this.endTime = endTime;
+		breaks = new TreeSet<WorkBreak>();
 	}
 	
 	@Override

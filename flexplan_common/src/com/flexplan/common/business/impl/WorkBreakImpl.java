@@ -4,8 +4,6 @@ import com.flexplan.common.business.WorkBreak;
 
 public class WorkBreakImpl implements WorkBreak {
 
-	
-	
 	private long startTime;
 	private long endTime;
 
@@ -34,5 +32,15 @@ public class WorkBreakImpl implements WorkBreak {
 		endTime = time;
 	}
 
+	@Override
+	public int compareTo(WorkBreak workBreak) {
+		if (this.startTime < workBreak.getStartTime()) {
+			return -1;
+		} else if (this.startTime < workBreak.getStartTime()) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
 
 }
