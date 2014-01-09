@@ -70,17 +70,17 @@ public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 
 	private List<WorkBreak> getWorkBreaksForFlextimeDay(long date) {
 		List<WorkBreak> workBreaks = new ArrayList<WorkBreak>();
-		
+
 		SQLiteDatabase db = super.getReadableDatabase();
 		Cursor breakCursor = db.query(BreakTimeTable.TABLE_NAME,
 				BreakTimeTable.selectTime(), BreakTimeTable.getWhereDate(date),
 				null, null, null, null, null);
-		while(breakCursor.moveToNext()){
+		while (breakCursor.moveToNext()) {
 			long timeFrom = breakCursor.getLong(0);
 			long timeTo = breakCursor.getLong(1);
-			workBreaks.add(WorkBreakFactory.createWorkBreak(timeFrom , timeTo));
+			workBreaks.add(WorkBreakFactory.createWorkBreak(timeFrom, timeTo));
 		}
-		
+
 		breakCursor.close();
 		db.close();
 		return workBreaks;
@@ -102,4 +102,8 @@ public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 		return super.getWritableDatabase();
 	}
 
+	public void insertWorkBreak(WorkBreak workBreak, long date) {
+		getReadableDatabase().insert(BreakTimeTable.TABLE_NAME, null,
+				BreakTimeTable.getContentValues(workBreak, date));
+	}
 }
