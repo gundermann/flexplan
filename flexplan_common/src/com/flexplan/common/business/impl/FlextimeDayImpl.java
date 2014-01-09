@@ -1,5 +1,6 @@
 package com.flexplan.common.business.impl;
 
+import java.util.Iterator;
 import java.util.TreeSet;
 
 import com.flexplan.common.business.FlextimeDay;
@@ -36,8 +37,12 @@ public class FlextimeDayImpl implements FlextimeDay{
 
 	@Override
 	public long getTimeForBreaks() {
-		// TODO Auto-generated method stub
-		return 0;
+		long time = 0L;
+		Iterator<WorkBreak> iterator = breaks.iterator();
+		while (iterator.hasNext()) {
+			time =+ iterator.next().getLength();
+		}
+		return time;
 	}
 
 	@Override
@@ -58,6 +63,11 @@ public class FlextimeDayImpl implements FlextimeDay{
 	@Override
 	public void deleteBreak(WorkBreak workbreak) {
 		breaks.clear();
+	}
+
+	@Override
+	public TreeSet<WorkBreak> getWorkBreaks() {
+		return breaks;
 	}
 	
 

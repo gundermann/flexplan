@@ -3,7 +3,11 @@
 
     <string name="app_name">Felxplan</string>
     <string name="add_break">Pause hinzufügen</string>
+    <string name="break_view">Pausen</string>
     <string name="save_flextimeday">Speichern</string>
-    <string name="timeFromTo">-</string>
+    <string name="timeDivider">-</string>
+    <string name="title_activity_break_view">BreakViewActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 
 </resources>

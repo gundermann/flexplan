@@ -43,4 +43,9 @@ public class WorkBreakImpl implements WorkBreak {
 		}
 	}
 
+	@Override
+	public long getLength() {
+		return endTime - startTime;
+	}
+
 }

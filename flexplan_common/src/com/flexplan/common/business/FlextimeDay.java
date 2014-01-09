@@ -1,5 +1,7 @@
 package com.flexplan.common.business;
 
+import java.util.TreeSet;
+
 
 public interface FlextimeDay {
 
@@ -18,4 +20,6 @@ public interface FlextimeDay {
 	void addBreak(WorkBreak workbreak);
 
 	void deleteBreak(WorkBreak workbreak);
+
+	TreeSet<WorkBreak> getWorkBreaks();
 }
