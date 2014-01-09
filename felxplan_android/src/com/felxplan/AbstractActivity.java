@@ -69,6 +69,7 @@ public abstract class AbstractActivity extends FragmentActivity{
 				}
 			}
 		});
+		
 		findViewById(R.id.add_break_button).setOnTouchListener(
 				mDelayHideTouchListener);
 	}

@@ -1,5 +1,6 @@
 package com.felxplan;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
@@ -40,6 +41,8 @@ public class FlextimeDaySetupActivity extends AbstractActivity {
 
 		findViewById(R.id.break_view_button).setOnTouchListener(
 				mDelayHideTouchListener);
+		findViewById(R.id.save_flextimeday_button).setOnTouchListener(
+				mDelayHideTouchListener);
 	}
 
 	private FlextimeDay getCurrentFlextimeDay() {
@@ -63,22 +66,20 @@ public class FlextimeDaySetupActivity extends AbstractActivity {
 	}
 
 	private List<WorkBreak> getBreaks() {
-		// TODO Auto-generated method stub
-		return null;
+		List<WorkBreak> breakList = new ArrayList<WorkBreak>();
+		breakList.addAll(currentFlextimeDay.getWorkBreaks());
+		return breakList;
 	}
 
 	private long getEndTime() {
-		// TODO Auto-generated method stub
-		return 0;
+		return currentFlextimeDay.getEndTime();
 	}
 
 	private long getStartTime() {
-		// TODO Auto-generated method stub
-		return 0;
+		return currentFlextimeDay.getStartTime();
 	}
 
 	private long getDate() {
-		// TODO Auto-generated method stub
-		return 0;
+		return currentFlextimeDay.getDate();
 	}
 }
