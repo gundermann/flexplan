@@ -21,9 +21,6 @@ public class FlextimeDaySetupActivity extends AbstractActivity {
 
 		setContentView(R.layout.activity_flextime_day_setup);
 
-		controlsView = findViewById(R.id.fullscreen_content_controls);
-		contentView = findViewById(R.id.fullscreen_content);
-
 		final TimePicker timeFrom = (TimePicker) findViewById(R.id.timeFrom);
 		final TimePicker timeTo = (TimePicker) findViewById(R.id.timeTo);
 

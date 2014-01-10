@@ -18,12 +18,15 @@ public abstract class AbstractActivity extends FragmentActivity{
 	private static final int HIDER_FLAGS = SystemUiHider.FLAG_HIDE_NAVIGATION;
 	private SystemUiHider mSystemUiHider;
 	
-	protected View controlsView;
+	private View controlsView;
 
-	protected View contentView;
+	private View contentView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		controlsView = findViewById(R.id.fullscreen_content_controls);
+		contentView = findViewById(R.id.fullscreen_content);
 		
 		mSystemUiHider = SystemUiHider.getInstance(this, contentView,
 				HIDER_FLAGS);

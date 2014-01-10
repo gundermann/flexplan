@@ -22,9 +22,6 @@ public class BreakSetupActivity extends AbstractActivity {
 
 		setContentView(R.layout.activity_break_setup);
 
-		controlsView = findViewById(R.id.fullscreen_content_controls);
-		contentView = findViewById(R.id.fullscreen_content);
-
 		currentDate = getIntent().getExtras().getLong("currentDate");
 		
 		timeFrom = (TimePicker) findViewById(R.id.break_time_from);
