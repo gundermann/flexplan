@@ -1,22 +1,19 @@
 package com.felxplan;
 
-import com.felxplan.util.SystemUiHider;
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.MotionEvent;
-import android.view.View;
+import android.widget.ListView;
+import android.widget.TextView;
 
-/**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- * 
- * @see SystemUiHider
- */
+import com.flexplan.common.business.FlextimeDay;
+
 public class FlextimeOverviewActivity extends AbstractActivity {
+
+	private int currentWeek;
+
+	private int currentYear;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +21,30 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 
 		setContentView(R.layout.activity_flextime_overview);
 
-		
+		setupWeek();
+		updateWeekView();
 
 		findViewById(R.id.add_flextime_button).setOnTouchListener(
 				mDelayHideTouchListener);
+
+		updateListView();
 	}
 
+	private void updateWeekView() {
+		TextView week = (TextView) findViewById(R.id.week);
+		week.setText("KW " + currentWeek + " " + currentYear);
+	}
 
+	private void updateListView() {
+		ListView flextimeWeekList = (ListView) findViewById(R.id.flextime_overview);
+		flextimeWeekList.setAdapter(new FlextimeOverviewAdapter(
+				getApplicationContext(), new ArrayList<FlextimeDay>()));
+	}
+
+	private void setupWeek() {
+		GregorianCalendar cal = new GregorianCalendar();
+		currentWeek = cal.get(GregorianCalendar.WEEK_OF_YEAR);
+		currentYear = cal.get(GregorianCalendar.YEAR);
+	}
 
 }
