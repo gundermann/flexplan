@@ -11,18 +11,13 @@ import com.flexplan.common.FlextimeDayFactory;
 import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.common.business.WorkBreak;
 
-public class FlextimeDaySetupActivity extends AbstractActivity {
+public class FlextimeDaySetupActivity extends AbstractActivity implements FlextimeDaySetup{
 
 	private FlextimeDay currentFlextimeDay;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		setContentView(R.layout.activity_flextime_day_setup);
-
-		controlsView = findViewById(R.id.fullscreen_content_controls);
-		contentView = findViewById(R.id.fullscreen_content);
 
 		final TimePicker timeFrom = (TimePicker) findViewById(R.id.timeFrom);
 		final TimePicker timeTo = (TimePicker) findViewById(R.id.timeTo);
@@ -32,11 +27,11 @@ public class FlextimeDaySetupActivity extends AbstractActivity {
 
 		Button addBreakButton = (Button) findViewById(R.id.break_view_button);
 		addBreakButton.setOnClickListener(new ShowBreakListener(
-				getApplicationContext()));
+				this, this));
 
 		Button saveButton = (Button) findViewById(R.id.save_flextimeday_button);
 		saveButton.setOnClickListener(new SaveFlextimeDayListener(
-				getCurrentFlextimeDay(),
+				this,
 				((FlexplanApplication) getApplication()).getDbHelper()));
 
 		findViewById(R.id.break_view_button).setOnTouchListener(
@@ -45,12 +40,8 @@ public class FlextimeDaySetupActivity extends AbstractActivity {
 				mDelayHideTouchListener);
 	}
 
-	private FlextimeDay getCurrentFlextimeDay() {
-		saveFlextime();
-		return currentFlextimeDay;
-	}
-
-	private void saveFlextime() {
+	@Override
+	public void saveFlextimeDay() {
 		if (currentFlextimeDay == null
 				|| currentFlextimeDay.getDate() != getDate()) {
 			currentFlextimeDay = FlextimeDayFactory.createFlextimeDay(
@@ -72,14 +63,27 @@ public class FlextimeDaySetupActivity extends AbstractActivity {
 	}
 
 	private long getEndTime() {
-		return currentFlextimeDay.getEndTime();
+		//TODO
+		return 0L;
 	}
 
 	private long getStartTime() {
-		return currentFlextimeDay.getStartTime();
+		//TODO
+		return 0L;
 	}
 
 	private long getDate() {
-		return currentFlextimeDay.getDate();
+		//TODO
+		return 0L;
+	}
+
+	@Override
+	protected void setContentView() {
+		setContentView(R.layout.activity_flextime_day_setup);		
+	}
+
+	public FlextimeDay getFlextimeDay() {
+		saveFlextimeDay();
+		return currentFlextimeDay;
 	}
 }

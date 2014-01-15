@@ -9,17 +9,18 @@ import android.view.View.OnClickListener;
 public class SaveFlextimeDayListener implements OnClickListener {
 
 	
-	private FlextimeDay currentFlextimeDay;
 	private DBHelper dbHelper;
+	private FlextimeDaySetup flextimeDaySetup;
 
-	public SaveFlextimeDayListener(FlextimeDay currentFlextimeDay, DBHelper dbHelper) {
-		this.currentFlextimeDay = currentFlextimeDay;
+	public SaveFlextimeDayListener(FlextimeDaySetup flextimeDaySetup, DBHelper dbHelper) {
+		this.flextimeDaySetup = flextimeDaySetup;
 		this.dbHelper = dbHelper;
 	}
 
 	@Override
 	public void onClick(View v) {
-		dbHelper.insertFlextimeDay(currentFlextimeDay);
+		
+		dbHelper.insertFlextimeDay(flextimeDaySetup.getFlextimeDay());
 	}
 
 }

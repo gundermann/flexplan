@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="18" />
+        android:targetSdkVersion="19" />
 
     <application
         android:name="com.felxplan.FlexplanApplication"
@@ -37,6 +37,12 @@
             android:name="com.felxplan.BreakSetupActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_break_setup"
+            android:theme="@style/FullscreenTheme" >
+        </activity>
+        <activity
+            android:name="com.felxplan.FlextimeSetupActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_flextime_setup"
             android:theme="@style/FullscreenTheme" >
         </activity>
     </application>

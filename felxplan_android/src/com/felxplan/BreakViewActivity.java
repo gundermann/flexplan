@@ -20,15 +20,15 @@ public class BreakViewActivity extends AbstractActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.activity_break_view);
-
-		controlsView = findViewById(R.id.fullscreen_content_controls);
-		contentView = findViewById(R.id.fullscreen_content);
-
 		ListView breakListView = (ListView) findViewById(R.id.breakList);
 		breakListView.setAdapter(new BreakListAdapter(getApplicationContext(),
 				currentFlextimeDay.getWorkBreaks()));
 
+	}
+
+	@Override
+	protected void setContentView() {
+		setContentView(R.layout.activity_break_view);		
 	}
 
 }

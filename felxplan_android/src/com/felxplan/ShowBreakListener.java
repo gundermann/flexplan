@@ -7,16 +7,20 @@ import android.view.View.OnClickListener;
 
 public class ShowBreakListener implements OnClickListener {
 
-	private Context applicationContext;
+	private Context context;
+	private FlextimeDaySetup flextimeDaySetup;
 
-	public ShowBreakListener(Context applicationContext) {
-		this.applicationContext = applicationContext;
+	public ShowBreakListener(Context context, FlextimeDaySetup flextimeDaySetup) {
+		this.context = context;
+		this.flextimeDaySetup = flextimeDaySetup;
+		
 
 	}
 
 	@Override
 	public void onClick(View view) {
-		applicationContext.startActivity(new Intent(applicationContext, BreakViewActivity.class));
+		flextimeDaySetup.saveFlextimeDay();
+		context.startActivity(new Intent(context, BreakViewActivity.class));
 	}
 
 }

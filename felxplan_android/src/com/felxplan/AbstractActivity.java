@@ -25,6 +25,11 @@ public abstract class AbstractActivity extends FragmentActivity{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		setContentView();
+		
+		controlsView = findViewById(R.id.fullscreen_content_controls);
+		contentView = findViewById(R.id.fullscreen_content);
+		
 		mSystemUiHider = SystemUiHider.getInstance(this, contentView,
 				HIDER_FLAGS);
 		mSystemUiHider.setup();
@@ -70,10 +75,11 @@ public abstract class AbstractActivity extends FragmentActivity{
 			}
 		});
 		
-		findViewById(R.id.add_break_button).setOnTouchListener(
-				mDelayHideTouchListener);
+	
 	}
 	
+	protected abstract void setContentView();
+
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);

@@ -20,11 +20,6 @@ public class BreakSetupActivity extends AbstractActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.activity_break_setup);
-
-		controlsView = findViewById(R.id.fullscreen_content_controls);
-		contentView = findViewById(R.id.fullscreen_content);
-
 		currentDate = getIntent().getExtras().getLong("currentDate");
 		
 		timeFrom = (TimePicker) findViewById(R.id.break_time_from);
@@ -59,6 +54,11 @@ public class BreakSetupActivity extends AbstractActivity {
 
 	private long getTimeTo() {
 		return timeTo.getDrawingTime();
+	}
+
+	@Override
+	protected void setContentView() {
+		setContentView(R.layout.activity_break_setup);		
 	}
 
 }
