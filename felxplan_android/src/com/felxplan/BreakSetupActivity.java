@@ -20,6 +20,8 @@ public class BreakSetupActivity extends AbstractActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		setContentView(R.layout.activity_break_setup);
+
 		currentDate = getIntent().getExtras().getLong("currentDate");
 		
 		timeFrom = (TimePicker) findViewById(R.id.break_time_from);

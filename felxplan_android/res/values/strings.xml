@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="title_activity_flextime_setup">FlextimeSetupActivity</string>
+    <string name="timeFrom">Start</string>
+    <string name="timeTo">Ende</string>
     <string name="app_name">Felxplan</string>
     <string name="add_break">Pause hinzufügen</string>
     <string name="break_view">Pausen</string>
@@ -10,8 +13,6 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_break_setup">BreakSetupActivity</string>
-    <string name="title_activity_flextime_setup">FlextimeSetupActivity</string>
-    <string name="timeFrom">Start</string>
-    <string name="timeTo">Ende</string>
+    <string name="title_activity_flextime_overview">FlextimeOverviewActivity</string>
 
 </resources>
