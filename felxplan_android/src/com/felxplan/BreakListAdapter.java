@@ -12,7 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.flexplan.common.business.WorkBreak;
-import com.flexplan.common.util.DateConverter;
+import com.flexplan.common.util.DateHelper;
 
 public class BreakListAdapter extends ArrayAdapter<WorkBreak> {
 
@@ -44,9 +44,9 @@ public class BreakListAdapter extends ArrayAdapter<WorkBreak> {
 		TextView timeTo = (TextView) rowView.findViewById(R.id.break_time_to);
 		TextView timeSum = (TextView) rowView.findViewById(R.id.break_time_sum);
 		
-		timeFrom.setText(DateConverter.convertToDate(workBreak.getStartTime()));
-		timeTo.setText(DateConverter.convertToDate(workBreak.getEndTime()));
-		timeSum.setText(DateConverter.convertToDate(workBreak.getLength()));
+		timeFrom.setText(DateHelper.convertToDate(workBreak.getStartTime()));
+		timeTo.setText(DateHelper.convertToDate(workBreak.getEndTime()));
+		timeSum.setText(DateHelper.convertToDate(workBreak.getLength()));
 	}
 
 

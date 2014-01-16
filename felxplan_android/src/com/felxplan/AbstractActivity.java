@@ -1,5 +1,7 @@
 package com.felxplan;
 
+import java.util.List;
+
 import com.felxplan.util.SystemUiHider;
 
 import android.annotation.TargetApi;
@@ -75,7 +77,7 @@ public abstract class AbstractActivity extends FragmentActivity{
 			}
 		});
 		
-	
+		setupDelayHideTouchListener();
 	}
 	
 	protected abstract void setContentView();
@@ -110,5 +112,11 @@ public abstract class AbstractActivity extends FragmentActivity{
 		mHideHandler.postDelayed(mHideRunnable, delayMillis);
 	}
 	
+	private void setupDelayHideTouchListener() {
+		for (View view : getViewsForDelayedHide())
+			view.setOnTouchListener(mDelayHideTouchListener);
+	}
+	
+	abstract public List<View> getViewsForDelayedHide();
 
 }

@@ -2,8 +2,11 @@ package com.felxplan;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -15,14 +18,15 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 
 	private int currentYear;
 
+	private Button addFlextimeBt;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setupWeek();
 		updateWeekView();
 
-		findViewById(R.id.add_flextime_button).setOnTouchListener(
-				mDelayHideTouchListener);
+		addFlextimeBt = (Button) findViewById(R.id.add_flextime_button);
 
 		updateListView();
 	}
@@ -46,7 +50,13 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 
 	@Override
 	protected void setContentView() {
-		setContentView(R.layout.activity_flextime_overview);		
+		setContentView(R.layout.activity_flextime_overview);
 	}
 
+	@Override
+	public List<View> getViewsForDelayedHide() {
+		List<View> views = new ArrayList<View>();
+		views.add(addFlextimeBt);
+		return views;
+	}
 }

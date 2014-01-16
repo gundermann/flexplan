@@ -4,40 +4,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
-import android.widget.TimePicker;
+import android.widget.DatePicker;
 
 import com.flexplan.common.FlextimeDayFactory;
 import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.common.business.WorkBreak;
+import com.flexplan.common.util.DateHelper;
 
-public class FlextimeDaySetupActivity extends AbstractActivity implements FlextimeDaySetup{
+public class FlextimeDaySetupActivity extends AbstractActivity implements
+		FlextimeDaySetup {
 
 	private FlextimeDay currentFlextimeDay;
+	private Button addBreakBt;
+	private Button saveBreakBt;
+	private DatePicker day;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		day = (DatePicker) findViewById(R.id.day);
 
-		final TimePicker timeFrom = (TimePicker) findViewById(R.id.timeFrom);
-		final TimePicker timeTo = (TimePicker) findViewById(R.id.timeTo);
+		addBreakBt = (Button) findViewById(R.id.break_view_button);
+		addBreakBt.setOnClickListener(new ShowBreakListener(this, this));
 
-		timeFrom.setIs24HourView(true);
-		timeTo.setIs24HourView(true);
-
-		Button addBreakButton = (Button) findViewById(R.id.break_view_button);
-		addBreakButton.setOnClickListener(new ShowBreakListener(
-				this, this));
-
-		Button saveButton = (Button) findViewById(R.id.save_flextimeday_button);
-		saveButton.setOnClickListener(new SaveFlextimeDayListener(
-				this,
+		saveBreakBt = (Button) findViewById(R.id.save_flextimeday_button);
+		saveBreakBt.setOnClickListener(new SaveFlextimeDayListener(this,
 				((FlexplanApplication) getApplication()).getDbHelper()));
-
-		findViewById(R.id.break_view_button).setOnTouchListener(
-				mDelayHideTouchListener);
-		findViewById(R.id.save_flextimeday_button).setOnTouchListener(
-				mDelayHideTouchListener);
 	}
 
 	@Override
@@ -45,15 +39,15 @@ public class FlextimeDaySetupActivity extends AbstractActivity implements Flexti
 		if (currentFlextimeDay == null
 				|| currentFlextimeDay.getDate() != getDate()) {
 			currentFlextimeDay = FlextimeDayFactory.createFlextimeDay(
-					getDate(), getStartTime(), getEndTime(), getBreaks());
+					getDate(), DateHelper.DAY_START, DateHelper.DAY_END,
+					getBreaks());
 		} else {
-			currentFlextimeDay.setStartTime(getStartTime());
-			currentFlextimeDay.setEndTime(getEndTime());
-			for (WorkBreak breakTime : getBreaks()) {
-				currentFlextimeDay.addBreak(breakTime);
-			}
+			currentFlextimeDay.setDate(getDate());
 		}
+	}
 
+	private long getDate() {
+		return day.getDrawingTime();
 	}
 
 	private List<WorkBreak> getBreaks() {
@@ -62,28 +56,21 @@ public class FlextimeDaySetupActivity extends AbstractActivity implements Flexti
 		return breakList;
 	}
 
-	private long getEndTime() {
-		//TODO
-		return 0L;
-	}
-
-	private long getStartTime() {
-		//TODO
-		return 0L;
-	}
-
-	private long getDate() {
-		//TODO
-		return 0L;
-	}
-
 	@Override
 	protected void setContentView() {
-		setContentView(R.layout.activity_flextime_day_setup);		
+		setContentView(R.layout.activity_flextime_day_setup);
 	}
 
 	public FlextimeDay getFlextimeDay() {
 		saveFlextimeDay();
 		return currentFlextimeDay;
+	}
+
+	@Override
+	public List<View> getViewsForDelayedHide() {
+		List<View> views = new ArrayList<View>();
+		views.add(addBreakBt);
+		views.add(saveBreakBt);
+		return views;
 	}
 }
