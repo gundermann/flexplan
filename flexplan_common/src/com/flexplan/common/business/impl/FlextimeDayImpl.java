@@ -69,6 +69,11 @@ public class FlextimeDayImpl implements FlextimeDay{
 	public TreeSet<WorkBreak> getWorkBreaks() {
 		return breaks;
 	}
+
+	@Override
+	public void setDate(long date) {
+		this.date = date;
+	}
 	
 
 }

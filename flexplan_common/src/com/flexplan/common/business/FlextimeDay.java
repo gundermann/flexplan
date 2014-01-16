@@ -22,4 +22,6 @@ public interface FlextimeDay {
 	void deleteBreak(WorkBreak workbreak);
 
 	TreeSet<WorkBreak> getWorkBreaks();
+
+	void setDate(long date);
 }

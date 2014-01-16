@@ -4,7 +4,10 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-public class DateConverter {
+public class DateHelper {
+
+	public static final long DAY_START = 0;
+	public static final long DAY_END = 24*60*60*1000;
 
 	public static CharSequence convertToDate(long time) {
 		Date date = new Date(time);
