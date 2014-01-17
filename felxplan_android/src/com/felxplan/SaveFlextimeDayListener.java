@@ -1,10 +1,9 @@
 package com.felxplan;
 
-import com.felxplan.persistence.DBHelper;
-import com.flexplan.common.business.FlextimeDay;
-
 import android.view.View;
 import android.view.View.OnClickListener;
+
+import com.felxplan.persistence.DBHelper;
 
 public class SaveFlextimeDayListener implements OnClickListener {
 

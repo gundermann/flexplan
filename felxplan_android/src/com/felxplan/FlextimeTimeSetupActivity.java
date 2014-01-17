@@ -18,15 +18,6 @@ public class FlextimeTimeSetupActivity extends AbstractActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		timeFrom = (TimePicker) findViewById(R.id.timeFrom);
-		timeTo = (TimePicker) findViewById(R.id.timeTo);
-		
-		timeFrom.setIs24HourView(true);
-		timeTo.setIs24HourView(true);
-		
-		showBreakViewBt = (Button) findViewById(R.id.break_view_button);
-		saveFlextimeDayBt = (Button) findViewById(R.id.save_flextimeday_button);
 	}
 
 	@Override
@@ -40,6 +31,16 @@ public class FlextimeTimeSetupActivity extends AbstractActivity {
 		views.add(saveFlextimeDayBt);
 		views.add(showBreakViewBt);
 		return views;
+	}
+
+	@Override
+	protected void initElements() {
+		timeFrom = (TimePicker) findViewById(R.id.timeFrom);
+		timeTo = (TimePicker) findViewById(R.id.timeTo);
+		timeFrom.setIs24HourView(true);
+		timeTo.setIs24HourView(true);
+		showBreakViewBt = (Button) findViewById(R.id.break_view_button);
+		saveFlextimeDayBt = (Button) findViewById(R.id.save_flextimeday_button);		
 	}
 
 }

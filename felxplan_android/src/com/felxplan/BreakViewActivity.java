@@ -14,17 +14,11 @@ public class BreakViewActivity extends AbstractActivity {
 
 	private FlextimeDay currentFlextimeDay;
 	private Button addBreakBt;
+	private ListView breakListView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		addBreakBt = (Button) findViewById(R.id.add_break_button);
-		
-		ListView breakListView = (ListView) findViewById(R.id.breakList);
-		breakListView.setAdapter(new BreakListAdapter(getApplicationContext(),
-				currentFlextimeDay.getWorkBreaks()));
-
 	}
 
 	@Override
@@ -37,6 +31,14 @@ public class BreakViewActivity extends AbstractActivity {
 		List<View> views = new ArrayList<View>();
 		views.add(addBreakBt);
 		return views;
+	}
+
+	@Override
+	protected void initElements() {
+		addBreakBt = (Button) findViewById(R.id.add_break_button);	
+		breakListView = (ListView) findViewById(R.id.breakList);
+		breakListView.setAdapter(new BreakListAdapter(getApplicationContext(),
+				currentFlextimeDay.getWorkBreaks()));
 	}
 
 }

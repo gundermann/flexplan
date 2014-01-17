@@ -32,6 +32,8 @@ public abstract class AbstractActivity extends FragmentActivity{
 		controlsView = findViewById(R.id.fullscreen_content_controls);
 		contentView = findViewById(R.id.fullscreen_content);
 		
+		initElements();
+		
 		mSystemUiHider = SystemUiHider.getInstance(this, contentView,
 				HIDER_FLAGS);
 		mSystemUiHider.setup();
@@ -80,6 +82,8 @@ public abstract class AbstractActivity extends FragmentActivity{
 		setupDelayHideTouchListener();
 	}
 	
+	abstract protected void initElements();
+
 	protected abstract void setContentView();
 
 	@Override

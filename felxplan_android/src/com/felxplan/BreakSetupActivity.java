@@ -26,16 +26,6 @@ public class BreakSetupActivity extends AbstractActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		currentDate = getIntent().getExtras().getLong("currentDate");
-		timeFrom = (TimePicker) findViewById(R.id.break_time_from);
-		timeTo = (TimePicker) findViewById(R.id.break_time_to);
-		timeFrom.setIs24HourView(true);
-		timeTo.setIs24HourView(true);
-		dateView = (TextView) findViewById(R.id.current_date);
-		dateView.setText(DateHelper.convertToDate(currentDate));
-		saveBreakBt = (Button) findViewById(R.id.save_break_button);
-		saveBreakBt.setOnClickListener(new SaveBreakListener(
-				((FlexplanApplication) getApplication()).getDbHelper(),
-				getCurrentBreak(), currentDate));
 	}
 
 	private WorkBreak getCurrentBreak() {
@@ -66,6 +56,20 @@ public class BreakSetupActivity extends AbstractActivity {
 		List<View> views = new ArrayList<View>();
 		views.add(saveBreakBt);
 		return views;
+	}
+
+	@Override
+	protected void initElements() {
+		timeFrom = (TimePicker) findViewById(R.id.break_time_from);
+		timeTo = (TimePicker) findViewById(R.id.break_time_to);
+		timeFrom.setIs24HourView(true);
+		timeTo.setIs24HourView(true);
+		dateView = (TextView) findViewById(R.id.current_date);
+		dateView.setText(DateHelper.convertToDate(currentDate));
+		saveBreakBt = (Button) findViewById(R.id.save_break_button);
+		saveBreakBt.setOnClickListener(new SaveBreakListener(
+				((FlexplanApplication) getApplication()).getDbHelper(),
+				getCurrentBreak(), currentDate));		
 	}
 
 }

@@ -1,6 +1,6 @@
 package com.felxplan;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
 import android.view.View;
@@ -12,9 +12,8 @@ import com.flexplan.common.business.FlextimeDay;
 public class FlextimeOverviewAdapter extends ArrayAdapter<FlextimeDay> {
 
 
-	public FlextimeOverviewAdapter(Context context, ArrayList<FlextimeDay> flextimeDays) {
+	public FlextimeOverviewAdapter(Context context, List<FlextimeDay> flextimeDays) {
 		super(context, R.layout.flextime_list, flextimeDays);
-		
 	}
 
 	@Override

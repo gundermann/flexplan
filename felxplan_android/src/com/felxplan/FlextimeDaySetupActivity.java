@@ -24,14 +24,6 @@ public class FlextimeDaySetupActivity extends AbstractActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		day = (DatePicker) findViewById(R.id.day);
-
-		addBreakBt = (Button) findViewById(R.id.break_view_button);
-		addBreakBt.setOnClickListener(new ShowBreakListener(this, this));
-
-		saveBreakBt = (Button) findViewById(R.id.save_flextimeday_button);
-		saveBreakBt.setOnClickListener(new SaveFlextimeDayListener(this,
-				((FlexplanApplication) getApplication()).getDbHelper()));
 	}
 
 	@Override
@@ -72,5 +64,15 @@ public class FlextimeDaySetupActivity extends AbstractActivity implements
 		views.add(addBreakBt);
 		views.add(saveBreakBt);
 		return views;
+	}
+
+	@Override
+	protected void initElements() {
+		day = (DatePicker) findViewById(R.id.day);
+		addBreakBt = (Button) findViewById(R.id.break_view_button);
+		addBreakBt.setOnClickListener(new ShowBreakListener(this, this));
+		saveBreakBt = (Button) findViewById(R.id.save_flextimeday_button);
+		saveBreakBt.setOnClickListener(new SaveFlextimeDayListener(this,
+				((FlexplanApplication) getApplication()).getDbHelper()));
 	}
 }

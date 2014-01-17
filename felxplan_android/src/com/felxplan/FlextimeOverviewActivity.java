@@ -20,26 +20,28 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 
 	private Button addFlextimeBt;
 
+	private TextView week;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setupWeek();
 		updateWeekView();
-
-		addFlextimeBt = (Button) findViewById(R.id.add_flextime_button);
-
 		updateListView();
 	}
 
 	private void updateWeekView() {
-		TextView week = (TextView) findViewById(R.id.week);
 		week.setText("KW " + currentWeek + " " + currentYear);
 	}
 
 	private void updateListView() {
 		ListView flextimeWeekList = (ListView) findViewById(R.id.flextime_overview);
 		flextimeWeekList.setAdapter(new FlextimeOverviewAdapter(
-				getApplicationContext(), new ArrayList<FlextimeDay>()));
+				getApplicationContext(), getCurrentWeek()));
+	}
+
+	private List<FlextimeDay> getCurrentWeek() {
+		return ((FlexplanApplication) getApplication()).getDbHelper().getCurrentWeek(currentWeek, currentYear);
 	}
 
 	private void setupWeek() {
@@ -58,5 +60,11 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 		List<View> views = new ArrayList<View>();
 		views.add(addFlextimeBt);
 		return views;
+	}
+
+	@Override
+	protected void initElements() {
+		week = (TextView) findViewById(R.id.week);
+		addFlextimeBt = (Button) findViewById(R.id.add_flextime_button);		
 	}
 }
