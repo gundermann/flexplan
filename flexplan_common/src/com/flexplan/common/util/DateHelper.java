@@ -2,6 +2,7 @@ package com.flexplan.common.util;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 public class DateHelper {
@@ -15,5 +16,14 @@ public class DateHelper {
                         Locale.GERMAN);
 		return formatter.format(date);
 	}
+
+	public static long convertToLong(int dayOfWeek, int weekOfYear, int year) {
+		GregorianCalendar cal = new GregorianCalendar();
+		cal.set(GregorianCalendar.YEAR, year);
+		cal.set(GregorianCalendar.WEEK_OF_YEAR, weekOfYear);
+		cal.set(GregorianCalendar.DAY_OF_WEEK, dayOfWeek);
+		return cal.getTimeInMillis();
+	}
+
 
 }

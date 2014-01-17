@@ -5,6 +5,7 @@ import java.util.List;
 import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.common.business.WorkBreak;
 import com.flexplan.common.business.impl.FlextimeDayImpl;
+import com.flexplan.common.util.DateHelper;
 
 
 public class FlextimeDayFactory {
@@ -17,5 +18,9 @@ public class FlextimeDayFactory {
 		}
 		
 		return flextimeDay;
+	}
+
+	public static FlextimeDay createFreeDayOfWeek(int dayOfWeek, int weekOfYear, int year) {
+		return new FlextimeDayImpl(DateHelper.convertToLong(dayOfWeek, weekOfYear, year), 0, 0);
 	}
 }
