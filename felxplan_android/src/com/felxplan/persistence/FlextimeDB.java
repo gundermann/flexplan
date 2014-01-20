@@ -8,4 +8,6 @@ public interface FlextimeDB {
 	void insertFlextimeDay(FlextimeDay flextimeDay);
 	
 	List<FlextimeDay> getAllFlextimeDays();
+
+	List<FlextimeDay> getCurrentWeek(int weekOfYear, int year);
 }

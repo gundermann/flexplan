@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.felxplan.persistence.FlextimeDB;
 import com.flexplan.common.business.FlextimeDay;
 
 public class FlextimeOverviewActivity extends AbstractActivity {
@@ -21,6 +22,8 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 	private Button addFlextimeBt;
 
 	private TextView week;
+
+	private FlextimeDB dbHelper;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +44,14 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 	}
 
 	private List<FlextimeDay> getCurrentWeek() {
-		return ((FlexplanApplication) getApplication()).getDbHelper().getCurrentWeek(currentWeek, currentYear);
+		if(dbHelper == null){
+			setDbHelper(((FlexplanApplication) getApplication()).getDbHelper());
+		}
+		return dbHelper.getCurrentWeek(currentWeek, currentYear);
+	}
+
+	public void setDbHelper(FlextimeDB dbHelper) {
+		this.dbHelper = dbHelper;
 	}
 
 	private void setupWeek() {
