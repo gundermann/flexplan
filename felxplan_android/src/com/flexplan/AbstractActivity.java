@@ -2,9 +2,6 @@ package com.flexplan;
 
 import java.util.List;
 
-import com.felxplan.R;
-import com.flexplan.util.SystemUiHider;
-
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,6 +9,8 @@ import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.view.MotionEvent;
 import android.view.View;
+
+import com.flexplan.util.SystemUiHider;
 
 public abstract class AbstractActivity extends FragmentActivity{
 	

@@ -3,8 +3,6 @@ package com.flexplan;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.felxplan.R;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;

@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.felxplan.R;
 import com.flexplan.common.business.WorkBreak;
 import com.flexplan.common.util.DateHelper;
 

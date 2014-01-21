@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.felxplan.R;
 import com.flexplan.common.WorkBreakFactory;
 import com.flexplan.common.business.WorkBreak;
 import com.flexplan.common.util.DateHelper;

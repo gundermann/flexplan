@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.felxplan.R;
 import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.persistence.FlextimeDB;
 

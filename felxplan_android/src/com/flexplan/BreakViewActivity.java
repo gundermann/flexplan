@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.felxplan.R;
 import com.flexplan.common.business.FlextimeDay;
 
 public class BreakViewActivity extends AbstractActivity {
