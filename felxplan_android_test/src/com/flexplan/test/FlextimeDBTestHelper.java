@@ -1,19 +1,20 @@
-package com.felxplan.test;
+package com.flexplan.test;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import org.mockito.Mockito;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.mock;
 
-import com.felxplan.persistence.FlextimeDB;
 import com.flexplan.common.FlextimeDayFactory;
 import com.flexplan.common.business.FlextimeDay;
+import com.flexplan.persistence.FlextimeDB;
 
 public class FlextimeDBTestHelper {
 	
 	public static FlextimeDB createFlextimeDB(){
-		FlextimeDB dbMock = Mockito.mock(FlextimeDB.class);
+		FlextimeDB dbMock = mock(FlextimeDB.class);
 		
 		GregorianCalendar cal = new GregorianCalendar();
 		int currentWeek = cal.get(GregorianCalendar.WEEK_OF_YEAR);
@@ -22,7 +23,7 @@ public class FlextimeDBTestHelper {
 		List<FlextimeDay> weekList = createHolidayWeek(currentWeek, currentYear);
 		
 		
-		Mockito.when(dbMock.getCurrentWeek(currentWeek, currentYear)).thenReturn(weekList);
+		when(dbMock.getCurrentWeek(currentWeek, currentYear)).thenReturn(weekList);
 		return dbMock;
 	}
 
