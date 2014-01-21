@@ -1,4 +1,4 @@
-package com.felxplan;
+package com.flexplan;
 
 import android.content.Context;
 import android.content.Intent;

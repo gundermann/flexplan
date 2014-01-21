@@ -1,6 +1,7 @@
-package com.felxplan;
+package com.flexplan;
 
-import com.felxplan.persistence.DBHelper;
+import com.flexplan.persistence.DBHelper;
+import com.flexplan.persistence.FlextimeDB;
 
 import android.app.Application;
 
@@ -16,7 +17,7 @@ public class FlexplanApplication extends Application {
 	}
 
 
-	public DBHelper getDbHelper() {
+	public FlextimeDB getDbHelper() {
 		return dbHelper;
 	}
 

@@ -9,41 +9,41 @@
         android:targetSdkVersion="19" />
 
     <application
-        android:name="com.felxplan.FlexplanApplication"
+        android:name="com.flexplan.FlexplanApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.felxplan.FlextimeDaySetupActivity"
+            android:name="com.flexplan.FlextimeDaySetupActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
-            android:name="com.felxplan.BreakViewActivity"
+            android:name="com.flexplan.BreakViewActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_break_view"
             android:launchMode="singleTask"
             android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
-            android:name="com.felxplan.BreakSetupActivity"
+            android:name="com.flexplan.BreakSetupActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_break_setup"
             android:launchMode="singleTask"
             android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
-            android:name="com.felxplan.FlextimeTimeSetupActivity"
+            android:name="com.flexplan.FlextimeTimeSetupActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_flextime_setup"
             android:launchMode="singleTask"
             android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
-            android:name="com.felxplan.FlextimeOverviewActivity"
+            android:name="com.flexplan.FlextimeOverviewActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_flextime_overview"
             android:launchMode="singleTask"

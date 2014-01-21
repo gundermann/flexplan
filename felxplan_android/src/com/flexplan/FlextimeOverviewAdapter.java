@@ -1,4 +1,4 @@
-package com.felxplan;
+package com.flexplan;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
+import com.felxplan.R;
 import com.flexplan.common.business.FlextimeDay;
 
 public class FlextimeOverviewAdapter extends ArrayAdapter<FlextimeDay> {

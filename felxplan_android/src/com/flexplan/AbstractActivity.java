@@ -1,8 +1,9 @@
-package com.felxplan;
+package com.flexplan;
 
 import java.util.List;
 
-import com.felxplan.util.SystemUiHider;
+import com.felxplan.R;
+import com.flexplan.util.SystemUiHider;
 
 import android.annotation.TargetApi;
 import android.os.Build;

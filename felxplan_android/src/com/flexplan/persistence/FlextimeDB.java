@@ -1,6 +1,8 @@
-package com.felxplan.persistence;
+package com.flexplan.persistence;
 
 import com.flexplan.common.business.FlextimeDay;
+import com.flexplan.common.business.WorkBreak;
+
 import java.util.List;
 
 public interface FlextimeDB {
@@ -10,4 +12,6 @@ public interface FlextimeDB {
 	List<FlextimeDay> getAllFlextimeDays();
 
 	List<FlextimeDay> getCurrentWeek(int weekOfYear, int year);
+
+	void insertWorkBreak(WorkBreak currentBreak, long currentDate);
 }

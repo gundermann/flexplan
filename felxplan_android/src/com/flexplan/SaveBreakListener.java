@@ -1,18 +1,18 @@
-package com.felxplan;
-
-import com.felxplan.persistence.DBHelper;
-import com.flexplan.common.business.WorkBreak;
+package com.flexplan;
 
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.flexplan.common.business.WorkBreak;
+import com.flexplan.persistence.FlextimeDB;
+
 public class SaveBreakListener implements OnClickListener {
 
 	private WorkBreak currentBreak;
-	private DBHelper dbHelper;
+	private FlextimeDB dbHelper;
 	private long currentDate;
 
-	public SaveBreakListener(DBHelper dbHelper,
+	public SaveBreakListener(FlextimeDB dbHelper,
 			WorkBreak currentBreak, long currentDate) {
 				this.dbHelper = dbHelper;
 				this.currentBreak = currentBreak;

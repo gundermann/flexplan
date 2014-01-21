@@ -1,4 +1,4 @@
-package com.felxplan.persistence;
+package com.flexplan.persistence;
 
 import android.content.ContentValues;
 

@@ -1,4 +1,4 @@
-package com.felxplan.util;
+package com.flexplan.util;
 
 import android.annotation.TargetApi;
 import android.app.Activity;

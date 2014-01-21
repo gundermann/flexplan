@@ -1,4 +1,4 @@
-package com.felxplan;
+package com.flexplan;
 
 import com.flexplan.common.business.FlextimeDay;
 

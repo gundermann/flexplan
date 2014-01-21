@@ -1,4 +1,4 @@
-package com.felxplan;
+package com.flexplan;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -10,8 +10,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.felxplan.persistence.FlextimeDB;
+import com.felxplan.R;
 import com.flexplan.common.business.FlextimeDay;
+import com.flexplan.persistence.FlextimeDB;
 
 public class FlextimeOverviewActivity extends AbstractActivity {
 

@@ -1,4 +1,4 @@
-package com.felxplan.persistence;
+package com.flexplan.persistence;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 
 	private static final String TAG = DBHelper.class.getSimpleName();
 
-	public DBHelper(com.felxplan.FlexplanApplication app) {
+	public DBHelper(com.flexplan.FlexplanApplication app) {
 		super(app, NAME, null, VERSION);
 	}
 

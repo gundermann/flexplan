@@ -1,4 +1,4 @@
-package com.felxplan.util;
+package com.flexplan.util;
 
 import android.app.Activity;
 import android.os.Build;
