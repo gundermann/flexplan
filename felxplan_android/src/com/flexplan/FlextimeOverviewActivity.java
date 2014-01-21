@@ -19,7 +19,7 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 
 	private int currentYear;
 
-	private Button addFlextimeBt;
+	private Button setupFlextimeDayBt;
 
 	private TextView week;
 
@@ -44,7 +44,7 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 	}
 
 	private List<FlextimeDay> getCurrentWeek() {
-		if(dbHelper == null){
+		if (dbHelper == null) {
 			setDbHelper(((FlexplanApplication) getApplication()).getDbHelper());
 		}
 		return dbHelper.getCurrentWeek(currentWeek, currentYear);
@@ -68,13 +68,15 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 	@Override
 	public List<View> getViewsForDelayedHide() {
 		List<View> views = new ArrayList<View>();
-		views.add(addFlextimeBt);
+		views.add(setupFlextimeDayBt);
 		return views;
 	}
 
 	@Override
 	protected void initElements() {
 		week = (TextView) findViewById(R.id.week);
-		addFlextimeBt = (Button) findViewById(R.id.add_flextime_button);		
+		setupFlextimeDayBt = (Button) findViewById(R.id.setup_flextime_day);
+		setupFlextimeDayBt.setOnClickListener(new NextActivityClickListener(
+				this, FlextimeDaySetupActivity.class));
 	}
 }

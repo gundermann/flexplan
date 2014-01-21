@@ -67,7 +67,7 @@
             tools:ignore="UselessParent" >
 
             <Button
-                android:id="@+id/add_flextime_button"
+                android:id="@+id/setup_flextime_day"
                 style="?buttonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
