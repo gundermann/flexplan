@@ -1,8 +1,9 @@
-package com.flexplan;
+package com.flexplan.util;
 
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.flexplan.FlextimeDaySetup;
 import com.flexplan.persistence.FlextimeDB;
 
 public class SaveFlextimeDayListener implements OnClickListener {

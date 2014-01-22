@@ -1,4 +1,4 @@
-package com.flexplan;
+package com.flexplan.util;
 
 import android.view.View;
 import android.view.View.OnClickListener;

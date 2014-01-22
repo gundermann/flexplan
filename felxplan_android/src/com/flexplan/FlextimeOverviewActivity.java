@@ -13,6 +13,9 @@ import android.widget.TextView;
 
 import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.persistence.FlextimeDB;
+import com.flexplan.util.AbstractActivity;
+import com.flexplan.util.NextActivityClickListener;
+import com.flexplan.util.WeekChangeListener;
 
 public class FlextimeOverviewActivity extends AbstractActivity {
 

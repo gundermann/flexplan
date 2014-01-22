@@ -1,4 +1,7 @@
-package com.flexplan;
+package com.flexplan.util;
+
+import com.flexplan.BreakViewActivity;
+import com.flexplan.FlextimeDaySetup;
 
 import android.content.Context;
 import android.content.Intent;
