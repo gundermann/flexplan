@@ -33,6 +33,8 @@ public class FlextimeOverviewTest extends
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
+		System.setProperty("dexmaker.dexcache", getInstrumentation()
+				.getTargetContext().getCacheDir().getPath());
 		setApplication(FlexplanAppTestHelper.createMockApp());
 		Intent intent = new Intent(getInstrumentation().getTargetContext(),
 				FlextimeOverviewActivity.class);
@@ -41,7 +43,7 @@ public class FlextimeOverviewTest extends
 		currentWeek = activity.getCurrentWeek();
 		currentYear = activity.getCurrentYear();
 	}
-	
+
 	public void testLayout() {
 		assertNotNull(activity.findViewById(nextWeekBtId));
 		assertNotNull(activity.findViewById(prevWeekBtId));
@@ -93,8 +95,7 @@ public class FlextimeOverviewTest extends
 	}
 
 	private String getWeekString() {
-		return "KW " + currentWeek + " "
-				+ currentYear;
+		return "KW " + currentWeek + " " + currentYear;
 	}
 
 	public void testStartSecondActivity() throws Exception {
