@@ -107,7 +107,7 @@ public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 				BreakTimeTable.getContentValues(workBreak, date));
 	}
 
-	public List<FlextimeDay> getCurrentWeek(int weekOfYear, int year) {
+	public List<FlextimeDay> getCurrentWeekDays(int weekOfYear, int year) {
 		//TODO read from DB
 		List<FlextimeDay> week = new ArrayList<FlextimeDay>();
 		for(int day = 1; day < 8; day++){

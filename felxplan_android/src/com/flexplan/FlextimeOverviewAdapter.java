@@ -11,16 +11,14 @@ import com.flexplan.common.business.FlextimeDay;
 
 public class FlextimeOverviewAdapter extends ArrayAdapter<FlextimeDay> {
 
-
-	public FlextimeOverviewAdapter(Context context, List<FlextimeDay> flextimeDays) {
-		super(context, R.layout.flextime_list, flextimeDays);
+	public FlextimeOverviewAdapter(Context context,
+			List<FlextimeDay> flextimeDays) {
+		super(context, R.layout.flextime_list, R.id.flextime_day, flextimeDays);
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		return super.getView(position, convertView, parent);
 	}
-
-	
 
 }

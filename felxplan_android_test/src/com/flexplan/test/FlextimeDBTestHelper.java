@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.mock;
-
 import com.flexplan.common.FlextimeDayFactory;
 import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.persistence.FlextimeDB;
+
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.mock;
+
 
 public class FlextimeDBTestHelper {
 	
@@ -22,8 +23,7 @@ public class FlextimeDBTestHelper {
 		
 		List<FlextimeDay> weekList = createHolidayWeek(currentWeek, currentYear);
 		
-		
-		when(dbMock.getCurrentWeek(currentWeek, currentYear)).thenReturn(weekList);
+		when(dbMock.getCurrentWeekDays(currentWeek, currentYear)).thenReturn(weekList);
 		return dbMock;
 	}
 

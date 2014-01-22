@@ -7,7 +7,9 @@ import android.test.TouchUtils;
 import android.test.ViewAsserts;
 import android.view.KeyEvent;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.flexplan.FlextimeDaySetupActivity;
 import com.flexplan.FlextimeOverviewActivity;
@@ -21,6 +23,8 @@ public class FlextimeOverviewTest extends
 	private int setupFlextimeDayBtId = com.flexplan.R.id.setup_flextime_day;
 	private int weekTvId = com.flexplan.R.id.week;
 	private int overviewLvId = com.flexplan.R.id.flextime_overview;
+	private int currentWeek;
+	private int currentYear;
 
 	public FlextimeOverviewTest() {
 		super(FlextimeOverviewActivity.class);
@@ -34,22 +38,64 @@ public class FlextimeOverviewTest extends
 				FlextimeOverviewActivity.class);
 		startActivity(intent, null, null);
 		activity = getActivity();
+		currentWeek = activity.getCurrentWeek();
+		currentYear = activity.getCurrentYear();
+	}
+	
+	public void testLayout() {
+		assertNotNull(activity.findViewById(nextWeekBtId));
+		assertNotNull(activity.findViewById(prevWeekBtId));
+		assertNotNull(activity.findViewById(setupFlextimeDayBtId));
+		assertNotNull(activity.findViewById(weekTvId));
+		assertNotNull(activity.findViewById(overviewLvId));
+
+		ListView overviewLv = (ListView) activity.findViewById(overviewLvId);
+		assertEquals("Incorrect count of days in week", overviewLv.getAdapter()
+				.getCount(), 7);
+
+		Button addFlextimeBt = (Button) activity
+				.findViewById(setupFlextimeDayBtId);
+		assertEquals("Incorrect label of the button",
+				activity.getText(com.flexplan.R.string.add_flextime),
+				addFlextimeBt.getText());
+
+		TextView weekTv = (TextView) activity.findViewById(weekTvId);
+		assertEquals("Incorrect converted week", getWeekString(),
+				weekTv.getText());
 	}
 
-	public void testLayout() {
-	    assertNotNull(activity.findViewById(nextWeekBtId));
-	    assertNotNull(activity.findViewById(prevWeekBtId));
-	    assertNotNull(activity.findViewById(setupFlextimeDayBtId));
-	    assertNotNull(activity.findViewById(weekTvId));
-	    assertNotNull(activity.findViewById(overviewLvId));
-	    
-	    ListView overviewLv = (ListView) activity.findViewById(overviewLvId);
-	    
-	    assertEquals("Incorrect count of days in week",  overviewLv.getAdapter().getCount(), 7);
-	    
-	    Button addFlextimeBt= (Button) activity.findViewById(setupFlextimeDayBtId);
-	    assertEquals("Incorrect label of the button", activity.getText(com.flexplan.R.string.add_flextime), addFlextimeBt.getText());
-	  }
+	public void testWeekButtons() {
+		ImageButton prevWeekBt = (ImageButton) activity
+				.findViewById(prevWeekBtId);
+		ImageButton nextWeekBt = (ImageButton) activity
+				.findViewById(nextWeekBtId);
+		TextView weekTv = (TextView) activity.findViewById(weekTvId);
+
+		for (int i = 0; i < 3; i++) {
+			TouchUtils.clickView(this, prevWeekBt);
+			assertEquals("Incorrect calculating of previous week",
+					activity.getCurrentWeek(), currentWeek--);
+			assertEquals("Incorrect calculating of previous week",
+					activity.getCurrentYear(), currentYear);
+			assertEquals("Incorrect converted week", getWeekString(),
+					weekTv.getText());
+		}
+
+		for (int i = 0; i < 3; i++) {
+			TouchUtils.clickView(this, nextWeekBt);
+			assertEquals("Incorrect calculating of previous week",
+					activity.getCurrentWeek(), currentWeek++);
+			assertEquals("Incorrect calculating of previous week",
+					activity.getCurrentYear(), currentYear);
+			assertEquals("Incorrect converted week", getWeekString(),
+					weekTv.getText());
+		}
+	}
+
+	private String getWeekString() {
+		return "KW " + currentWeek + " "
+				+ currentYear;
+	}
 
 	public void testStartSecondActivity() throws Exception {
 		ActivityMonitor monitor = getInstrumentation().addMonitor(

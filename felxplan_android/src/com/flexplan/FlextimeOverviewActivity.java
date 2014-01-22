@@ -40,14 +40,14 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 	private void updateListView() {
 		ListView flextimeWeekList = (ListView) findViewById(R.id.flextime_overview);
 		flextimeWeekList.setAdapter(new FlextimeOverviewAdapter(
-				getApplicationContext(), getCurrentWeek()));
+				getApplicationContext(), getCurrentWeekDays()));
 	}
 
-	private List<FlextimeDay> getCurrentWeek() {
+	private List<FlextimeDay> getCurrentWeekDays() {
 		if (dbHelper == null) {
 			setDbHelper(((FlexplanApplication) getApplication()).getDbHelper());
 		}
-		return dbHelper.getCurrentWeek(currentWeek, currentYear);
+		return dbHelper.getCurrentWeekDays(currentWeek, currentYear);
 	}
 
 	public void setDbHelper(FlextimeDB dbHelper) {
@@ -78,5 +78,13 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 		setupFlextimeDayBt = (Button) findViewById(R.id.setup_flextime_day);
 		setupFlextimeDayBt.setOnClickListener(new NextActivityClickListener(
 				this, FlextimeDaySetupActivity.class));
+	}
+
+	public int getCurrentYear() {
+		return currentYear;
+	}
+
+	public int getCurrentWeek() {
+		return currentWeek;
 	}
 }
