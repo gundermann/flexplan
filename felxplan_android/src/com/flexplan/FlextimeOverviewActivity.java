@@ -7,6 +7,7 @@ import java.util.List;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,6 +25,10 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 	private TextView week;
 
 	private FlextimeDB dbHelper;
+
+	private ImageButton prevWeekBt;
+
+	private ImageButton nextWeekBt;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +83,10 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 		setupFlextimeDayBt = (Button) findViewById(R.id.setup_flextime_day);
 		setupFlextimeDayBt.setOnClickListener(new NextActivityClickListener(
 				this, FlextimeDaySetupActivity.class));
+		prevWeekBt = (ImageButton) findViewById(R.id.prev_week);
+		nextWeekBt = (ImageButton) findViewById(R.id.next_week);
+		prevWeekBt.setOnClickListener(new WeekChangeListener(this, getCurrentWeek()-1));
+		nextWeekBt.setOnClickListener(new WeekChangeListener(this, getCurrentWeek()+1));
 	}
 
 	public int getCurrentYear() {
@@ -86,5 +95,9 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 
 	public int getCurrentWeek() {
 		return currentWeek;
+	}
+
+	public void setCurrentWeek(int newWeek) {
+		currentWeek = newWeek;
 	}
 }

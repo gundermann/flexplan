@@ -4,7 +4,7 @@
     <string name="title_activity_flextime_setup">FlextimeSetupActivity</string>
     <string name="timeFrom">Start</string>
     <string name="timeTo">Ende</string>
-    <string name="app_name">Felxplan</string>
+    <string name="app_name">Flexplan</string>
     <string name="add_break">Pause hinzufügen</string>
     <string name="add_flextime">Gleitzeit festlegen</string>
     <string name="break_view">Pausen</string>
