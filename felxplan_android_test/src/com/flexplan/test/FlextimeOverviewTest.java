@@ -71,7 +71,6 @@ public class FlextimeOverviewTest extends
 				.findViewById(prevWeekBtId);
 		ImageButton nextWeekBt = (ImageButton) activity
 				.findViewById(nextWeekBtId);
-		TextView weekTv = (TextView) activity.findViewById(weekTvId);
 
 		for (int i = 0; i < 3; i++) {
 			TouchUtils.clickView(this, prevWeekBt);
@@ -79,6 +78,7 @@ public class FlextimeOverviewTest extends
 					activity.getCurrentWeek(), currentWeek--);
 			assertEquals("Incorrect calculating of previous week",
 					activity.getCurrentYear(), currentYear);
+			TextView weekTv = (TextView) activity.findViewById(weekTvId);
 			assertEquals("Incorrect converted week", getWeekString(),
 					weekTv.getText());
 		}
@@ -89,6 +89,7 @@ public class FlextimeOverviewTest extends
 					activity.getCurrentWeek(), currentWeek++);
 			assertEquals("Incorrect calculating of previous week",
 					activity.getCurrentYear(), currentYear);
+			TextView weekTv = (TextView) activity.findViewById(weekTvId);
 			assertEquals("Incorrect converted week", getWeekString(),
 					weekTv.getText());
 		}
