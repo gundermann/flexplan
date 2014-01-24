@@ -72,6 +72,7 @@ public class FlextimeOverviewTest extends
 		ImageButton nextWeekBt = (ImageButton) activity
 				.findViewById(nextWeekBtId);
 
+		TouchUtils.clickView(this, prevWeekBt);
 		for (int i = 0; i < 3; i++) {
 			TouchUtils.clickView(this, prevWeekBt);
 			assertEquals("Incorrect calculating of previous week",
