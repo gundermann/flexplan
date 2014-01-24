@@ -9,6 +9,8 @@
     <string name="add_flextime">Gleitzeit festlegen</string>
     <string name="break_view">Pausen</string>
     <string name="save_flextimeday">Speichern</string>
+    <string name="setup_time">Zeit festlegen</string>
+     <string name="date">Datum festlegen</string>
     <string name="timeDivider">-</string>
     <string name="title_activity_break_view">BreakViewActivity</string>
     <string name="dummy_button">Dummy Button</string>

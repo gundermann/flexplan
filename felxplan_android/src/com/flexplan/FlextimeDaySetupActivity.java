@@ -14,14 +14,13 @@ import com.flexplan.common.business.WorkBreak;
 import com.flexplan.common.util.DateHelper;
 import com.flexplan.util.AbstractActivity;
 import com.flexplan.util.SaveFlextimeDayListener;
-import com.flexplan.util.ShowBreakListener;
 
 public class FlextimeDaySetupActivity extends AbstractActivity implements
 		FlextimeDaySetup {
 
 	private FlextimeDay currentFlextimeDay;
-	private Button addBreakBt;
-	private Button saveBreakBt;
+	private Button setupFlextimeBt;
+	private Button saveFlextimeDayBt;
 	private DatePicker day;
 
 	@Override
@@ -64,18 +63,17 @@ public class FlextimeDaySetupActivity extends AbstractActivity implements
 	@Override
 	public List<View> getViewsForDelayedHide() {
 		List<View> views = new ArrayList<View>();
-		views.add(addBreakBt);
-		views.add(saveBreakBt);
+		views.add(setupFlextimeBt);
+		views.add(saveFlextimeDayBt);
 		return views;
 	}
 
 	@Override
 	protected void initElements() {
 		day = (DatePicker) findViewById(R.id.day);
-		addBreakBt = (Button) findViewById(R.id.break_view_button);
-		addBreakBt.setOnClickListener(new ShowBreakListener(this, this));
-		saveBreakBt = (Button) findViewById(R.id.save_flextimeday_button);
-		saveBreakBt.setOnClickListener(new SaveFlextimeDayListener(this,
+		setupFlextimeBt = (Button) findViewById(R.id.setup_time_button);
+		saveFlextimeDayBt = (Button) findViewById(R.id.save_flextimeday_button);
+		saveFlextimeDayBt.setOnClickListener(new SaveFlextimeDayListener(this,
 				((FlexplanApplication) getApplication()).getDbHelper()));
 	}
 }

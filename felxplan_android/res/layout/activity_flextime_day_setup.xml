@@ -5,45 +5,25 @@
     android:background="@drawable/background"
     tools:context=".FlextimeDaySetupActivity" >
 
-<LinearLayout
-    android:id="@+id/fullscreen_content"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical" >
-    
-	<DatePicker 
-	    android:layout_height="wrap_content"
-	    android:layout_width="fill_parent"
-	    android:calendarViewShown="false"
-	    android:id="@+id/day"
-	    />
-	
-	<LinearLayout 
-	    android:orientation="horizontal"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content">
-	    
-	<TimePicker 
-	    android:id="@+id/timeFrom"
-	    android:layout_height="wrap_content"
-	    android:layout_width="fill_parent"
-	    />
-	
-	<TextView 
-	    android:layout_height="fill_parent"
-	    android:layout_width="wrap_content"
-	    android:text="@string/timeDivider"/>
-	
-	<TimePicker 
-	    android:id="@+id/timeTo"
-	    android:layout_height="wrap_content"
-	    android:layout_width="fill_parent"
-	    />
-	</LinearLayout>
-	
+    <LinearLayout
+        android:id="@+id/fullscreen_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical" >
 
-</LinearLayout>
+        <TextView 
+            android:id="@+id/date_textview"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/date"
+            />
+        <DatePicker
+            android:id="@+id/day"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:calendarViewShown="false" />
+    </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -61,13 +41,13 @@
             tools:ignore="UselessParent" >
 
             <Button
-                android:id="@+id/break_view_button"
+                android:id="@+id/setup_time_button"
                 style="?buttonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="@string/break_view" />
-            
+                android:text="@string/setup_time" />
+
             <Button
                 android:id="@+id/save_flextimeday_button"
                 style="?buttonBarButtonStyle"
@@ -75,7 +55,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:text="@string/save_flextimeday" />
-            
         </LinearLayout>
     </FrameLayout>
 

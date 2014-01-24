@@ -88,8 +88,8 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 				this, FlextimeDaySetupActivity.class));
 		prevWeekBt = (ImageButton) findViewById(R.id.prev_week);
 		nextWeekBt = (ImageButton) findViewById(R.id.next_week);
-		prevWeekBt.setOnClickListener(new WeekChangeListener(this, getCurrentWeek()-1));
-		nextWeekBt.setOnClickListener(new WeekChangeListener(this, getCurrentWeek()+1));
+		prevWeekBt.setOnClickListener(new WeekChangeListener(this, -1));
+		nextWeekBt.setOnClickListener(new WeekChangeListener(this, +1));
 	}
 
 	public int getCurrentYear() {
@@ -102,5 +102,6 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 
 	public void setCurrentWeek(int newWeek) {
 		currentWeek = newWeek;
+		updateWeekView();
 	}
 }

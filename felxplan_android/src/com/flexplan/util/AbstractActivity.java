@@ -11,7 +11,6 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.flexplan.R;
-import com.flexplan.R.id;
 
 public abstract class AbstractActivity extends FragmentActivity{
 	

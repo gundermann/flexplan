@@ -8,17 +8,18 @@ import android.view.View.OnClickListener;
 public class WeekChangeListener implements OnClickListener {
 
 	private FlextimeOverviewActivity flextimeOverviewActivity;
-	private int newWeek;
+	private int weekChange;
 
 	public WeekChangeListener(
-			FlextimeOverviewActivity flextimeOverviewActivity, int newWeek) {
-				this.flextimeOverviewActivity = flextimeOverviewActivity;
-				this.newWeek = newWeek;
+			FlextimeOverviewActivity flextimeOverviewActivity, int weekChange) {
+		this.flextimeOverviewActivity = flextimeOverviewActivity;
+		this.weekChange = weekChange;
 	}
 
 	@Override
 	public void onClick(View view) {
-		flextimeOverviewActivity.setCurrentWeek(newWeek);
+		flextimeOverviewActivity.setCurrentWeek(flextimeOverviewActivity
+				.getCurrentWeek() + weekChange);
 	}
 
 }
