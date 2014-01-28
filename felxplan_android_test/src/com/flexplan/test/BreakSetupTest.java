@@ -1,22 +1,13 @@
 package com.flexplan.test;
 
-import android.app.Instrumentation.ActivityMonitor;
-import android.content.Intent;
-import android.test.ActivityUnitTestCase;
-import android.test.TouchUtils;
-import android.test.ViewAsserts;
-import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import com.flexplan.BreakViewActivity;
-import com.flexplan.FlextimeDaySetupActivity;
-import com.flexplan.FlextimeOverviewActivity;
 import com.flexplan.FlextimeTimeSetupActivity;
 
 public class BreakSetupTest extends
-		ActivityTest<FlextimeTimeSetupActivity> {
+		AbstractActivityInstumentaionTest<FlextimeTimeSetupActivity> {
 
 	private FlextimeTimeSetupActivity activity;
 	private int timeFromTvId = com.flexplan.R.id.timeFrom_tv;
@@ -35,10 +26,6 @@ public class BreakSetupTest extends
 		super.setUp();
 		System.setProperty("dexmaker.dexcache", getInstrumentation()
 				.getTargetContext().getCacheDir().getPath());
-		setApplication(FlexplanAppTestHelper.createMockApp());
-		Intent intent = new Intent(getInstrumentation().getTargetContext(),
-				FlextimeDaySetupActivity.class);
-		startActivity(intent, null, null);
 		activity = getActivity();
 	}
 
@@ -52,7 +39,7 @@ public class BreakSetupTest extends
 
 		Button setupBreakBt = (Button) activity.findViewById(saveBreakBtId);
 		assertEquals("Incorrect label of the button for daysetup",
-				activity.getText(com.flexplan.R.string.save_break),
+				activity.getText(com.flexplan.R.string.save),
 				setupBreakBt.getText());
 		Button abortBt = (Button) activity
 				.findViewById(abortBtId);
@@ -61,25 +48,25 @@ public class BreakSetupTest extends
 				abortBt.getText());
 		TextView timeFromTv = (TextView) activity.findViewById(timeFromTvId);
 		assertEquals("Incorrect label of the savebutton",
-				activity.getText(com.flexplan.R.string.date),
+				activity.getText(com.flexplan.R.string.setup_date),
 				timeFromTv.getText());
 		TextView timeToTv = (TextView) activity.findViewById(timeToTvId);
 		assertEquals("Incorrect label of the savebutton",
-				activity.getText(com.flexplan.R.string.date),
+				activity.getText(com.flexplan.R.string.setup_date),
 				timeToTv.getText());
 	}
 
 	public void testStartBreakSetupActivityBySaving() throws Exception {
 		Button viewToTouch = (Button) activity.findViewById(saveBreakBtId);
 		int viewIdToCheck = com.flexplan.R.id.save_flextimeday_button;
-		String valueToVerify = activity.getText(com.flexplan.R.string.save_flextimeday).toString();
+		String valueToVerify = activity.getText(com.flexplan.R.string.save).toString();
 		testStartNextActivity(BreakViewActivity.class, viewToTouch, viewIdToCheck, valueToVerify);
 	}
 	
 	public void testStartBreakViewActivityByAbort() throws Exception{
 		Button viewToTouch = (Button) activity.findViewById(abortBtId);
 		int viewIdToCheck = com.flexplan.R.id.save_break_button;
-		String valueToVerify = activity.getText(com.flexplan.R.string.save_break).toString();
+		String valueToVerify = activity.getText(com.flexplan.R.string.save).toString();
 		testStartNextActivity(BreakViewActivity.class, viewToTouch, viewIdToCheck, valueToVerify);
 	}
 	

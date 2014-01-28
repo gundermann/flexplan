@@ -1,24 +1,14 @@
 package com.flexplan.test;
 
-import android.app.Instrumentation.ActivityMonitor;
-import android.content.Intent;
-import android.test.ActivityUnitTestCase;
-import android.test.TouchUtils;
-import android.test.ViewAsserts;
-import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import com.flexplan.BreakSetupActivity;
 import com.flexplan.BreakViewActivity;
-import com.flexplan.FlextimeDaySetupActivity;
-import com.flexplan.FlextimeOverviewActivity;
-import com.flexplan.FlextimeTimeSetupActivity;
 
 public class BreakViewTest extends
-		ActivityTest<BreakViewActivity> {
+		AbstractActivityInstumentaionTest<BreakViewActivity> {
 
 	private BreakViewActivity activity;
 	private int breaksTvId = com.flexplan.R.id.break_overview_tv;
@@ -34,10 +24,6 @@ public class BreakViewTest extends
 		super.setUp();
 		System.setProperty("dexmaker.dexcache", getInstrumentation()
 				.getTargetContext().getCacheDir().getPath());
-		setApplication(FlexplanAppTestHelper.createMockApp());
-		Intent intent = new Intent(getInstrumentation().getTargetContext(),
-				FlextimeDaySetupActivity.class);
-		startActivity(intent, null, null);
 		activity = getActivity();
 	}
 
@@ -55,13 +41,13 @@ public class BreakViewTest extends
 				activity.getText(com.flexplan.R.string.break_overview),
 				breaksTv.getText());
 		ListView breakLv = (ListView) activity.findViewById(breakLvId);
-		assertNotNull(activity.getText(com.flexplan.R.string.break_overview));
+		assertNotNull(breakLv);
 	}
 
 	public void testStartBreakSetupActivity() throws Exception{
 		Button viewToTouch = (Button) activity.findViewById(setupBreakBtId);
 		int viewIdToCheck = com.flexplan.R.id.save_break_button;
-		String valueToVerify = activity.getText(com.flexplan.R.string.save_break).toString();
+		String valueToVerify = activity.getText(com.flexplan.R.string.save).toString();
 		testStartNextActivity(BreakSetupActivity.class, viewToTouch, viewIdToCheck, valueToVerify);
 	}
 	

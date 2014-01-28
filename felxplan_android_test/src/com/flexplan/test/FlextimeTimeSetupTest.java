@@ -1,14 +1,8 @@
 package com.flexplan.test;
 
-import android.app.Instrumentation.ActivityMonitor;
 import android.content.Intent;
-import android.test.ActivityUnitTestCase;
-import android.test.TouchUtils;
-import android.test.ViewAsserts;
-import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import com.flexplan.BreakViewActivity;
 import com.flexplan.FlextimeDaySetupActivity;
@@ -16,7 +10,7 @@ import com.flexplan.FlextimeOverviewActivity;
 import com.flexplan.FlextimeTimeSetupActivity;
 
 public class FlextimeTimeSetupTest extends
-		ActivityTest<FlextimeTimeSetupActivity> {
+		AbstractActivityInstumentaionTest<FlextimeTimeSetupActivity> {
 
 	private FlextimeTimeSetupActivity activity;
 	private int setupDayBtId = com.flexplan.R.id.setup_flextime_day;
@@ -36,10 +30,6 @@ public class FlextimeTimeSetupTest extends
 		super.setUp();
 		System.setProperty("dexmaker.dexcache", getInstrumentation()
 				.getTargetContext().getCacheDir().getPath());
-		setApplication(FlexplanAppTestHelper.createMockApp());
-		Intent intent = new Intent(getInstrumentation().getTargetContext(),
-				FlextimeDaySetupActivity.class);
-		startActivity(intent, null, null);
 		activity = getActivity();
 	}
 
@@ -54,27 +44,27 @@ public class FlextimeTimeSetupTest extends
 
 		Button setupDayBt = (Button) activity.findViewById(setupDayBtId);
 		assertEquals("Incorrect label of the button for daysetup",
-				activity.getText(com.flexplan.R.string.setup_day),
+				activity.getText(com.flexplan.R.string.setup_date),
 				setupDayBt.getText());
 		Button saveFlextimeBt = (Button) activity
 				.findViewById(saveFlextimeDayBtId);
 		assertEquals("Incorrect label of the savebutton",
-				activity.getText(com.flexplan.R.string.save_flextimeday),
+				activity.getText(com.flexplan.R.string.save),
 				saveFlextimeBt.getText());
 		TextView timeFromTv = (TextView) activity.findViewById(timeFromTvId);
 		assertEquals("Incorrect label of the savebutton",
-				activity.getText(com.flexplan.R.string.date),
+				activity.getText(com.flexplan.R.string.timeFrom),
 				timeFromTv.getText());
 		TextView timeToTv = (TextView) activity.findViewById(timeToTvId);
 		assertEquals("Incorrect label of the savebutton",
-				activity.getText(com.flexplan.R.string.date),
+				activity.getText(com.flexplan.R.string.timeTo),
 				timeToTv.getText());
 	}
 
 	public void testStartDaySetupActivity() throws Exception {
 		Button viewToTouch = (Button) activity.findViewById(setupDayBtId);
 		int viewIdToCheck = com.flexplan.R.id.save_flextimeday_button;
-		String valueToVerify = activity.getText(com.flexplan.R.string.save_flextimeday).toString();
+		String valueToVerify = activity.getText(com.flexplan.R.string.save).toString();
 		testStartNextActivity(FlextimeDaySetupActivity.class, viewToTouch, viewIdToCheck, valueToVerify);
 	}
 	

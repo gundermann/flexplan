@@ -12,7 +12,7 @@ import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.mock;
 
 
-public class FlextimeDBTestHelper {
+public class FlextimeDBTestSupport {
 	
 	public static FlextimeDB createFlextimeDB(){
 		FlextimeDB dbMock = mock(FlextimeDB.class);

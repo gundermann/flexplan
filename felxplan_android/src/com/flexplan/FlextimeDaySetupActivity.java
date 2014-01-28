@@ -13,6 +13,7 @@ import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.common.business.WorkBreak;
 import com.flexplan.common.util.DateHelper;
 import com.flexplan.util.AbstractActivity;
+import com.flexplan.util.NextActivityClickListener;
 import com.flexplan.util.SaveFlextimeDayListener;
 
 public class FlextimeDaySetupActivity extends AbstractActivity implements
@@ -72,6 +73,8 @@ public class FlextimeDaySetupActivity extends AbstractActivity implements
 	protected void initElements() {
 		day = (DatePicker) findViewById(R.id.day);
 		setupFlextimeBt = (Button) findViewById(R.id.setup_time_button);
+		setupFlextimeBt.setOnClickListener(new NextActivityClickListener(
+				this, FlextimeTimeSetupActivity.class));
 		saveFlextimeDayBt = (Button) findViewById(R.id.save_flextimeday_button);
 		saveFlextimeDayBt.setOnClickListener(new SaveFlextimeDayListener(this,
 				((FlexplanApplication) getApplication()).getDbHelper()));

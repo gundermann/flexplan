@@ -1,25 +1,19 @@
 package com.flexplan.test;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.List;
 
-import android.app.Instrumentation.ActivityMonitor;
-import android.content.Intent;
-import android.test.ActivityUnitTestCase;
-import android.test.TouchUtils;
-import android.test.ViewAsserts;
-import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.flexplan.FlextimeDaySetupActivity;
 import com.flexplan.FlextimeOverviewActivity;
-import com.flexplan.FlextimeTimeSetupActivity;
+import com.flexplan.common.business.FlextimeDay;
 
 public class FlextimeDaySetupTest extends
-		ActivityUnitTestCase<FlextimeDaySetupActivity> {
+		AbstractActivityInstumentaionTest<FlextimeDaySetupActivity>{
 
 	private FlextimeDaySetupActivity activity;
 	private int dayDpId = com.flexplan.R.id.day;
@@ -37,10 +31,7 @@ public class FlextimeDaySetupTest extends
 		super.setUp();
 		System.setProperty("dexmaker.dexcache", getInstrumentation()
 				.getTargetContext().getCacheDir().getPath());
-		setApplication(FlexplanAppTestHelper.createMockApp());
-		Intent intent = new Intent(getInstrumentation().getTargetContext(),
-				FlextimeDaySetupActivity.class);
-		startActivity(intent, null, null);
+		
 		activity = getActivity();
 	}
 
@@ -66,12 +57,12 @@ public class FlextimeDaySetupTest extends
 		Button saveFlextimeBt = (Button) activity
 				.findViewById(saveFlextimeDayBtId);
 		assertEquals("Incorrect label of the savebutton",
-				activity.getText(com.flexplan.R.string.save_flextimeday),
+				activity.getText(com.flexplan.R.string.save),
 				saveFlextimeBt.getText());
 
 		TextView dateTv = (TextView) activity.findViewById(dateTvId);
 		assertEquals("Incorrect label of the savebutton",
-				activity.getText(com.flexplan.R.string.date), dateTv.getText());
+				activity.getText(com.flexplan.R.string.setup_date), dateTv.getText());
 	}
 
 	private int getCurrentYear() {
@@ -86,26 +77,23 @@ public class FlextimeDaySetupTest extends
 		return cal.get(GregorianCalendar.DAY_OF_MONTH);
 	}
 
-	public void testStartSecondActivity() throws Exception {
-		ActivityMonitor monitor = getInstrumentation().addMonitor(
-				FlextimeTimeSetupActivity.class.getName(), null, false);
-		Button view = (Button) activity.findViewById(setupTimeBtId);
-
-		TouchUtils.clickView(this, view);
-		FlextimeTimeSetupActivity startedActivity = (FlextimeTimeSetupActivity) monitor
-				.waitForActivityWithTimeout(5000);
-		assertNotNull(startedActivity);
-
-		Button saveBt = (Button) startedActivity
-				.findViewById(com.flexplan.R.id.save_flextimeday_button);
-		ViewAsserts.assertOnScreen(startedActivity.getWindow().getDecorView(),
-				saveBt);
-		assertEquals("Text incorrect",
-				activity.getText(com.flexplan.R.string.save_flextimeday),
-				saveBt.getText().toString());
-
-		this.sendKeys(KeyEvent.KEYCODE_BACK);
-		TouchUtils.clickView(this, view);
+	public void testStartFelxtimeTimeSetup() throws Exception {
+		Button viewToTouch = (Button) activity.findViewById(setupTimeBtId);
+		int viewIdToCheck = com.flexplan.R.id.save_flextimeday_button;
+		String valueToVerify = activity.getText(com.flexplan.R.string.save).toString();
+		testStartNextActivity(FlextimeDaySetupActivity.class, viewToTouch, viewIdToCheck, valueToVerify);
 	}
+	
+//	public void testSaveFlextimeDay() throws Exception{
+//		Button viewToTouch = (Button) activity.findViewById(saveFlextimeDayBtId);
+//		int listViewIdToCheck = com.flexplan.R.id.flextime_overview;
+//		List<FlextimeDay> valuesToVerify = new ArrayList<FlextimeDay>();
+//		valuesToVerify.add(null);
+//		valuesToVerify.add(FlextimeDayTestSupport.createDefaultTuesday());
+//		valuesToVerify.add(null);
+//		testStartNextActivityWithListView(FlextimeOverviewActivity.class, viewToTouch, listViewIdToCheck,  valuesToVerify);
+//	}
+
+	
 
 }

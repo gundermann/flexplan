@@ -9,7 +9,7 @@ public class FlexplanAppTestHelper {
 
 	public static FlexplanApplication createMockApp() {
 		FlexplanApplication app = mock(FlexplanApplication.class);
-		FlextimeDB db = FlextimeDBTestHelper.createFlextimeDB();
+		FlextimeDB db = FlextimeDBTestSupport.createFlextimeDB();
 		
 		when(app.getDbHelper()).thenReturn(db);
 		
