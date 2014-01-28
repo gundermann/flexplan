@@ -13,6 +13,7 @@ import com.flexplan.common.FlextimeDayFactory;
 import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.common.business.WorkBreak;
 import com.flexplan.util.AbstractActivity;
+import com.flexplan.util.NextActivityClickListener;
 
 public class BreakViewActivity extends AbstractActivity {
 
@@ -40,6 +41,8 @@ public class BreakViewActivity extends AbstractActivity {
 	@Override
 	protected void initElements() {
 		addBreakBt = (Button) findViewById(R.id.add_break_button);
+		addBreakBt.setOnClickListener(new NextActivityClickListener(this,
+				BreakSetupActivity.class));
 		breakListView = (ListView) findViewById(R.id.breakList);
 		breakListView.setAdapter(new BreakListAdapter(getApplicationContext(),
 				currentFlextimeDay.getWorkBreaks()));

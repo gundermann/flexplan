@@ -1,6 +1,5 @@
 package com.flexplan.test;
 
-import android.content.Intent;
 import android.widget.Button;
 import android.widget.TextView;
 
