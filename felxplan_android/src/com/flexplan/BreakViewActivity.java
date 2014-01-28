@@ -2,7 +2,6 @@ package com.flexplan;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeSet;
 
 import android.os.Bundle;
 import android.view.View;
@@ -12,10 +11,10 @@ import android.widget.ListView;
 import com.flexplan.common.FlextimeDayFactory;
 import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.common.business.WorkBreak;
-import com.flexplan.util.AbstractActivity;
+import com.flexplan.util.AbstractActivityWithExtraInput;
 import com.flexplan.util.NextActivityClickListener;
 
-public class BreakViewActivity extends AbstractActivity {
+public class BreakViewActivity extends AbstractActivityWithExtraInput {
 
 	private FlextimeDay currentFlextimeDay;
 	private Button addBreakBt;
@@ -49,7 +48,7 @@ public class BreakViewActivity extends AbstractActivity {
 	}
 
 	@Override
-	protected void setup() {
+	protected void setupExtras() {
 		long date = getIntent().getExtras().getLong("date");
 		long startTime = getIntent().getExtras().getLong("startTime");
 		long endTime = getIntent().getExtras().getLong("endTime");

@@ -6,6 +6,7 @@ import java.util.List;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -51,6 +52,8 @@ public class BreakSetupActivity extends AbstractActivity {
 	@Override
 	protected void setContentView() {
 		setContentView(R.layout.activity_break_setup);		
+		LinearLayout linlay = (LinearLayout) findViewById(R.id.fullscreen_content);
+		getLayoutInflater().inflate(R.layout.timerange_picker, linlay);
 	}
 
 	@Override

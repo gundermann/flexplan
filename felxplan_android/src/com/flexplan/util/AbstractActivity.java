@@ -27,7 +27,6 @@ public abstract class AbstractActivity extends FragmentActivity{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setup();
-		setContentView();
 		
 		controlsView = findViewById(R.id.fullscreen_content_controls);
 		contentView = findViewById(R.id.fullscreen_content);
@@ -82,7 +81,11 @@ public abstract class AbstractActivity extends FragmentActivity{
 		setupDelayHideTouchListener();
 	}
 	
-	protected void setup(){};
+
+	protected void setup() {
+		setContentView();
+	}
+
 
 	abstract protected void initElements();
 

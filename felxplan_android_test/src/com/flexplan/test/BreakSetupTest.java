@@ -3,13 +3,14 @@ package com.flexplan.test;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.flexplan.BreakSetupActivity;
 import com.flexplan.BreakViewActivity;
 import com.flexplan.FlextimeTimeSetupActivity;
 
 public class BreakSetupTest extends
-		AbstractActivityInstumentaionTest<FlextimeTimeSetupActivity> {
+		AbstractActivityInstumentaionTest<BreakSetupActivity> {
 
-	private FlextimeTimeSetupActivity activity;
+	private BreakSetupActivity activity;
 	private int timeFromTvId = com.flexplan.R.id.timeFrom_tv;
 	private int timeFromTpId = com.flexplan.R.id.timeFrom;
 	private int timeToTvId = com.flexplan.R.id.timeTo_tv;
@@ -18,7 +19,7 @@ public class BreakSetupTest extends
 	private int saveBreakBtId = com.flexplan.R.id.save_break_button;
 
 	public BreakSetupTest() {
-		super(FlextimeTimeSetupActivity.class);
+		super(BreakSetupActivity.class);
 	}
 
 	@Override

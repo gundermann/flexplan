@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="title_activity_flextime_setup">FlextimeSetupActivity</string>
+    <string name="title_activity_flextime_setup">Zeit festlegen</string>
     <string name="timeFrom">Start</string>
     <string name="timeTo">Ende</string>
     <string name="app_name">Flexplan</string>
@@ -12,9 +12,10 @@
     <string name="setup_time">Zeit festlegen</string>
     <string name="setup_date">Datum festlegen</string>
     <string name="timeDivider">-</string>
-    <string name="title_activity_break_view">BreakViewActivity</string>
-    <string name="title_activity_break_setup">BreakSetupActivity</string>
-    <string name="title_activity_flextime_overview">FlextimeOverviewActivity</string>
+    <string name="title_activity_break_view">Pausen</string>
+    <string name="title_activity_break_setup">Pause hinzufügen</string>
+    <string name="title_activity_flextime_overview">Übersicht</string>
     <string name="abort">Abbrechen</string>
+    <string name="title_flextime_day_setup">Datum festlegen</string>
 
 </resources>

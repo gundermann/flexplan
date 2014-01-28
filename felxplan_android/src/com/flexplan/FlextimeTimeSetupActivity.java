@@ -9,16 +9,19 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TimePicker;
 
-import com.flexplan.util.AbstractActivity;
+import com.flexplan.util.AbstractActivityWithExtraInput;
+import com.flexplan.util.ExtraProvider;
 import com.flexplan.util.NextActivityClickListener;
+import com.flexplan.util.NextActivityClickListenerWithExtraInput;
 
-public class FlextimeTimeSetupActivity extends AbstractActivity {
+public class FlextimeTimeSetupActivity extends AbstractActivityWithExtraInput implements ExtraProvider {
 
 	TimePicker timeFrom;
 	TimePicker timeTo;
 	Button showBreakViewBt;
 	Button saveFlextimeDayBt;
 	Button setupDayBt;
+	long currentDate;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +50,40 @@ public class FlextimeTimeSetupActivity extends AbstractActivity {
 		timeFrom.setIs24HourView(true);
 		timeTo.setIs24HourView(true);
 		showBreakViewBt = (Button) findViewById(R.id.break_view_button);
-		showBreakViewBt.setOnClickListener(new NextActivityClickListener(this,
+		showBreakViewBt.setOnClickListener(new NextActivityClickListenerWithExtraInput(this,
 				BreakViewActivity.class));
 		setupDayBt = (Button) findViewById(R.id.setup_flextime_day);
 		setupDayBt.setOnClickListener(new NextActivityClickListener(this,
 				FlextimeDaySetupActivity.class));
 		saveFlextimeDayBt = (Button) findViewById(R.id.save_flextimeday_button);
+	}
+	
+	
+
+
+	public Bundle getExtras() {
+		Bundle extras = new Bundle();
+		extras.putLong("date", getCurrentDate());
+		extras.putLong("date", getCurrentStartTime());
+		extras.putLong("date", getCurrentEndTime());
+		return extras;
+	}
+
+	private long getCurrentDate() {
+		return currentDate;
+	}
+
+	private long getCurrentStartTime() {
+		return timeFrom.getDrawingTime();
+	}
+
+	private long getCurrentEndTime() {
+		return timeTo.getDrawingTime();
+	}
+
+	@Override
+	protected void setupExtras() {
+		currentDate = getIntent().getExtras().getLong("date");
 	}
 
 }
