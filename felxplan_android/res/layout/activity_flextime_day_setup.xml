@@ -16,7 +16,7 @@
             android:id="@+id/date_textview"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/date"
+            android:text="@string/setup_date"
             />
         <DatePicker
             android:id="@+id/day"
@@ -54,7 +54,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="@string/save_flextimeday" />
+                android:text="@string/save" />
         </LinearLayout>
     </FrameLayout>
 

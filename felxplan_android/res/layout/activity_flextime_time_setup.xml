@@ -5,38 +5,13 @@
     android:background="#0099cc"
     tools:context=".FlextimeTimeSetupActivity" >
 
-   <LinearLayout
-    android:id="@+id/fullscreen_content"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical" >
-    
-       
-	<TextView 
-	    android:layout_height="wrap_content"
-	    android:layout_width="fill_parent"
-	    android:text="@string/timeFrom"/>
-	
-	<TimePicker 
-	    android:id="@+id/timeFrom"
-	    android:layout_height="wrap_content"
-	    android:layout_width="fill_parent"
-	    />
-	
-	<TextView 
-	    android:layout_height="wrap_content"
-	    android:layout_width="fill_parent"
-	    android:text="@string/timeTo"/>
-	
-	<TimePicker 
-	    android:id="@+id/timeTo"
-	    android:layout_height="wrap_content"
-	    android:layout_width="fill_parent"
-	    />
-	
-
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/fullscreen_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical" >
+    </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -60,15 +35,14 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:text="@string/break_view" />
-            
+
             <Button
                 android:id="@+id/save_flextimeday_button"
                 style="?buttonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="@string/save_flextimeday" />
-            
+                android:text="@string/save" />
         </LinearLayout>
     </FrameLayout>
 

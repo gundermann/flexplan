@@ -31,7 +31,6 @@
             android:layout_height="match_parent"
             android:layout_weight="0.8"
             android:gravity="center"
-            android:text="@string/dummy_content"
             android:textColor="#33b5e5"
             android:textStyle="bold" />
         
