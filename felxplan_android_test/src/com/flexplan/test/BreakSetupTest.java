@@ -5,7 +5,6 @@ import android.widget.TextView;
 
 import com.flexplan.BreakSetupActivity;
 import com.flexplan.BreakViewActivity;
-import com.flexplan.FlextimeTimeSetupActivity;
 
 public class BreakSetupTest extends
 		AbstractActivityInstumentaionTest<BreakSetupActivity> {

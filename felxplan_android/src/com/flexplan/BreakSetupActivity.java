@@ -7,12 +7,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.flexplan.common.WorkBreakFactory;
 import com.flexplan.common.business.WorkBreak;
 import com.flexplan.common.util.DateHelper;
+import com.flexplan.util.AbortListener;
 import com.flexplan.util.AbstractActivityWithExtraInput;
 import com.flexplan.util.SaveBreakListener;
 
@@ -23,7 +23,7 @@ public class BreakSetupActivity extends AbstractActivityWithExtraInput {
 	private TimePicker timeFrom;
 	private TimePicker timeTo;
 	private Button saveBreakBt;
-	private TextView dateView;
+	private Button abortBt;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,12 +69,13 @@ public class BreakSetupActivity extends AbstractActivityWithExtraInput {
 		timeTo = (TimePicker) findViewById(R.id.timeTo);
 		timeFrom.setIs24HourView(true);
 		timeTo.setIs24HourView(true);
-		dateView = (TextView) findViewById(R.id.current_date);
-		dateView.setText(DateHelper.getDateAsString(currentDate));
 		saveBreakBt = (Button) findViewById(R.id.save_break_button);
 		saveBreakBt.setOnClickListener(new SaveBreakListener(
 				((FlexplanApplication) getApplication()).getDbHelper(),
 				getCurrentBreak(), currentDate));
+		abortBt = (Button) findViewById(R.id.abort);
+		abortBt.setOnClickListener(new AbortListener(this));
+		this.setTitle(getTitle() + " - "+ DateHelper.getDateAsString(currentDate));
 	}
 
 	@Override

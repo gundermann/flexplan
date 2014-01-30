@@ -14,7 +14,6 @@ public class BreakViewTest extends
 		AbstractActivityInstumentaionTest<BreakViewActivity> {
 
 	private BreakViewActivity activity;
-	private int breaksTvId = com.flexplan.R.id.break_overview_tv;
 	private int breakLvId = com.flexplan.R.id.breakList;
 	private int setupBreakBtId = com.flexplan.R.id.add_break_button;
 
@@ -38,7 +37,6 @@ public class BreakViewTest extends
 	}
 
 	public void testLayout() {
-		assertNotNull(activity.findViewById(breaksTvId));
 		assertNotNull(activity.findViewById(breakLvId));
 		assertNotNull(activity.findViewById(setupBreakBtId));
 
@@ -46,10 +44,6 @@ public class BreakViewTest extends
 		assertEquals("Incorrect label of the button for breaksetup",
 				activity.getText(com.flexplan.R.string.add_break),
 				setupBreakBt.getText());
-		TextView breaksTv = (TextView) activity.findViewById(breaksTvId);
-		assertEquals("Incorrect label of the breakoverviewbutton",
-				activity.getText(com.flexplan.R.string.break_overview),
-				breaksTv.getText());
 		ListView breakLv = (ListView) activity.findViewById(breakLvId);
 		assertNotNull(breakLv);
 	}

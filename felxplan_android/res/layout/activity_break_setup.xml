@@ -13,11 +13,6 @@
         android:gravity="center"
         android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/current_date"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical" />
     </LinearLayout>
 
     <FrameLayout

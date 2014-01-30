@@ -11,10 +11,12 @@ import android.widget.ListView;
 import com.flexplan.common.FlextimeDayFactory;
 import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.common.business.WorkBreak;
+import com.flexplan.common.util.DateHelper;
 import com.flexplan.util.AbstractActivityWithExtraInput;
-import com.flexplan.util.NextActivityClickListener;
+import com.flexplan.util.ExtraProvider;
+import com.flexplan.util.NextActivityClickListenerWithExtraInput;
 
-public class BreakViewActivity extends AbstractActivityWithExtraInput {
+public class BreakViewActivity extends AbstractActivityWithExtraInput implements ExtraProvider {
 
 	private FlextimeDay currentFlextimeDay;
 	private Button addBreakBt;
@@ -40,11 +42,12 @@ public class BreakViewActivity extends AbstractActivityWithExtraInput {
 	@Override
 	protected void initElements() {
 		addBreakBt = (Button) findViewById(R.id.add_break_button);
-		addBreakBt.setOnClickListener(new NextActivityClickListener(this,
+		addBreakBt.setOnClickListener(new NextActivityClickListenerWithExtraInput(this,
 				BreakSetupActivity.class));
 		breakListView = (ListView) findViewById(R.id.breakList);
 		breakListView.setAdapter(new BreakListAdapter(getApplicationContext(),
 				currentFlextimeDay.getWorkBreaks()));
+		this.setTitle(getTitle() + " - "+ DateHelper.getDateAsString(currentFlextimeDay.getDate()));
 	}
 
 	@Override
@@ -55,5 +58,12 @@ public class BreakViewActivity extends AbstractActivityWithExtraInput {
 		currentFlextimeDay = FlextimeDayFactory.createFlextimeDay(date,
 				startTime, endTime, new ArrayList<WorkBreak>());
 	}
+
+	@Override
+	public Bundle getExtras() {
+		return null;
+	}
+	
+	
 
 }

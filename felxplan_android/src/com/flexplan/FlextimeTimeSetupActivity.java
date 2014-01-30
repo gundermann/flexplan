@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TimePicker;
 
+import com.flexplan.common.util.DateHelper;
 import com.flexplan.util.AbstractActivityWithExtraInput;
 import com.flexplan.util.ExtraProvider;
 import com.flexplan.util.NextActivityClickListener;
@@ -56,6 +57,7 @@ public class FlextimeTimeSetupActivity extends AbstractActivityWithExtraInput im
 		setupDayBt.setOnClickListener(new NextActivityClickListener(this,
 				FlextimeDaySetupActivity.class));
 		saveFlextimeDayBt = (Button) findViewById(R.id.save_flextimeday_button);
+		this.setTitle(getTitle() + " - "+ DateHelper.getDateAsString(currentDate));
 	}
 	
 	
@@ -64,8 +66,8 @@ public class FlextimeTimeSetupActivity extends AbstractActivityWithExtraInput im
 	public Bundle getExtras() {
 		Bundle extras = new Bundle();
 		extras.putLong("date", getCurrentDate());
-		extras.putLong("date", getCurrentStartTime());
-		extras.putLong("date", getCurrentEndTime());
+		extras.putLong("startTime", getCurrentStartTime());
+		extras.putLong("endTime", getCurrentEndTime());
 		return extras;
 	}
 
