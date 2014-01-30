@@ -1,23 +1,17 @@
 package com.flexplan.test;
 
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.TextView;
 
 import com.flexplan.FlextimeDaySetupActivity;
-import com.flexplan.FlextimeOverviewActivity;
-import com.flexplan.common.business.FlextimeDay;
 
 public class FlextimeDaySetupTest extends
 		AbstractActivityInstumentaionTest<FlextimeDaySetupActivity>{
 
 	private FlextimeDaySetupActivity activity;
 	private int dayDpId = com.flexplan.R.id.day;
-	private int dateTvId = com.flexplan.R.id.date_textview;
 	private int setupTimeBtId = com.flexplan.R.id.setup_time_button;
 	private int saveFlextimeDayBtId = com.flexplan.R.id.save_flextimeday_button;
 	private GregorianCalendar cal = new GregorianCalendar();
@@ -37,7 +31,6 @@ public class FlextimeDaySetupTest extends
 
 	public void testLayout() {
 		assertNotNull(activity.findViewById(dayDpId));
-		assertNotNull(activity.findViewById(dateTvId));
 		assertNotNull(activity.findViewById(setupTimeBtId));
 		assertNotNull(activity.findViewById(saveFlextimeDayBtId));
 
@@ -59,10 +52,6 @@ public class FlextimeDaySetupTest extends
 		assertEquals("Incorrect label of the savebutton",
 				activity.getText(com.flexplan.R.string.save),
 				saveFlextimeBt.getText());
-
-		TextView dateTv = (TextView) activity.findViewById(dateTvId);
-		assertEquals("Incorrect label of the savebutton",
-				activity.getText(com.flexplan.R.string.setup_date), dateTv.getText());
 	}
 
 	private int getCurrentYear() {
