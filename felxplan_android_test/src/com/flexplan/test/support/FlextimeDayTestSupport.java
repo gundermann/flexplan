@@ -1,4 +1,4 @@
-package com.flexplan.test;
+package com.flexplan.test.support;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;

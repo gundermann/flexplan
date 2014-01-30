@@ -1,4 +1,4 @@
-package com.flexplan.test;
+package com.flexplan.test.support;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;

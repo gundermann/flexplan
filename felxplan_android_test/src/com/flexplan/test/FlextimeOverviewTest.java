@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.flexplan.FlextimeDaySetupActivity;
 import com.flexplan.FlextimeOverviewActivity;
+import com.flexplan.test.support.FlexplanAppTestSupport;
 
 public class FlextimeOverviewTest extends
 		ActivityUnitTestCase<FlextimeOverviewActivity> {
@@ -35,7 +36,7 @@ public class FlextimeOverviewTest extends
 		super.setUp();
 		System.setProperty("dexmaker.dexcache", getInstrumentation()
 				.getTargetContext().getCacheDir().getPath());
-		setApplication(FlexplanAppTestHelper.createMockApp());
+		setApplication(FlexplanAppTestSupport.createMockApp());
 		Intent intent = new Intent(getInstrumentation().getTargetContext(),
 				FlextimeOverviewActivity.class);
 		startActivity(intent, null, null);
