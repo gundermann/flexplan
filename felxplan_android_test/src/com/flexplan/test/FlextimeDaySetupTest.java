@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.flexplan.FlextimeDaySetupActivity;
 import com.flexplan.common.util.DateHelper;
+import com.robotium.solo.Solo;
 
 public class FlextimeDaySetupTest extends
 		AbstractActivityInstumentaionTest<FlextimeDaySetupActivity> {
@@ -17,6 +18,7 @@ public class FlextimeDaySetupTest extends
 	private int setupTimeBtId = com.flexplan.R.id.setup_time_button;
 	private int saveFlextimeDayBtId = com.flexplan.R.id.save_flextimeday_button;
 	private int dayTvId = com.flexplan.R.id.day_tv;
+	private Solo solo;
 
 	public FlextimeDaySetupTest() {
 		super(FlextimeDaySetupActivity.class);
@@ -29,6 +31,7 @@ public class FlextimeDaySetupTest extends
 				.getTargetContext().getCacheDir().getPath());
 
 		activity = getActivity();
+		solo = new Solo(getInstrumentation(), getActivity());
 	}
 
 	public void testLayout() {
@@ -57,6 +60,13 @@ public class FlextimeDaySetupTest extends
 		assertEquals("incorrect text on dayTV",
 				DateHelper.getCurrentDateAsString(), dayTv.getText().toString());
 
+	}
+	
+	public void testDateChange(){
+		TextView dayTv = (TextView) activity.findViewById(dayTvId);
+		DatePicker dayDp = (DatePicker) activity.findViewById(dayDpId);
+		solo.setDatePicker(dayDp, 2014, 2, 2);
+		assertEquals("incorrect text on dayTV after date has changeed", DateHelper.getDateAsString(dayDp.getCalendarView().getDate()), dayTv.getText().toString());
 	}
 	
 	public void testStartFelxtimeTimeSetup() throws Exception {
