@@ -49,11 +49,11 @@ public class BreakSetupTest extends
 				abortBt.getText());
 		TextView timeFromTv = (TextView) activity.findViewById(timeFromTvId);
 		assertEquals("Incorrect label of the savebutton",
-				activity.getText(com.flexplan.R.string.setup_date),
+				activity.getText(com.flexplan.R.string.timeFrom),
 				timeFromTv.getText());
 		TextView timeToTv = (TextView) activity.findViewById(timeToTvId);
 		assertEquals("Incorrect label of the savebutton",
-				activity.getText(com.flexplan.R.string.setup_date),
+				activity.getText(com.flexplan.R.string.timeTo),
 				timeToTv.getText());
 	}
 
