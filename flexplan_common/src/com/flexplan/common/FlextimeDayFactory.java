@@ -21,6 +21,6 @@ public class FlextimeDayFactory {
 	}
 
 	public static FlextimeDay createFreeDayOfWeek(int dayOfWeek, int weekOfYear, int year) {
-		return new FlextimeDayImpl(DateHelper.convertToLong(dayOfWeek, weekOfYear, year), 0, 0);
+		return new FlextimeDayImpl(DateHelper.convertToLongByWeekOfYear(dayOfWeek, weekOfYear, year), 0, 0);
 	}
 }

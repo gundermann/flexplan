@@ -44,9 +44,9 @@ public class BreakListAdapter extends ArrayAdapter<WorkBreak> {
 		TextView timeTo = (TextView) rowView.findViewById(R.id.break_time_to);
 		TextView timeSum = (TextView) rowView.findViewById(R.id.break_time_sum);
 		
-		timeFrom.setText(DateHelper.convertToDate(workBreak.getStartTime()));
-		timeTo.setText(DateHelper.convertToDate(workBreak.getEndTime()));
-		timeSum.setText(DateHelper.convertToDate(workBreak.getLength()));
+		timeFrom.setText(DateHelper.getDateAsString(workBreak.getStartTime()));
+		timeTo.setText(DateHelper.getDateAsString(workBreak.getEndTime()));
+		timeSum.setText(DateHelper.getDateAsString(workBreak.getLength()));
 	}
 
 

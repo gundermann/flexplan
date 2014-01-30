@@ -70,7 +70,7 @@ public class BreakSetupActivity extends AbstractActivityWithExtraInput {
 		timeFrom.setIs24HourView(true);
 		timeTo.setIs24HourView(true);
 		dateView = (TextView) findViewById(R.id.current_date);
-		dateView.setText(DateHelper.convertToDate(currentDate));
+		dateView.setText(DateHelper.getDateAsString(currentDate));
 		saveBreakBt = (Button) findViewById(R.id.save_break_button);
 		saveBreakBt.setOnClickListener(new SaveBreakListener(
 				((FlexplanApplication) getApplication()).getDbHelper(),

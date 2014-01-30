@@ -7,24 +7,26 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.TextView;
 
 import com.flexplan.common.FlextimeDayFactory;
 import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.common.business.WorkBreak;
 import com.flexplan.common.util.DateHelper;
 import com.flexplan.util.AbstractActivity;
+import com.flexplan.util.DateChangedListener;
 import com.flexplan.util.ExtraProvider;
-import com.flexplan.util.NextActivityClickListener;
 import com.flexplan.util.NextActivityClickListenerWithExtraInput;
 import com.flexplan.util.SaveFlextimeDayListener;
 
 public class FlextimeDaySetupActivity extends AbstractActivity implements
-		FlextimeDaySetup, ExtraProvider {
+		FlextimeDaySetup, ExtraProvider, DateFieldProvider {
 
 	private FlextimeDay currentFlextimeDay;
 	private Button setupFlextimeBt;
 	private Button saveFlextimeDayBt;
-	private DatePicker day;
+	private DatePicker date;
+	private TextView dateTv;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,7 @@ public class FlextimeDaySetupActivity extends AbstractActivity implements
 	}
 
 	private long getDate() {
-		return day.getDrawingTime();
+		return date.getCalendarView().getDate();
 	}
 
 	private List<WorkBreak> getBreaks() {
@@ -73,10 +75,14 @@ public class FlextimeDaySetupActivity extends AbstractActivity implements
 
 	@Override
 	protected void initElements() {
-		day = (DatePicker) findViewById(R.id.day);
+		date = (DatePicker) findViewById(R.id.day);
+		date.getCalendarView().setOnDateChangeListener(new DateChangedListener(this));
+		dateTv = (TextView) findViewById(R.id.day_tv);
+		updateDateField(0,0,0);
 		setupFlextimeBt = (Button) findViewById(R.id.setup_time_button);
-		setupFlextimeBt.setOnClickListener(new NextActivityClickListenerWithExtraInput(
-				this, FlextimeTimeSetupActivity.class));
+		setupFlextimeBt
+				.setOnClickListener(new NextActivityClickListenerWithExtraInput(
+						this, FlextimeTimeSetupActivity.class));
 		saveFlextimeDayBt = (Button) findViewById(R.id.save_flextimeday_button);
 		saveFlextimeDayBt.setOnClickListener(new SaveFlextimeDayListener(this,
 				((FlexplanApplication) getApplication()).getDbHelper()));
@@ -85,7 +91,12 @@ public class FlextimeDaySetupActivity extends AbstractActivity implements
 	@Override
 	public Bundle getExtras() {
 		Bundle extra = new Bundle();
-		extra.putLong("date", day.getDrawingTime());
+		extra.putLong("date", getDate());
 		return extra;
+	}
+
+	@Override
+	public void updateDateField(int dayOfMonth, int month, int year) {
+		dateTv.setText(DateHelper.getDateAsString(getDate()));
 	}
 }
