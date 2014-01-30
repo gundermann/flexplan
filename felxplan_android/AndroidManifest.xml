@@ -17,6 +17,7 @@
         <activity
             android:name="com.flexplan.FlextimeDaySetupActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
             android:label="@string/title_flextime_day_setup"
             android:launchMode="singleTask"
             android:theme="@style/FullscreenTheme" >
@@ -25,6 +26,7 @@
             android:name="com.flexplan.BreakViewActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_break_view"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:theme="@style/FullscreenTheme" >
         </activity>
@@ -32,6 +34,7 @@
             android:name="com.flexplan.BreakSetupActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_break_setup"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:theme="@style/FullscreenTheme" >
         </activity>
@@ -39,6 +42,7 @@
             android:name="com.flexplan.FlextimeTimeSetupActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_flextime_setup"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:theme="@style/FullscreenTheme" >
         </activity>
@@ -46,6 +50,7 @@
             android:name="com.flexplan.FlextimeOverviewActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_flextime_overview"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:theme="@style/FullscreenTheme" >
                <intent-filter>
