@@ -8,6 +8,8 @@
         android:id="@+id/timeFrom_tv"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        style="@style/TextSmall"
+        android:layout_gravity="center_vertical"
         android:text="@string/timeFrom" />
 
     <TimePicker
@@ -19,6 +21,8 @@
         android:id="@+id/timeTo_tv"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        style="@style/TextSmall"
+        android:layout_gravity="center_vertical"
         android:text="@string/timeTo" />
 
     <TimePicker

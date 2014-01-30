@@ -1,18 +1,16 @@
 package com.flexplan.util;
 
-
-public abstract class AbstractActivityWithExtraInput extends
-		AbstractActivity {
+public abstract class AbstractActivityWithExtraInput extends AbstractActivity {
 
 	@Override
 	protected void setup() {
-		setupExtras();
+		if (getIntent() != null && getIntent().getExtras() != null
+				&& !getIntent().getExtras().isEmpty()) {
+			setupExtras();
+		}
 		super.setup();
 	}
 
 	abstract protected void setupExtras();
 
-
-	
-	
 }

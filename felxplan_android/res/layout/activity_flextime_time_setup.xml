@@ -2,13 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
+    android:fitsSystemWindows="true"
     tools:context=".FlextimeTimeSetupActivity" >
 
     <LinearLayout
         android:id="@+id/fullscreen_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/background"
         android:gravity="center"
         android:orientation="vertical" >
     </LinearLayout>
@@ -30,12 +31,9 @@
 
             <LinearLayout
                 style="?buttonBarStyle"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center_horizontal"
-                android:background="@color/black_overlay"
-                android:orientation="horizontal"
-                tools:ignore="UselessParent" >
+                android:orientation="horizontal" >
 
                 <Button
                     android:id="@+id/setup_flextime_day"
@@ -57,9 +55,8 @@
             <Button
                 android:id="@+id/save_flextimeday_button"
                 style="?buttonBarButtonStyle"
-                android:layout_width="0dp"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="@string/save" />
         </LinearLayout>
     </FrameLayout>

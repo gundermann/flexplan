@@ -2,55 +2,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="?android:attr/actionBarSize"
-    android:background="@drawable/background"
+    android:fitsSystemWindows="true"
     tools:context=".FlextimeOverviewActivity" >
 
-    <LinearLayout 
-        android:id="@+id/fullscreen_content"
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:gravity="center"
-        android:layout_height="fill_parent">
-        
     <LinearLayout
+        android:id="@+id/fullscreen_content"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-
-        <ImageButton
-            android:id="@+id/prev_week"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.1"
-            android:src="@android:drawable/ic_media_previous" />
-
-        <TextView
-            android:id="@+id/week"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.8"
-            android:gravity="center"
-            android:textColor="#33b5e5"
-            android:textStyle="bold" />
-        
-        <ImageButton
-            android:id="@+id/next_week"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.1"
-            android:src="@android:drawable/ic_media_next" />
-        
-    </LinearLayout>
-
-    <ListView 
-        android:id="@+id/flextime_overview"
         android:layout_height="fill_parent"
-        android:layout_width="fill_parent"
-        />
+        android:background="@drawable/background"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageButton
+                android:id="@+id/prev_week"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:src="@android:drawable/ic_media_previous" />
+
+            <TextView
+                android:id="@+id/week"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.8"
+                android:gravity="center"
+                android:textColor="#33b5e5"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/next_week"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:src="@android:drawable/ic_media_next" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/flextime_overview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
     </LinearLayout>
-    
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

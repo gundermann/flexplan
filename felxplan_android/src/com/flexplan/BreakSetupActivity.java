@@ -13,10 +13,10 @@ import android.widget.TimePicker;
 import com.flexplan.common.WorkBreakFactory;
 import com.flexplan.common.business.WorkBreak;
 import com.flexplan.common.util.DateHelper;
-import com.flexplan.util.AbstractActivity;
+import com.flexplan.util.AbstractActivityWithExtraInput;
 import com.flexplan.util.SaveBreakListener;
 
-public class BreakSetupActivity extends AbstractActivity {
+public class BreakSetupActivity extends AbstractActivityWithExtraInput {
 
 	private WorkBreak currentBreak;
 	private long currentDate;
@@ -28,13 +28,13 @@ public class BreakSetupActivity extends AbstractActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		currentDate = getIntent().getExtras().getLong("currentDate");
 	}
 
 	private WorkBreak getCurrentBreak() {
-		if(currentBreak == null){
-			currentBreak = WorkBreakFactory.createWorkBreak(getTimeFrom(), getTimeTo());
-		}else{
+		if (currentBreak == null) {
+			currentBreak = WorkBreakFactory.createWorkBreak(getTimeFrom(),
+					getTimeTo());
+		} else {
 			currentBreak.setStartTime(getTimeFrom());
 			currentBreak.setEndTime(getTimeTo());
 		}
@@ -51,7 +51,7 @@ public class BreakSetupActivity extends AbstractActivity {
 
 	@Override
 	protected void setContentView() {
-		setContentView(R.layout.activity_break_setup);		
+		setContentView(R.layout.activity_break_setup);
 		LinearLayout linlay = (LinearLayout) findViewById(R.id.fullscreen_content);
 		getLayoutInflater().inflate(R.layout.timerange_picker, linlay);
 	}
@@ -65,8 +65,8 @@ public class BreakSetupActivity extends AbstractActivity {
 
 	@Override
 	protected void initElements() {
-		timeFrom = (TimePicker) findViewById(R.id.break_time_from);
-		timeTo = (TimePicker) findViewById(R.id.break_time_to);
+		timeFrom = (TimePicker) findViewById(R.id.timeFrom);
+		timeTo = (TimePicker) findViewById(R.id.timeTo);
 		timeFrom.setIs24HourView(true);
 		timeTo.setIs24HourView(true);
 		dateView = (TextView) findViewById(R.id.current_date);
@@ -74,7 +74,12 @@ public class BreakSetupActivity extends AbstractActivity {
 		saveBreakBt = (Button) findViewById(R.id.save_break_button);
 		saveBreakBt.setOnClickListener(new SaveBreakListener(
 				((FlexplanApplication) getApplication()).getDbHelper(),
-				getCurrentBreak(), currentDate));		
+				getCurrentBreak(), currentDate));
+	}
+
+	@Override
+	protected void setupExtras() {
+			currentDate = getIntent().getExtras().getLong("currentDate");
 	}
 
 }
