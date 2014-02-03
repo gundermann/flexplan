@@ -6,12 +6,12 @@ import android.widget.TextView;
 import com.flexplan.BreakViewActivity;
 import com.flexplan.FlextimeDaySetupActivity;
 import com.flexplan.FlextimeOverviewActivity;
-import com.flexplan.FlextimeTimeSetupActivity;
+import com.flexplan.FlextimeTimeSetupDialog;
 
 public class FlextimeTimeSetupTest extends
-		AbstractActivityInstumentaionTest<FlextimeTimeSetupActivity> {
+		AbstractActivityInstumentaionTest<FlextimeTimeSetupDialog> {
 
-	private FlextimeTimeSetupActivity activity;
+	private FlextimeTimeSetupDialog activity;
 	private int setupDayBtId = com.flexplan.R.id.setup_flextime_day;
 	private int timeFromTvId = com.flexplan.R.id.timeFrom_tv;
 	private int timeFromTpId = com.flexplan.R.id.timeFrom;
@@ -21,7 +21,7 @@ public class FlextimeTimeSetupTest extends
 	private int saveFlextimeDayBtId = com.flexplan.R.id.save_flextimeday_button;
 
 	public FlextimeTimeSetupTest() {
-		super(FlextimeTimeSetupActivity.class);
+		super(FlextimeTimeSetupDialog.class);
 	}
 
 	@Override

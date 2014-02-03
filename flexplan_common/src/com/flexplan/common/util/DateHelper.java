@@ -53,4 +53,13 @@ public class DateHelper {
 		return cal.get(GregorianCalendar.DAY_OF_MONTH);
 	}
 
+	public static CharSequence getTimeAsString(long time) {
+		long hours = time/(60*60*1000);
+		long minutes = (time-(hours*60*60*1000))/(60*1000);
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append(hours).append(":").append(minutes);
+		return sb.toString();
+	}
+
 }

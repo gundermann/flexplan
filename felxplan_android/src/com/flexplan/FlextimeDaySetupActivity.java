@@ -1,11 +1,9 @@
 package com.flexplan;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.view.MenuItem;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
@@ -13,24 +11,22 @@ import com.flexplan.common.FlextimeDayFactory;
 import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.common.business.WorkBreak;
 import com.flexplan.common.util.DateHelper;
-import com.flexplan.util.AbstractActivity;
+import com.flexplan.util.AbstractActivityExtraProvider;
 import com.flexplan.util.DateChangedListener;
-import com.flexplan.util.ExtraProvider;
-import com.flexplan.util.NextActivityClickListenerWithExtraInput;
-import com.flexplan.util.SaveFlextimeDayListener;
 
-public class FlextimeDaySetupActivity extends AbstractActivity implements
-		FlextimeDaySetup, ExtraProvider, DateFieldProvider {
+public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
+		implements FlextimeDaySetup, DateFieldProvider {
 
+	private static final String TAG = null;
 	private FlextimeDay currentFlextimeDay;
-	private Button setupFlextimeBt;
-	private Button saveFlextimeDayBt;
 	private DatePicker date;
 	private TextView dateTv;
+	private TextView timeRangeTV;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		saveFlextimeDay();
 	}
 
 	@Override
@@ -39,7 +35,7 @@ public class FlextimeDaySetupActivity extends AbstractActivity implements
 				|| currentFlextimeDay.getDate() != getDate()) {
 			currentFlextimeDay = FlextimeDayFactory.createFlextimeDay(
 					getDate(), DateHelper.DAY_START, DateHelper.DAY_END,
-					getBreaks());
+					new ArrayList<WorkBreak>());
 		} else {
 			currentFlextimeDay.setDate(getDate());
 		}
@@ -47,12 +43,6 @@ public class FlextimeDaySetupActivity extends AbstractActivity implements
 
 	private long getDate() {
 		return date.getCalendarView().getDate();
-	}
-
-	private List<WorkBreak> getBreaks() {
-		List<WorkBreak> breakList = new ArrayList<WorkBreak>();
-		breakList.addAll(currentFlextimeDay.getWorkBreaks());
-		return breakList;
 	}
 
 	@Override
@@ -66,26 +56,45 @@ public class FlextimeDaySetupActivity extends AbstractActivity implements
 	}
 
 	@Override
-	public List<View> getViewsForDelayedHide() {
-		List<View> views = new ArrayList<View>();
-		views.add(setupFlextimeBt);
-		views.add(saveFlextimeDayBt);
-		return views;
+	protected void initElements() {
+		date = (DatePicker) findViewById(R.id.day);
+		date.getCalendarView().setOnDateChangeListener(
+				new DateChangedListener(this));
+		dateTv = (TextView) findViewById(R.id.day_tv);
+		timeRangeTV = (TextView) findViewById(R.id.time_range_tv);
+		updateDateField(0, 0, 0);
 	}
 
 	@Override
-	protected void initElements() {
-		date = (DatePicker) findViewById(R.id.day);
-		date.getCalendarView().setOnDateChangeListener(new DateChangedListener(this));
-		dateTv = (TextView) findViewById(R.id.day_tv);
-		updateDateField(0,0,0);
-		setupFlextimeBt = (Button) findViewById(R.id.setup_time_button);
-		setupFlextimeBt
-				.setOnClickListener(new NextActivityClickListenerWithExtraInput(
-						this, FlextimeTimeSetupActivity.class));
-		saveFlextimeDayBt = (Button) findViewById(R.id.save_flextimeday_button);
-		saveFlextimeDayBt.setOnClickListener(new SaveFlextimeDayListener(this,
-				((FlexplanApplication) getApplication()).getDbHelper()));
+	public void updateDateField(int dayOfMonth, int month, int year) {
+		dateTv.setText(DateHelper.getDateAsString(getDate()));
+	}
+
+	@Override
+	protected int getMenu() {
+		return R.menu.flextime_day_setup_menu;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.setup_time:
+			FlextimeTimeSetupDialog.newInstance(this).show(
+					getSupportFragmentManager(), TAG);
+			break;
+		case R.id.save: {
+			((FlexplanApplication) getApplication()).getDbHelper()
+					.insertFlextimeDay(getFlextimeDay());
+			break;
+		}
+		case R.id.abort: {
+			onBackPressed();
+			break;
+		}
+		default:
+			break;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
@@ -96,7 +105,25 @@ public class FlextimeDaySetupActivity extends AbstractActivity implements
 	}
 
 	@Override
-	public void updateDateField(int dayOfMonth, int month, int year) {
-		dateTv.setText(DateHelper.getDateAsString(getDate()));
+	public void onBackPressed() {
+		// TODO dialog
+		super.onBackPressed();
 	}
+
+	@Override
+	public void updateTimeFields() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(DateHelper.getTimeAsString(currentFlextimeDay.getStartTime())).append(" - ")
+				.append(DateHelper.getTimeAsString(currentFlextimeDay.getEndTime()));
+		timeRangeTV.setText(sb.toString());
+	}
+
+	@Override
+	public void updateTime(long startTime, long endTime) {
+		currentFlextimeDay.setStartTime(startTime);
+		currentFlextimeDay.setEndTime(endTime);
+		updateTimeFields();
+		
+	}
+
 }

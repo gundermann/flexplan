@@ -1,12 +1,11 @@
 package com.flexplan;
 
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.persistence.FlextimeDB;
 import com.flexplan.util.AbstractActivity;
-import com.flexplan.util.NextActivityClickListener;
 import com.flexplan.util.WeekChangeListener;
 
 public class FlextimeOverviewActivity extends AbstractActivity {
@@ -22,8 +20,6 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 	private int currentWeek;
 
 	private int currentYear;
-
-	private Button setupFlextimeDayBt;
 
 	private TextView week;
 
@@ -74,18 +70,8 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 	}
 
 	@Override
-	public List<View> getViewsForDelayedHide() {
-		List<View> views = new ArrayList<View>();
-		views.add(setupFlextimeDayBt);
-		return views;
-	}
-
-	@Override
 	protected void initElements() {
 		week = (TextView) findViewById(R.id.week);
-		setupFlextimeDayBt = (Button) findViewById(R.id.setup_flextime_day);
-		setupFlextimeDayBt.setOnClickListener(new NextActivityClickListener(
-				this, FlextimeDaySetupActivity.class));
 		prevWeekBt = (ImageButton) findViewById(R.id.prev_week);
 		nextWeekBt = (ImageButton) findViewById(R.id.next_week);
 		prevWeekBt.setOnClickListener(new WeekChangeListener(this, -1));
@@ -104,4 +90,23 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 		currentWeek = newWeek;
 		updateWeekView();
 	}
+
+	@Override
+	protected int getMenu() {
+		return R.menu.flextime_overview_menu;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.setup_flextime_day:
+			startNextActivity(new Intent(getApplicationContext(),
+					FlextimeDaySetupActivity.class));
+			break;
+		default:
+			break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
 }

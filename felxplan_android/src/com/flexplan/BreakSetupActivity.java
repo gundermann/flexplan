@@ -1,10 +1,6 @@
 package com.flexplan;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TimePicker;
@@ -56,12 +52,6 @@ public class BreakSetupActivity extends AbstractActivityWithExtraInput {
 		getLayoutInflater().inflate(R.layout.timerange_picker, linlay);
 	}
 
-	@Override
-	public List<View> getViewsForDelayedHide() {
-		List<View> views = new ArrayList<View>();
-		views.add(saveBreakBt);
-		return views;
-	}
 
 	@Override
 	protected void initElements() {
@@ -81,6 +71,12 @@ public class BreakSetupActivity extends AbstractActivityWithExtraInput {
 	@Override
 	protected void setupExtras() {
 			currentDate = getIntent().getExtras().getLong("currentDate");
+	}
+
+	@Override
+	protected int getMenu() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

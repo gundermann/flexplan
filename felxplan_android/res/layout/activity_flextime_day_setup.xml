@@ -10,6 +10,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="@drawable/background"
+        android:layout_gravity="center"
         android:orientation="vertical" >
 
         <TextView
@@ -24,39 +25,12 @@
             android:layout_height="wrap_content"
             android:calendarViewShown="true"
             android:spinnersShown="false" />
+        
+        <TextView
+            android:id="@+id/time_range_tv"
+            style="@style/TextSmall"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+        
     </LinearLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true" >
-
-        <LinearLayout
-            android:id="@+id/fullscreen_content_controls"
-            style="?buttonBarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:background="@color/black_overlay"
-            android:orientation="horizontal"
-            tools:ignore="UselessParent" >
-
-            <Button
-                android:id="@+id/setup_time_button"
-                style="?buttonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="@string/setup_time" />
-
-            <Button
-                android:id="@+id/save_flextimeday_button"
-                style="?buttonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="@string/save" />
-        </LinearLayout>
-    </FrameLayout>
-
 </FrameLayout>

@@ -39,7 +39,7 @@
             android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
-            android:name="com.flexplan.FlextimeTimeSetupActivity"
+            android:name="com.flexplan.FlextimeTimeSetupDialog"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_flextime_setup"
             android:screenOrientation="portrait"

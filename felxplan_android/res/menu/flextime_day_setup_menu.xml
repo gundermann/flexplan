@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/save"
+        android:title="@string/save"
+        android:showAsAction="always"
+        android:icon="@android:drawable/ic_menu_save"/>
+
+    <item android:id="@+id/abort"
+        android:title="@string/abort"
+        android:showAsAction="ifRoom"
+        android:icon="@android:drawable/ic_menu_delete"
+        />
+    <item android:id="@+id/setup_time"
+        android:title="@string/setup_time"
+        android:showAsAction="ifRoom"
+        android:icon="@android:drawable/ic_lock_idle_alarm"/>
+    
+
+</menu>

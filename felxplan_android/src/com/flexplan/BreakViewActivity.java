@@ -32,12 +32,6 @@ public class BreakViewActivity extends AbstractActivityWithExtraInput implements
 		setContentView(R.layout.activity_break_view);
 	}
 
-	@Override
-	public List<View> getViewsForDelayedHide() {
-		List<View> views = new ArrayList<View>();
-		views.add(addBreakBt);
-		return views;
-	}
 
 	@Override
 	protected void initElements() {
@@ -62,6 +56,12 @@ public class BreakViewActivity extends AbstractActivityWithExtraInput implements
 	@Override
 	public Bundle getExtras() {
 		return null;
+	}
+
+	@Override
+	protected int getMenu() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 	
