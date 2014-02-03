@@ -58,8 +58,32 @@ public class DateHelper {
 		long minutes = (time-(hours*60*60*1000))/(60*1000);
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append(hours).append(":").append(minutes);
+		if(hours<10){
+			sb.append("0");
+		}
+		sb.append(hours).append(":");
+		if(minutes<10){
+			sb.append("0");
+		}
+		sb.append(minutes);
 		return sb.toString();
+	}
+
+	public static String getDayAsString(long timestamp) {
+		Date date = new Date(timestamp);
+		GregorianCalendar cal = new GregorianCalendar();
+		cal.setTime(date);
+		return getDayOfWeekAsString(cal.get(GregorianCalendar.DAY_OF_WEEK));
+	}
+
+	private static String getDayOfWeekAsString(int day) {
+		switch (day) {
+		case 1:
+			return "Montag";
+		default:
+			break;
+		}
+		return "nothing";
 	}
 
 }

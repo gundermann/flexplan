@@ -4,7 +4,6 @@
         android:title="@string/save"
         android:showAsAction="always"
         android:icon="@android:drawable/ic_menu_save"/>
-
     <item android:id="@+id/abort"
         android:title="@string/abort"
         android:showAsAction="ifRoom"
@@ -14,6 +13,11 @@
         android:title="@string/setup_time"
         android:showAsAction="ifRoom"
         android:icon="@android:drawable/ic_lock_idle_alarm"/>
+    <item android:id="@+id/setup_breaks"
+        android:title="@string/break_overview"
+        android:showAsAction="ifRoom"
+        android:icon="@android:drawable/ic_menu_agenda"/>
+    
     
 
 </menu>

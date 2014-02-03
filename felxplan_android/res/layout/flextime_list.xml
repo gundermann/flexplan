@@ -10,15 +10,6 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >
-
-        <TextView
-            android:id="@+id/flextime_day"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            style="@style/TextNormal"
-            android:layout_gravity="left"
-            />
-        
         <TextView
             android:id="@+id/flextime_start"
             android:layout_width="wrap_content"
@@ -26,6 +17,16 @@
             style="@style/TextNormal"
             android:layout_gravity="left"
             />
+
+        <TextView
+            android:id="@+id/flextime_day"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            style="@style/TextNormal"
+            android:layout_gravity="center"
+            android:gravity="center"
+            />
+        
 
         <TextView
             android:id="@+id/flextime_end"
