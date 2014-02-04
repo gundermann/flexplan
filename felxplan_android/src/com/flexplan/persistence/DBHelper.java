@@ -1,17 +1,16 @@
 package com.flexplan.persistence;
 
-import java.util.List;
 import java.util.ArrayList;
-
-import com.flexplan.common.FlextimeDayFactory;
-import com.flexplan.common.WorkBreakFactory;
-import com.flexplan.common.business.FlextimeDay;
-import com.flexplan.common.business.WorkBreak;
+import java.util.List;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import com.flexplan.common.Factory;
+import com.flexplan.common.business.FlextimeDay;
+import com.flexplan.common.business.WorkBreak;
 
 public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 
@@ -61,7 +60,7 @@ public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 			long date = flextimeCursor.getLong(0);
 			long timeFrom = flextimeCursor.getLong(1);
 			long timeTo = flextimeCursor.getLong(2);
-			flextimeDays.add(FlextimeDayFactory.createFlextimeDay(date,
+			flextimeDays.add(Factory.getInstance().createFlextimeDay(date,
 					timeFrom, timeTo, getWorkBreaksForFlextimeDay(date)));
 		}
 		flextimeCursor.close();
@@ -78,7 +77,7 @@ public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 		while (breakCursor.moveToNext()) {
 			long timeFrom = breakCursor.getLong(0);
 			long timeTo = breakCursor.getLong(1);
-			workBreaks.add(WorkBreakFactory.createWorkBreak(timeFrom, timeTo));
+			workBreaks.add(Factory.getInstance().createWorkBreak(timeFrom, timeTo));
 		}
 
 		breakCursor.close();
@@ -111,7 +110,7 @@ public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 		//TODO read from DB
 		List<FlextimeDay> week = new ArrayList<FlextimeDay>();
 		for(int day = 1; day < 8; day++){
-			week.add(FlextimeDayFactory.createFreeDayOfWeek(day, weekOfYear, year));
+			week.add(Factory.getInstance().createFreeDayOfWeek(day, weekOfYear, year));
 		}
 		return week;
 	}
