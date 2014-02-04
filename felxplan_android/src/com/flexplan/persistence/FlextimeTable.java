@@ -54,7 +54,7 @@ public class FlextimeTable {
 	}
 
 	public static String[] whereDate(long date) {
-		String[] where = {DATE+"="+String.valueOf(date)};
+		String[] where = {DATE+"="+date};
 		return where;
 	}
 }

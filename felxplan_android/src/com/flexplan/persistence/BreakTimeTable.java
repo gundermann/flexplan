@@ -42,8 +42,9 @@ public class BreakTimeTable {
 		return selection;
 	}
 
-	public static String getWhereDate(long date) {
-		return DATE + "=" + date;
+	public static String[] getWhereDate(long date) {
+		String[] where = {DATE + "=" + date};
+		return where;
 	}
 
 	public static ContentValues getContentValues(WorkBreak workBreak, long date) {

@@ -73,8 +73,8 @@ public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 
 		SQLiteDatabase db = super.getReadableDatabase();
 		Cursor breakCursor = db.query(BreakTimeTable.TABLE_NAME,
-				BreakTimeTable.selectTime(), BreakTimeTable.getWhereDate(date),
-				null, null, null, null, null);
+				BreakTimeTable.selectTime(), null,
+				BreakTimeTable.getWhereDate(date), null, null, null, null);
 		while (breakCursor.moveToNext()) {
 			long timeFrom = breakCursor.getLong(0);
 			long timeTo = breakCursor.getLong(1);
@@ -103,11 +103,6 @@ public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 		return super.getWritableDatabase();
 	}
 
-	public void insertWorkBreak(WorkBreak workBreak, long date) {
-		getReadableDatabase().insert(BreakTimeTable.TABLE_NAME, null,
-				BreakTimeTable.getContentValues(workBreak, date));
-	}
-
 	public List<FlextimeDay> getCurrentWeekDays(int weekOfYear, int year) {
 		List<FlextimeDay> week = new ArrayList<FlextimeDay>();
 		for (int i = 1; i <= 7; i++) {
@@ -116,9 +111,9 @@ public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 			Cursor c = getReadableDatabase().query(FlextimeTable.TABLE_NAME,
 					FlextimeTable.selectAll(), null,
 					FlextimeTable.whereDate(date), null, null, null);
-			FlextimeDay day = createFlextimeday(c);
+			FlextimeDay day = loadFlextimeDays(c).get(0);
 			c.close();
-			if(day == null)
+			if (day == null)
 				day = Factory.getInstance().createFreeDayOfWeek(i, weekOfYear,
 						year);
 			week.add(day);
@@ -126,23 +121,24 @@ public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 		return week;
 	}
 
-	private FlextimeDay createFlextimeday(Cursor c) {
-		if (c.moveToFirst()) {
-			return Factory.getInstance().createFlextimeDay(c.getLong(0),
-					c.getLong(1), c.getLong(2),
-					getWorkBreaksForFlextimeDay(c.getLong(0)));
-		}
-		return null;
-	}
-
 	@Override
 	public void insertWorkBreaks(FlextimeDay currentFlextimeDay) {
-		// TODO
+		cleanWorkBreaks(currentFlextimeDay);
+		for(WorkBreak workBreak : currentFlextimeDay.getWorkBreaks()){
+		getWritableDatabase().insert(BreakTimeTable.TABLE_NAME, null,
+				BreakTimeTable.getContentValues(workBreak, currentFlextimeDay.getDate()));
+		}
+	}
+
+	private void cleanWorkBreaks(FlextimeDay currentFlextimeDay) {
+		getWritableDatabase().delete(BreakTimeTable.TABLE_NAME, null,
+				BreakTimeTable.getWhereDate(currentFlextimeDay.getDate()));
 	}
 
 	@Override
 	public void delete(FlextimeDay flextimeDay) {
-		// TODO
+		getWritableDatabase().delete(FlextimeTable.TABLE_NAME, null,
+				FlextimeTable.whereDate(flextimeDay.getDate()));
 	}
 
 }
