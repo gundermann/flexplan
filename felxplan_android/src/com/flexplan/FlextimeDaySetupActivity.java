@@ -130,10 +130,4 @@ public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
 		
 	}
 
-	@Override
-	public void addBreak(long startTime, long endTime) {
-		WorkBreak workbreak = Factory.getInstance().createWorkBreak(startTime, endTime);
-		currentFlextimeDay.addBreak(workbreak);
-	}
-
 }

@@ -12,7 +12,7 @@ import com.flexplan.common.business.WorkBreak;
 import com.flexplan.common.util.DateHelper;
 import com.flexplan.util.AbstractActivityWithExtraInput;
 
-public class BreakViewActivity extends AbstractActivityWithExtraInput implements FlextimeDaySetup {
+public class BreakViewActivity extends AbstractActivityWithExtraInput implements BreakSetup {
 
 	private FlextimeDay currentFlextimeDay;
 	private ListView breakListView;
@@ -63,27 +63,9 @@ public class BreakViewActivity extends AbstractActivityWithExtraInput implements
 	}
 
 	@Override
-	public FlextimeDay getFlextimeDay() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void saveFlextimeDay() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void updateTime(long startTime, long endTime) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void addBreak(long startTime, long endTime) {
-		// TODO Auto-generated method stub
-		
+		WorkBreak workbreak = Factory.getInstance().createWorkBreak(startTime, endTime);
+		currentFlextimeDay.addBreak(workbreak);
 	}
 	
 	

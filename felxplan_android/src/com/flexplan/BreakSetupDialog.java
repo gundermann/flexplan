@@ -13,11 +13,11 @@ public class BreakSetupDialog extends DialogFragment implements TimeSetup {
 
 	private TimePicker timeFrom;
 	private TimePicker timeTo;
-	private FlextimeDaySetup flextimeDaySetup;
+	private BreakSetup breakSetup;
 
-	public static BreakSetupDialog newInstance(FlextimeDaySetup flextimeDaySetup) {
+	public static BreakSetupDialog newInstance(BreakSetup breakSetup) {
 		BreakSetupDialog dialog = new BreakSetupDialog();
-		dialog.flextimeDaySetup = flextimeDaySetup;
+		dialog.breakSetup = breakSetup;
 		return dialog;
 	}
 
@@ -46,7 +46,7 @@ public class BreakSetupDialog extends DialogFragment implements TimeSetup {
 				getActivity());
 		dialogBuilder.setView(view);
 		dialogBuilder.setPositiveButton(android.R.string.ok,
-				new SaveBreakListener(this, flextimeDaySetup));
+				new SaveBreakListener(this, breakSetup));
 		dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 		return dialogBuilder.create();
 	}
