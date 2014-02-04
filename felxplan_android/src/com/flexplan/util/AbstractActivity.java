@@ -5,17 +5,19 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 
-public abstract class AbstractActivity extends FragmentActivity{
-	
+public abstract class AbstractActivity extends FragmentActivity {
+
+	protected static String TAG;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		TAG = this.getClass().getSimpleName();
 		setup();
-		
+
 		initElements();
-		
+
 	}
-	
 
 	protected void setup() {
 		setContentView();
@@ -32,7 +34,7 @@ public abstract class AbstractActivity extends FragmentActivity{
 	abstract protected void initElements();
 
 	protected abstract void setContentView();
-	
+
 	protected void startNextActivity(Intent intent) {
 		startActivity(intent);
 	}
