@@ -15,7 +15,7 @@ import com.flexplan.util.AbstractActivityExtraProvider;
 import com.flexplan.util.DateChangedListener;
 
 public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
-		implements FlextimeDaySetup, DateFieldProvider {
+		implements FlextimeDaySetup, DateFieldProvider, SaveDiscardProvider {
 
 	private static final String TAG = null;
 	private FlextimeDay currentFlextimeDay;
@@ -39,6 +39,7 @@ public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
 		} else {
 			currentFlextimeDay.setDate(getDate());
 		}
+		save();
 	}
 
 	private long getDate() {
@@ -83,8 +84,7 @@ public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
 					getSupportFragmentManager(), TAG);
 			break;
 		case R.id.save: {
-			((FlexplanApplication) getApplication()).getDbHelper()
-					.insertFlextimeDay(getFlextimeDay());
+			save();
 			break;
 		}
 		case R.id.show_breaks: {
@@ -128,6 +128,18 @@ public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
 		currentFlextimeDay.setEndTime(endTime);
 		updateTimeFields();
 		
+	}
+
+	@Override
+	public void save() {
+		((FlexplanApplication) getApplication()).getDbHelper()
+		.insertOrUpdateFlextimeDay(getFlextimeDay());
+		super.onBackPressed();
+	}
+
+	@Override
+	public void discard() {
+		((FlexplanApplication) getApplication()).getDbHelper().delete(getFlextimeDay());
 	}
 
 }

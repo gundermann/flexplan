@@ -11,6 +11,7 @@ import android.util.Log;
 import com.flexplan.common.Factory;
 import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.common.business.WorkBreak;
+import com.flexplan.common.util.DateHelper;
 
 public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 
@@ -40,8 +41,8 @@ public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 	}
 
 	@Override
-	public void insertFlextimeDay(FlextimeDay flextimeDay) {
-		getWritableDatabase().insert(FlextimeTable.TABLE_NAME, null,
+	public void insertOrUpdateFlextimeDay(FlextimeDay flextimeDay) {
+		getWritableDatabase().insertOrThrow(FlextimeTable.TABLE_NAME, null,
 				FlextimeTable.getContentValues(flextimeDay));
 	}
 
@@ -77,7 +78,8 @@ public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 		while (breakCursor.moveToNext()) {
 			long timeFrom = breakCursor.getLong(0);
 			long timeTo = breakCursor.getLong(1);
-			workBreaks.add(Factory.getInstance().createWorkBreak(timeFrom, timeTo));
+			workBreaks.add(Factory.getInstance().createWorkBreak(timeFrom,
+					timeTo));
 		}
 
 		breakCursor.close();
@@ -107,17 +109,40 @@ public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 	}
 
 	public List<FlextimeDay> getCurrentWeekDays(int weekOfYear, int year) {
-		//TODO read from DB
 		List<FlextimeDay> week = new ArrayList<FlextimeDay>();
-		for(int day = 1; day < 8; day++){
-			week.add(Factory.getInstance().createFreeDayOfWeek(day, weekOfYear, year));
+		for (int i = 1; i <= 7; i++) {
+			long date = DateHelper.convertToLongByWeekOfYear(i, weekOfYear,
+					year);
+			Cursor c = getReadableDatabase().query(FlextimeTable.TABLE_NAME,
+					FlextimeTable.selectAll(), null,
+					FlextimeTable.whereDate(date), null, null, null);
+			FlextimeDay day = createFlextimeday(c);
+			c.close();
+			if(day == null)
+				day = Factory.getInstance().createFreeDayOfWeek(i, weekOfYear,
+						year);
+			week.add(day);
 		}
 		return week;
 	}
 
+	private FlextimeDay createFlextimeday(Cursor c) {
+		if (c.moveToFirst()) {
+			return Factory.getInstance().createFlextimeDay(c.getLong(0),
+					c.getLong(1), c.getLong(2),
+					getWorkBreaksForFlextimeDay(c.getLong(0)));
+		}
+		return null;
+	}
+
 	@Override
 	public void insertWorkBreaks(FlextimeDay currentFlextimeDay) {
-		// TODO Auto-generated method stub
-		
+		// TODO
 	}
+
+	@Override
+	public void delete(FlextimeDay flextimeDay) {
+		// TODO
+	}
+
 }

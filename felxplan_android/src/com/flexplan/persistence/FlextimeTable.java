@@ -15,9 +15,8 @@ public class FlextimeTable {
 		StringBuilder sb = new StringBuilder();
 
 		sb.append("create table ").append(TABLE_NAME).append(" (").append(DATE)
-				.append(" numeric primary key, ").append(DATE)
-				.append(" numeric, ").append(TIME_FROM).append(" numeric, ")
-				.append(TIME_TO).append(" numeric);");
+				.append(" numeric primary key, ").append(TIME_FROM)
+				.append(" numeric, ").append(TIME_TO).append(" numeric);");
 		return sb.toString();
 	}
 
@@ -49,8 +48,13 @@ public class FlextimeTable {
 	public static String getTimeFrom() {
 		return TABLE_NAME + "." + TIME_FROM;
 	}
-	
+
 	public static String getTimeTo() {
 		return TABLE_NAME + "." + TIME_TO;
+	}
+
+	public static String[] whereDate(long date) {
+		String[] where = {DATE+"="+String.valueOf(date)};
+		return where;
 	}
 }

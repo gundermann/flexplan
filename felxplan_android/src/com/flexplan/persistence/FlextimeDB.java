@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface FlextimeDB {
 
-	void insertFlextimeDay(FlextimeDay flextimeDay);
+	void insertOrUpdateFlextimeDay(FlextimeDay flextimeDay);
 	
 	List<FlextimeDay> getAllFlextimeDays();
 
@@ -16,4 +16,6 @@ public interface FlextimeDB {
 	void insertWorkBreak(WorkBreak currentBreak, long currentDate);
 
 	void insertWorkBreaks(FlextimeDay currentFlextimeDay);
+
+	void delete(FlextimeDay flextimeDay);
 }

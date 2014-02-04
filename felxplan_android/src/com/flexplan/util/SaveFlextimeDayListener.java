@@ -19,7 +19,7 @@ public class SaveFlextimeDayListener implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		dbHelper.insertFlextimeDay(flextimeDaySetup.getFlextimeDay());
+		dbHelper.insertOrUpdateFlextimeDay(flextimeDaySetup.getFlextimeDay());
 	}
 
 }
