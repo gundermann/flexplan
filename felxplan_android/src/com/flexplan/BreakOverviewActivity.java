@@ -11,6 +11,7 @@ import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.common.business.WorkBreak;
 import com.flexplan.common.util.DateHelper;
 import com.flexplan.util.AbstractActivityWithExtraInput;
+import com.flexplan.util.DiscardDialog;
 
 public class BreakOverviewActivity extends AbstractActivityWithExtraInput
 		implements BreakSetup {
@@ -33,6 +34,12 @@ public class BreakOverviewActivity extends AbstractActivityWithExtraInput
 	protected void setContentView() {
 		setContentView(R.layout.activity_break_view);
 	}
+	
+	@Override
+	public void onBackPressed() {
+		DiscardDialog.newInstance(this).show(getSupportFragmentManager(), TAG);
+		super.onBackPressed();
+	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -43,6 +50,7 @@ public class BreakOverviewActivity extends AbstractActivityWithExtraInput
 			break;
 		case R.id.save:
 			saveBreaks();
+			super.onBackPressed();
 			break;
 		case R.id.discard:
 			super.onBackPressed();

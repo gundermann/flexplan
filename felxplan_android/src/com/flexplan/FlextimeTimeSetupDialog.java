@@ -2,14 +2,13 @@ package com.flexplan;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.widget.TimePicker;
 
+import com.flexplan.util.AbstractDialog;
 import com.flexplan.util.SetTimeOnFlextimeDayListener;
 
-public class FlextimeTimeSetupDialog extends DialogFragment implements TimeSetup {
+public class FlextimeTimeSetupDialog extends AbstractDialog implements TimeSetup {
 
 	TimePicker timeFrom;
 	TimePicker timeTo;
@@ -21,22 +20,15 @@ public class FlextimeTimeSetupDialog extends DialogFragment implements TimeSetup
 		dialog.flextimeDaySetup = flextimeDaySetup;
 		return dialog;
 	}
-	
-	@Override
-	public Dialog onCreateDialog(Bundle savedInstanceState) {
-		View view = getCurrentView();
-		instantiaveViews(view);
-		return buildDialog(view);
-	}
 
-	private void instantiaveViews(View view) {
+	protected void instantiateViews(View view) {
 		timeFrom = (TimePicker) view.findViewById(R.id.timeFrom);
 		timeTo = (TimePicker) view.findViewById(R.id.timeTo);
 		timeFrom.setIs24HourView(true);
 		timeTo.setIs24HourView(true);
 	}
 
-	private Dialog buildDialog(View view) {
+	protected Dialog buildDialog(View view) {
 		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(
 				getActivity());
 		dialogBuilder.setView(view);
@@ -45,7 +37,7 @@ public class FlextimeTimeSetupDialog extends DialogFragment implements TimeSetup
 		return dialogBuilder.create();
 	}
 
-	private View getCurrentView() {
+	protected View getCurrentView() {
 		View view = getActivity().getLayoutInflater().inflate(
 				R.layout.timerange_picker, null);
 		return view;
