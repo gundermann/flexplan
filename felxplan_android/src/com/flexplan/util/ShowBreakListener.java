@@ -1,6 +1,6 @@
 package com.flexplan.util;
 
-import com.flexplan.BreakViewActivity;
+import com.flexplan.BreakOverviewActivity;
 import com.flexplan.FlextimeDaySetup;
 
 import android.content.Context;
@@ -23,7 +23,7 @@ public class ShowBreakListener implements OnClickListener {
 	@Override
 	public void onClick(View view) {
 		flextimeDaySetup.saveFlextimeDay();
-		context.startActivity(new Intent(context, BreakViewActivity.class));
+		context.startActivity(new Intent(context, BreakOverviewActivity.class));
 	}
 
 }

@@ -14,4 +14,6 @@ public interface FlextimeDB {
 	List<FlextimeDay> getCurrentWeekDays(int weekOfYear, int year);
 
 	void insertWorkBreak(WorkBreak currentBreak, long currentDate);
+
+	void insertWorkBreaks(FlextimeDay currentFlextimeDay);
 }

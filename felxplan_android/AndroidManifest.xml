@@ -23,7 +23,7 @@
             android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
-            android:name="com.flexplan.BreakViewActivity"
+            android:name="com.flexplan.BreakOverviewActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_break_view"
             android:screenOrientation="portrait"

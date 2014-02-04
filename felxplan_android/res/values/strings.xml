@@ -16,6 +16,7 @@
     <string name="title_activity_break_setup">Pause hinzufügen</string>
     <string name="title_activity_flextime_overview">Übersicht</string>
     <string name="abort">Abbrechen</string>
+    <string name="discard">Verwerfen</string>
     <string name="title_flextime_day_setup">Datum festlegen</string>
 
 </resources>

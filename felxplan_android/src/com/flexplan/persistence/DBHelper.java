@@ -114,4 +114,10 @@ public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 		}
 		return week;
 	}
+
+	@Override
+	public void insertWorkBreaks(FlextimeDay currentFlextimeDay) {
+		// TODO Auto-generated method stub
+		
+	}
 }

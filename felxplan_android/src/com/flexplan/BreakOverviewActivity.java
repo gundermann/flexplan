@@ -12,7 +12,8 @@ import com.flexplan.common.business.WorkBreak;
 import com.flexplan.common.util.DateHelper;
 import com.flexplan.util.AbstractActivityWithExtraInput;
 
-public class BreakViewActivity extends AbstractActivityWithExtraInput implements BreakSetup {
+public class BreakOverviewActivity extends AbstractActivityWithExtraInput
+		implements BreakSetup {
 
 	private FlextimeDay currentFlextimeDay;
 	private ListView breakListView;
@@ -25,31 +26,43 @@ public class BreakViewActivity extends AbstractActivityWithExtraInput implements
 
 	private void updateList() {
 		breakListView.setAdapter(new BreakListAdapter(getApplicationContext(),
-				currentFlextimeDay.getWorkBreaks()));		
+				currentFlextimeDay.getWorkBreaks()));
 	}
 
 	@Override
 	protected void setContentView() {
 		setContentView(R.layout.activity_break_view);
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.add_break:
-			BreakSetupDialog.newInstance(this).show(getSupportFragmentManager(), TAG);
+			BreakSetupDialog.newInstance(this).show(
+					getSupportFragmentManager(), TAG);
 			break;
-
+		case R.id.save:
+			saveBreaks();
+			break;
+		case R.id.discard:
+			super.onBackPressed();
+			break;
 		default:
 			break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
 
+	private void saveBreaks() {
+		((FlexplanApplication) getApplication()).getDbHelper()
+				.insertWorkBreaks(currentFlextimeDay);
+	}
+
 	@Override
 	protected void initElements() {
 		breakListView = (ListView) findViewById(R.id.breakList);
-		this.setTitle(getTitle() + " - "+ DateHelper.getDateAsString(currentFlextimeDay.getDate()));
+		this.setTitle(getTitle() + " - "
+				+ DateHelper.getDateAsString(currentFlextimeDay.getDate()));
 	}
 
 	@Override
@@ -68,11 +81,9 @@ public class BreakViewActivity extends AbstractActivityWithExtraInput implements
 
 	@Override
 	public void addBreak(long startTime, long endTime) {
-		WorkBreak workbreak = Factory.getInstance().createWorkBreak(startTime, endTime);
+		WorkBreak workbreak = Factory.getInstance().createWorkBreak(startTime,
+				endTime);
 		currentFlextimeDay.addBreak(workbreak);
 		updateList();
 	}
-	
-	
-
 }

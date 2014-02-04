@@ -88,7 +88,7 @@ public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
 			break;
 		}
 		case R.id.show_breaks: {
-			startNextActivitWithExtras(BreakViewActivity.class);
+			startNextActivitWithExtras(BreakOverviewActivity.class);
 			break;
 		}
 		case R.id.abort: {
