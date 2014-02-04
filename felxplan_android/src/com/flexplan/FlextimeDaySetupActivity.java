@@ -7,7 +7,7 @@ import android.view.MenuItem;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
-import com.flexplan.common.FlextimeDayFactory;
+import com.flexplan.common.Factory;
 import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.common.business.WorkBreak;
 import com.flexplan.common.util.DateHelper;
@@ -33,7 +33,7 @@ public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
 	public void saveFlextimeDay() {
 		if (currentFlextimeDay == null
 				|| currentFlextimeDay.getDate() != getDate()) {
-			currentFlextimeDay = FlextimeDayFactory.createFlextimeDay(
+			currentFlextimeDay = Factory.getInstance().createFlextimeDay(
 					getDate(), DateHelper.DAY_START, DateHelper.DAY_END,
 					new ArrayList<WorkBreak>());
 		} else {
@@ -87,6 +87,10 @@ public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
 					.insertFlextimeDay(getFlextimeDay());
 			break;
 		}
+		case R.id.show_breaks: {
+			startNextActivitWithExtras(BreakViewActivity.class);
+			break;
+		}
 		case R.id.abort: {
 			onBackPressed();
 			break;
@@ -124,6 +128,12 @@ public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
 		currentFlextimeDay.setEndTime(endTime);
 		updateTimeFields();
 		
+	}
+
+	@Override
+	public void addBreak(long startTime, long endTime) {
+		WorkBreak workbreak = Factory.getInstance().createWorkBreak(startTime, endTime);
+		currentFlextimeDay.addBreak(workbreak);
 	}
 
 }

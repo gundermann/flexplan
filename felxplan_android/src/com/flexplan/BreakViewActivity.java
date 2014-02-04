@@ -1,14 +1,11 @@
 package com.flexplan;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.flexplan.common.FlextimeDayFactory;
 import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.common.business.WorkBreak;
 import com.flexplan.common.util.DateHelper;
@@ -37,7 +34,7 @@ public class BreakViewActivity extends AbstractActivityWithExtraInput implements
 	protected void initElements() {
 		addBreakBt = (Button) findViewById(R.id.add_break_button);
 		addBreakBt.setOnClickListener(new NextActivityClickListenerWithExtraInput(this,
-				BreakSetupActivity.class));
+				BreakSetupDialog.class));
 		breakListView = (ListView) findViewById(R.id.breakList);
 		breakListView.setAdapter(new BreakListAdapter(getApplicationContext(),
 				currentFlextimeDay.getWorkBreaks()));

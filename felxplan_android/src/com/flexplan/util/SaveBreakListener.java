@@ -1,28 +1,27 @@
 package com.flexplan.util;
 
-import android.view.View;
-import android.view.View.OnClickListener;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 
-import com.flexplan.common.business.WorkBreak;
-import com.flexplan.persistence.FlextimeDB;
+import com.flexplan.FlextimeDaySetup;
+import com.flexplan.TimeSetup;
 
 public class SaveBreakListener implements OnClickListener {
 
-	private WorkBreak currentBreak;
-	private FlextimeDB dbHelper;
-	private long currentDate;
+	private TimeSetup breakSetup;
+	private FlextimeDaySetup flextimeDaySetup;
 
-	public SaveBreakListener(FlextimeDB dbHelper,
-			WorkBreak currentBreak, long currentDate) {
-				this.dbHelper = dbHelper;
-				this.currentBreak = currentBreak;
-				this.currentDate = currentDate;
-		
+	public SaveBreakListener(TimeSetup breakSetupDialog,
+			FlextimeDaySetup flextimeDaySetup) {
+		this.breakSetup = breakSetupDialog;
+		this.flextimeDaySetup = flextimeDaySetup;
 	}
 
 	@Override
-	public void onClick(View view) {
-		dbHelper.insertWorkBreak(currentBreak, currentDate);
+	public void onClick(DialogInterface dialog, int arg1) {
+		flextimeDaySetup.addBreak(breakSetup.getCurrentStartTime(),
+				breakSetup.getCurrentEndTime());
+		
 	}
 
 }

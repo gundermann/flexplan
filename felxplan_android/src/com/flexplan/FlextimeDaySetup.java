@@ -9,5 +9,7 @@ public interface FlextimeDaySetup {
 	void saveFlextimeDay();
 
 	void updateTime(long startTime, long endTime);
+
+	void addBreak(long startTime, long endTime);
 	
 }

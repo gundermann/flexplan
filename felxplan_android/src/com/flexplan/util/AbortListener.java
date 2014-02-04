@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+//TODO maybe not needed anymore
 public class AbortListener implements OnClickListener {
 
 	private Activity activity;

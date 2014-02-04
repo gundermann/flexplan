@@ -31,7 +31,7 @@
             android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
-            android:name="com.flexplan.BreakSetupActivity"
+            android:name="com.flexplan.BreakSetupDialog"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_break_setup"
             android:screenOrientation="portrait"

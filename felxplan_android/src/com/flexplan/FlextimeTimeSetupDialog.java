@@ -15,7 +15,7 @@ public class FlextimeTimeSetupDialog extends DialogFragment implements TimeSetup
 	TimePicker timeTo;
 	private FlextimeDaySetup flextimeDaySetup;
 
-	public static DialogFragment newInstance(
+	public static FlextimeTimeSetupDialog newInstance(
 			FlextimeDaySetup flextimeDaySetup) {
 		FlextimeTimeSetupDialog dialog = new FlextimeTimeSetupDialog();
 		dialog.flextimeDaySetup = flextimeDaySetup;
