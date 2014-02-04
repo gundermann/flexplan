@@ -7,12 +7,21 @@ import java.util.TreeSet;
 
 import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.common.business.WorkBreak;
+import com.flexplan.common.util.Column;
+import com.flexplan.common.util.Table;
 
+@Table(Name = "flextime")
 public class FlextimeDayImpl implements FlextimeDay{
 
+	@Column(Type="numeric", ID=true)
 	private long date;
+	
+	@Column(Type="numeric")
 	private long startTime;
+	
+	@Column(Type="numeric")
 	private long endTime;
+	
 	private TreeSet<WorkBreak> breaks;
 
 	public FlextimeDayImpl(long date, long startTime, long endTime){
