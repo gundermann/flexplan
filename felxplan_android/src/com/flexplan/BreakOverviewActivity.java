@@ -11,10 +11,10 @@ import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.common.business.WorkBreak;
 import com.flexplan.common.util.DateHelper;
 import com.flexplan.util.AbstractActivityWithExtraInput;
-import com.flexplan.util.DiscardDialog;
+import com.flexplan.util.SaveOrDiscardDialog;
 
 public class BreakOverviewActivity extends AbstractActivityWithExtraInput
-		implements BreakSetup {
+		implements BreakSetup, SaveDiscardProvider {
 
 	private FlextimeDay currentFlextimeDay;
 	private ListView breakListView;
@@ -37,7 +37,7 @@ public class BreakOverviewActivity extends AbstractActivityWithExtraInput
 	
 	@Override
 	public void onBackPressed() {
-		DiscardDialog.newInstance(this).show(getSupportFragmentManager(), TAG);
+		SaveOrDiscardDialog.newInstance(this).show(getSupportFragmentManager(), TAG);
 		super.onBackPressed();
 	}
 
@@ -49,11 +49,10 @@ public class BreakOverviewActivity extends AbstractActivityWithExtraInput
 					getSupportFragmentManager(), TAG);
 			break;
 		case R.id.save:
-			saveBreaks();
-			super.onBackPressed();
+			save();
 			break;
 		case R.id.discard:
-			super.onBackPressed();
+			discard();
 			break;
 		default:
 			break;
@@ -61,10 +60,6 @@ public class BreakOverviewActivity extends AbstractActivityWithExtraInput
 		return super.onOptionsItemSelected(item);
 	}
 
-	private void saveBreaks() {
-		((FlexplanApplication) getApplication()).getDbHelper()
-				.insertWorkBreaks(currentFlextimeDay);
-	}
 
 	@Override
 	protected void initElements() {
@@ -93,5 +88,17 @@ public class BreakOverviewActivity extends AbstractActivityWithExtraInput
 				endTime);
 		currentFlextimeDay.addBreak(workbreak);
 		updateList();
+	}
+
+	@Override
+	public void save() {
+		((FlexplanApplication) getApplication()).getDbHelper()
+		.insertWorkBreaks(currentFlextimeDay);
+		super.onBackPressed();
+	}
+
+	@Override
+	public void discard() {
+		super.onBackPressed();
 	}
 }
