@@ -36,7 +36,7 @@ public class WorkBreakImpl implements WorkBreak {
 	public int compareTo(WorkBreak workBreak) {
 		if (this.startTime < workBreak.getStartTime()) {
 			return -1;
-		} else if (this.startTime < workBreak.getStartTime()) {
+		} else if (this.startTime > workBreak.getStartTime()) {
 			return 1;
 		} else {
 			return 0;
