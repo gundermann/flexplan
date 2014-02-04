@@ -1,6 +1,8 @@
 package com.flexplan.common.business.impl;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.TreeSet;
 
 import com.flexplan.common.business.FlextimeDay;
@@ -66,8 +68,10 @@ public class FlextimeDayImpl implements FlextimeDay{
 	}
 
 	@Override
-	public TreeSet<WorkBreak> getWorkBreaks() {
-		return breaks;
+	public List<WorkBreak> getWorkBreaks() {
+		List<WorkBreak> breakList = new ArrayList<WorkBreak>();
+		breakList.addAll(breaks);
+		return breakList;
 	}
 
 	@Override
