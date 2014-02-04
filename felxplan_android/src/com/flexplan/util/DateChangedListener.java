@@ -1,11 +1,9 @@
 package com.flexplan.util;
 
-import com.flexplan.DateFieldProvider;
-
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.CalendarView;
 import android.widget.CalendarView.OnDateChangeListener;
+
+import com.flexplan.DateFieldProvider;
 
 public class DateChangedListener implements OnDateChangeListener {
 
