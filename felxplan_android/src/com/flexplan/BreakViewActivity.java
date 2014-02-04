@@ -20,6 +20,12 @@ public class BreakViewActivity extends AbstractActivityWithExtraInput implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		updateList();
+	}
+
+	private void updateList() {
+		breakListView.setAdapter(new BreakListAdapter(getApplicationContext(),
+				currentFlextimeDay.getWorkBreaks()));		
 	}
 
 	@Override
@@ -43,8 +49,6 @@ public class BreakViewActivity extends AbstractActivityWithExtraInput implements
 	@Override
 	protected void initElements() {
 		breakListView = (ListView) findViewById(R.id.breakList);
-		breakListView.setAdapter(new BreakListAdapter(getApplicationContext(),
-				currentFlextimeDay.getWorkBreaks()));
 		this.setTitle(getTitle() + " - "+ DateHelper.getDateAsString(currentFlextimeDay.getDate()));
 	}
 
@@ -66,6 +70,7 @@ public class BreakViewActivity extends AbstractActivityWithExtraInput implements
 	public void addBreak(long startTime, long endTime) {
 		WorkBreak workbreak = Factory.getInstance().createWorkBreak(startTime, endTime);
 		currentFlextimeDay.addBreak(workbreak);
+		updateList();
 	}
 	
 	

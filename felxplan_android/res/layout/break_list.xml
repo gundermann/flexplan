@@ -7,22 +7,29 @@
     <TextView 
         android:id="@+id/break_time_from"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:gravity="left"/>
     
     <TextView 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/timeDivider"/>
+        android:text="@string/timeDivider"
+        android:layout_gravity="left"
+        android:gravity="left"/>
     
     <TextView 
         android:id="@+id/break_time_to"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:gravity="left"/>
     
     <TextView 
         android:id="@+id/break_time_sum"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"/>
+        android:layout_gravity="right"
+        android:gravity="right"/>
 
 </LinearLayout>

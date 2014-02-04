@@ -4,5 +4,15 @@
         android:icon="@android:drawable/ic_menu_add"
         android:showAsAction="ifRoom"
         android:title="@string/add_break"/>
+    
+    <item android:id="@+id/save"
+        android:icon="@android:drawable/ic_menu_save"
+        android:showAsAction="ifRoom"
+        android:title="@string/save"/>
+    
+     <item android:id="@+id/discard"
+        android:icon="@android:drawable/ic_menu_delete"
+        android:showAsAction="ifRoom"
+        android:title="@string/discard"/>
 
 </menu>
