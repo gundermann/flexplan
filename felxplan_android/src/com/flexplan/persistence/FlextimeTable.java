@@ -6,7 +6,7 @@ import com.flexplan.common.business.FlextimeDay;
 
 public class FlextimeTable {
 
-	public static final String TABLE_NAME = "felxtime_table";
+	public static final String TABLE_NAME = "felxtime";
 	public static final String DATE = "date";
 	public static final String TIME_FROM = "time_from";
 	public static final String TIME_TO = "time_to";

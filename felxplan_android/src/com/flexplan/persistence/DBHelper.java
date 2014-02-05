@@ -15,7 +15,7 @@ import com.flexplan.common.util.DateHelper;
 
 public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 
-	private static final int VERSION = 2;
+	private static final int VERSION = 1;
 
 	private static final String NAME = "flextime.db";
 
@@ -87,13 +87,13 @@ public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 		return workBreaks;
 	}
 
-	@Override
-	public SQLiteDatabase getReadableDatabase() {
-		if (super.getReadableDatabase().isOpen()) {
-			super.getReadableDatabase().close();
-		}
-		return super.getReadableDatabase();
-	}
+//	@Override
+//	public SQLiteDatabase getReadableDatabase() {
+//		if (super.getReadableDatabase().isOpen()) {
+//			super.getReadableDatabase().close();
+//		}
+//		return super.getReadableDatabase();
+//	}
 
 	@Override
 	public SQLiteDatabase getWritableDatabase() {
