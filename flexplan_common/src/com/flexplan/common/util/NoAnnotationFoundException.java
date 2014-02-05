@@ -1,4 +1,4 @@
-package com.flexplan.util;
+package com.flexplan.common.util;
 
 public class NoAnnotationFoundException extends Exception {
 

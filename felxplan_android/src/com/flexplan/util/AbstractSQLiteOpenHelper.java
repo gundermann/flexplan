@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 import com.flexplan.common.util.Column;
+import com.flexplan.common.util.NoAnnotationFoundException;
 import com.flexplan.common.util.Table;
 
 import android.content.Context;
