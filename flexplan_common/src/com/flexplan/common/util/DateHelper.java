@@ -22,6 +22,7 @@ public class DateHelper {
 		cal.set(GregorianCalendar.YEAR, year);
 		cal.set(GregorianCalendar.WEEK_OF_YEAR, weekOfYear);
 		cal.set(GregorianCalendar.DAY_OF_WEEK, dayOfWeek);
+		System.out.println(cal.get(GregorianCalendar.DAY_OF_MONTH));
 		return cal.getTimeInMillis();
 	}
 	
@@ -84,6 +85,16 @@ public class DateHelper {
 			break;
 		}
 		return "nothing";
+	}
+
+	public static Date getDateByWeekOfYear(int dayOfWeek, int weekOfYear,
+			int year) {
+		GregorianCalendar cal = new GregorianCalendar();
+		cal.set(GregorianCalendar.YEAR, year);
+		cal.set(GregorianCalendar.WEEK_OF_YEAR, weekOfYear);
+		cal.set(GregorianCalendar.DAY_OF_WEEK, dayOfWeek);
+		Date date = new Date(cal.get(GregorianCalendar.DATE));
+		return date;
 	}
 
 }

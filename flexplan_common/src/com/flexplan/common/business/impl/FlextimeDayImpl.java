@@ -1,6 +1,7 @@
 package com.flexplan.common.business.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.TreeSet;
@@ -13,8 +14,8 @@ import com.flexplan.common.util.Table;
 @Table(Name = "flextime")
 public class FlextimeDayImpl implements FlextimeDay{
 
-	@Column(Type="numeric", ID=true)
-	private long date;
+	@Column(ID=true)
+	private Date date;
 	
 	@Column(Type="numeric")
 	private long startTime;
@@ -24,7 +25,7 @@ public class FlextimeDayImpl implements FlextimeDay{
 	
 	private TreeSet<WorkBreak> breaks;
 
-	public FlextimeDayImpl(long date, long startTime, long endTime){
+	public FlextimeDayImpl(Date date, long startTime, long endTime){
 		this.date = date;
 		this.startTime = startTime;
 		this.endTime = endTime;
@@ -32,7 +33,7 @@ public class FlextimeDayImpl implements FlextimeDay{
 	}
 	
 	@Override
-	public long getDate() {
+	public Date getDate() {
 		return date;
 	}
 
@@ -84,7 +85,7 @@ public class FlextimeDayImpl implements FlextimeDay{
 	}
 
 	@Override
-	public void setDate(long date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 	

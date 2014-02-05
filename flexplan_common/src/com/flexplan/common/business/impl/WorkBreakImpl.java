@@ -10,6 +10,7 @@ public class WorkBreakImpl implements WorkBreak {
 	@Column(Type="numeric", ID=true)
 	private long startTime;
 	
+	@Column(Type="numeric")
 	private long endTime;
 
 	public WorkBreakImpl(long startTime, long endTime) {

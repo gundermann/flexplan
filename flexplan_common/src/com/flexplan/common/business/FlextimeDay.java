@@ -1,11 +1,12 @@
 package com.flexplan.common.business;
 
+import java.util.Date;
 import java.util.List;
 
 
 public interface FlextimeDay {
 
-	long getDate();
+	Date getDate();
 
 	long getStartTime();
 
@@ -23,5 +24,5 @@ public interface FlextimeDay {
 
 	List<WorkBreak> getWorkBreaks();
 
-	void setDate(long date);
+	void setDate(Date date);
 }
