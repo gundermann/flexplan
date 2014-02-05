@@ -15,7 +15,7 @@ import com.flexplan.common.util.DateHelper;
 
 public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 
-	private static final int VERSION = 1;
+	private static final int VERSION = 2;
 
 	private static final String NAME = "flextime.db";
 
