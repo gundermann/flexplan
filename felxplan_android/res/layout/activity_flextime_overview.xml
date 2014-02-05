@@ -3,10 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    android:layout_marginTop="?android:attr/actionBarSize"
     android:fitsSystemWindows="true"
+    android:layout_marginTop="?android:attr/actionBarSize"
     tools:context=".FlextimeOverviewActivity" >
-
+<LinearLayout 
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -40,5 +44,6 @@
         android:id="@+id/flextime_overview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+</LinearLayout>
 
 </FrameLayout>

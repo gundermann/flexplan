@@ -65,6 +65,9 @@ public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 					timeFrom, timeTo, getWorkBreaksForFlextimeDay(date)));
 		}
 		flextimeCursor.close();
+		if(flextimeDays.isEmpty()){
+			flextimeDays.add(null);
+		}
 		return flextimeDays;
 	}
 
@@ -73,8 +76,8 @@ public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 
 		SQLiteDatabase db = super.getReadableDatabase();
 		Cursor breakCursor = db.query(BreakTimeTable.TABLE_NAME,
-				BreakTimeTable.selectTime(), null,
-				BreakTimeTable.getWhereDate(date), null, null, null, null);
+				BreakTimeTable.selectTime(), getWhere(BreakTimeTable.DATE, date),
+				null, null, null, null, null);
 		while (breakCursor.moveToNext()) {
 			long timeFrom = breakCursor.getLong(0);
 			long timeTo = breakCursor.getLong(1);
@@ -87,13 +90,13 @@ public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 		return workBreaks;
 	}
 
-//	@Override
-//	public SQLiteDatabase getReadableDatabase() {
-//		if (super.getReadableDatabase().isOpen()) {
-//			super.getReadableDatabase().close();
-//		}
-//		return super.getReadableDatabase();
-//	}
+	@Override
+	public SQLiteDatabase getReadableDatabase() {
+		if (super.getReadableDatabase().isOpen()) {
+			super.getReadableDatabase().close();
+		}
+		return super.getReadableDatabase();
+	}
 
 	@Override
 	public SQLiteDatabase getWritableDatabase() {
@@ -109,8 +112,7 @@ public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 			long date = DateHelper.convertToLongByWeekOfYear(i, weekOfYear,
 					year);
 			Cursor c = getReadableDatabase().query(FlextimeTable.TABLE_NAME,
-					FlextimeTable.selectAll(), null,
-					FlextimeTable.whereDate(date), null, null, null);
+					FlextimeTable.selectAll(), getWhere(FlextimeTable.DATE, date),null, null, null, null);
 			FlextimeDay day = loadFlextimeDays(c).get(0);
 			c.close();
 			if (day == null)
@@ -120,6 +122,26 @@ public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 		}
 		return week;
 	}
+	
+	protected String getWhere(String column, Object value) {
+		String[] columns = new String[] { column };
+		String[] values = new String[] { value.toString() };
+		return getWhere(columns, values);
+	}
+
+	protected String getWhere(String[] columns, Object[] value) {
+		StringBuilder sb = new StringBuilder();
+		int size = columns.length;
+		for (int index = 0; index < size; index++) {
+			sb.append(columns[index]).append("='").append(value[index])
+					.append("'");
+			if (index + 1 < size) {
+				sb.append(" AND ");
+			}
+		}
+		return sb.toString();
+	}
+
 
 	@Override
 	public void insertWorkBreaks(FlextimeDay currentFlextimeDay) {

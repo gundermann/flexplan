@@ -13,6 +13,7 @@ import com.flexplan.common.business.WorkBreak;
 import com.flexplan.common.util.DateHelper;
 import com.flexplan.util.AbstractActivityExtraProvider;
 import com.flexplan.util.DateChangedListener;
+import com.flexplan.util.SaveOrDiscardDialog;
 
 public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
 		implements FlextimeDaySetup, DateFieldProvider, SaveDiscardProvider {
@@ -26,20 +27,21 @@ public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		saveFlextimeDay();
+		setupFlextimeDay();
 	}
 
-	@Override
-	public void saveFlextimeDay() {
+	private void setupFlextimeDay() {
 		if (currentFlextimeDay == null
 				|| currentFlextimeDay.getDate() != getDate()) {
 			currentFlextimeDay = Factory.getInstance().createFlextimeDay(
 					getDate(), DateHelper.DAY_START, DateHelper.DAY_END,
 					new ArrayList<WorkBreak>());
-		} else {
-			currentFlextimeDay.setDate(getDate());
 		}
-		save();
+	}
+
+	@Override
+	public void saveFlextimeDay() {
+		currentFlextimeDay.setDate(getDate());
 	}
 
 	private long getDate() {
@@ -52,7 +54,6 @@ public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
 	}
 
 	public FlextimeDay getFlextimeDay() {
-		saveFlextimeDay();
 		return currentFlextimeDay;
 	}
 
@@ -110,15 +111,17 @@ public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
 
 	@Override
 	public void onBackPressed() {
-		// TODO dialog
-		super.onBackPressed();
+		SaveOrDiscardDialog.newInstance(this).show(getSupportFragmentManager(),
+				TAG);
 	}
 
 	@Override
 	public void updateTimeFields() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(DateHelper.getTimeAsString(currentFlextimeDay.getStartTime())).append(" - ")
-				.append(DateHelper.getTimeAsString(currentFlextimeDay.getEndTime()));
+		sb.append(DateHelper.getTimeAsString(currentFlextimeDay.getStartTime()))
+				.append(" - ")
+				.append(DateHelper.getTimeAsString(currentFlextimeDay
+						.getEndTime()));
 		timeRangeTV.setText(sb.toString());
 	}
 
@@ -127,19 +130,21 @@ public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
 		currentFlextimeDay.setStartTime(startTime);
 		currentFlextimeDay.setEndTime(endTime);
 		updateTimeFields();
-		
+
 	}
 
 	@Override
 	public void save() {
+		saveFlextimeDay();
 		((FlexplanApplication) getApplication()).getDbHelper()
-		.insertOrUpdateFlextimeDay(getFlextimeDay());
+				.insertOrUpdateFlextimeDay(currentFlextimeDay);
 		super.onBackPressed();
 	}
 
 	@Override
 	public void discard() {
-		((FlexplanApplication) getApplication()).getDbHelper().delete(getFlextimeDay());
+		((FlexplanApplication) getApplication()).getDbHelper().delete(
+				currentFlextimeDay);
 	}
 
 }

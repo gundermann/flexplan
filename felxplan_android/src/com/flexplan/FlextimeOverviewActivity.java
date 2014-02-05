@@ -34,6 +34,11 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 		super.onCreate(savedInstanceState);
 		setupWeek();
 		updateWeekView();
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
 		updateListView();
 	}
 
