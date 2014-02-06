@@ -32,6 +32,7 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setTitle(R.string.title_activity_flextime_overview);
 		setupWeek();
 		updateWeekView();
 	}
@@ -94,6 +95,7 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 	public void setCurrentWeek(int newWeek) {
 		currentWeek = newWeek;
 		updateWeekView();
+		updateListView();
 	}
 
 	@Override

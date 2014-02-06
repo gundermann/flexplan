@@ -56,13 +56,14 @@ public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 
 	private List<FlextimeDay> loadFlextimeDays(Cursor flextimeCursor) {
 		List<FlextimeDay> flextimeDays = new ArrayList<FlextimeDay>();
-		flextimeCursor.moveToFirst();
-		while (flextimeCursor.moveToNext()) {
-			String date = flextimeCursor.getString(0);
-			long timeFrom = flextimeCursor.getLong(1);
-			long timeTo = flextimeCursor.getLong(2);
-			flextimeDays.add(Factory.getInstance().createFlextimeDay(date,
-					timeFrom, timeTo, getWorkBreaksForFlextimeDay(date)));
+		if (flextimeCursor.moveToFirst()) {
+			do {
+				String date = flextimeCursor.getString(0);
+				long timeFrom = flextimeCursor.getLong(1);
+				long timeTo = flextimeCursor.getLong(2);
+				flextimeDays.add(Factory.getInstance().createFlextimeDay(date,
+						timeFrom, timeTo, getWorkBreaksForFlextimeDay(date)));
+			} while (flextimeCursor.moveToNext());
 		}
 		flextimeCursor.close();
 		if (flextimeDays.isEmpty()) {
