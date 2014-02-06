@@ -14,7 +14,7 @@ public class DateHelper {
 		Date date = new Date(time);
 		return getDateAsString(date);
 	}
-	
+
 	public static String getDateAsString(Date date) {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy",
 				Locale.GERMAN);
@@ -22,8 +22,8 @@ public class DateHelper {
 	}
 
 	public static String getCurrentDateAsString() {
-		GregorianCalendar cal = new GregorianCalendar(getCurrentYear(), getCurrentMonth(), getCurrentDayOfMonth());
-		return getDateAsString(cal.getTime()).toString();
+		GregorianCalendar cal = new GregorianCalendar();
+		return getDateAsString(cal.getTime());
 	}
 
 	public static int getCurrentYear() {
@@ -42,15 +42,15 @@ public class DateHelper {
 	}
 
 	public static String getTimeAsString(long time) {
-		long hours = time/(60*60*1000);
-		long minutes = (time-(hours*60*60*1000))/(60*1000);
-		
+		long hours = time / (60 * 60 * 1000);
+		long minutes = (time - (hours * 60 * 60 * 1000)) / (60 * 1000);
+
 		StringBuilder sb = new StringBuilder();
-		if(hours<10){
+		if (hours < 10) {
 			sb.append("0");
 		}
 		sb.append(hours).append(":");
-		if(minutes<10){
+		if (minutes < 10) {
 			sb.append("0");
 		}
 		sb.append(minutes);
@@ -59,31 +59,36 @@ public class DateHelper {
 
 	private static String getDayOfWeekAsString(int day) {
 		switch (day) {
-		case 1:
-			return "Sonntag";
+		case 2:
+			return "Mon:";
+		case 3:
+			return "Tue:";
+		case 4:
+			return "Wed:";
+		case 5:
+			return "Thu:";
+		case 6:
+			return "Fri:";
+		case 7:
+			return "Sat:";
 		default:
-			break;
+			return "Sun:";
 		}
-		return "nothing";
-	}
-
-	public static Date getDateByWeekOfYear(int dayOfWeek, int weekOfYear,
-			int year) {
-		GregorianCalendar cal = new GregorianCalendar();
-		cal.set(GregorianCalendar.YEAR, year);
-		cal.set(GregorianCalendar.WEEK_OF_YEAR, weekOfYear);
-		cal.set(GregorianCalendar.DAY_OF_WEEK, dayOfWeek);
-		return cal.getTime();
 	}
 
 	public static String getDateByWeekOfYearAsString(int dayOfWeek,
 			int weekOfYear, int year) {
-		return getDateAsString(getDateByWeekOfYear(dayOfWeek, weekOfYear, year)).toString();
+		GregorianCalendar cal = new GregorianCalendar();
+		cal.set(GregorianCalendar.YEAR, year);
+		cal.set(GregorianCalendar.WEEK_OF_YEAR, weekOfYear);
+		cal.set(GregorianCalendar.DAY_OF_WEEK, dayOfWeek);
+		return getDateAsString(cal.getTime());
 	}
 
 	public static String getDayOfWeekByDateAsString(String date) {
 		GregorianCalendar cal = new GregorianCalendar();
-		cal.set(GregorianCalendar.DAY_OF_MONTH, Integer.parseInt(date.substring(0, 2)));
+		cal.set(GregorianCalendar.DAY_OF_MONTH,
+				Integer.parseInt(date.substring(0, 2)));
 		cal.set(GregorianCalendar.MONTH, Integer.parseInt(date.substring(3, 5)));
 		cal.set(GregorianCalendar.YEAR, Integer.parseInt(date.substring(6)));
 		return getDayOfWeekAsString(cal.get(GregorianCalendar.DAY_OF_WEEK));
