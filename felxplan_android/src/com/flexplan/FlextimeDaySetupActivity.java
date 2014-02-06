@@ -44,8 +44,8 @@ public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
 		currentFlextimeDay.setDate(getDate());
 	}
 
-	private long getDate() {
-		return date.getCalendarView().getDate();
+	private String getDate() {
+		return DateHelper.getLongAsString(date.getCalendarView().getDate());
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
 
 	@Override
 	public void updateDateField(int dayOfMonth, int month, int year) {
-		dateTv.setText(DateHelper.getDateAsString(getDate()));
+		dateTv.setText(getDate());
 	}
 
 	@Override
@@ -105,7 +105,7 @@ public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
 	@Override
 	public Bundle getExtras() {
 		Bundle extra = new Bundle();
-		extra.putLong("date", getDate());
+		extra.putString("date", getDate());
 		return extra;
 	}
 

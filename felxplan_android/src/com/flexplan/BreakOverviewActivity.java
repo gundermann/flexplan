@@ -9,7 +9,6 @@ import android.widget.ListView;
 import com.flexplan.common.Factory;
 import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.common.business.WorkBreak;
-import com.flexplan.common.util.DateHelper;
 import com.flexplan.util.AbstractActivityWithExtraInput;
 import com.flexplan.util.SaveOrDiscardDialog;
 
@@ -65,12 +64,12 @@ public class BreakOverviewActivity extends AbstractActivityWithExtraInput
 	protected void initElements() {
 		breakListView = (ListView) findViewById(R.id.breakList);
 		this.setTitle(getTitle() + " - "
-				+ DateHelper.getDateAsString(currentFlextimeDay.getDate()));
+				+ currentFlextimeDay.getDate());
 	}
 
 	@Override
 	protected void setupExtras() {
-		long date = getIntent().getExtras().getLong("date");
+		String date = getIntent().getExtras().getString("date");
 		long startTime = getIntent().getExtras().getLong("startTime");
 		long endTime = getIntent().getExtras().getLong("endTime");
 		currentFlextimeDay = Factory.getInstance().createFlextimeDay(date,

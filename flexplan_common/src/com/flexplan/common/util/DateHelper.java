@@ -10,32 +10,15 @@ public class DateHelper {
 	public static final long DAY_START = 0;
 	public static final long DAY_END = 24 * 60 * 60 * 1000;
 
-	public static CharSequence getLongAsString(long time) {
+	public static String getLongAsString(long time) {
 		Date date = new Date(time);
 		return getDateAsString(date);
 	}
 	
-	public static CharSequence getDateAsString(Date date) {
+	public static String getDateAsString(Date date) {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy",
 				Locale.GERMAN);
 		return formatter.format(date);
-	}
-
-	public static long convertToLongByWeekOfYear(int dayOfWeek, int weekOfYear, int year) {
-		GregorianCalendar cal = new GregorianCalendar();
-		cal.set(GregorianCalendar.YEAR, year);
-		cal.set(GregorianCalendar.WEEK_OF_YEAR, weekOfYear);
-		cal.set(GregorianCalendar.DAY_OF_WEEK, dayOfWeek);
-		System.out.println(cal.get(GregorianCalendar.DAY_OF_MONTH));
-		return cal.getTimeInMillis();
-	}
-	
-	public static long convertToLong(int dayOfMonth, int month, int year) {
-		GregorianCalendar cal = new GregorianCalendar();
-		cal.set(GregorianCalendar.YEAR, year);
-		cal.set(GregorianCalendar.MONTH, month);
-		cal.set(GregorianCalendar.DAY_OF_MONTH, dayOfMonth);
-		return cal.getTimeInMillis();
 	}
 
 	public static String getCurrentDateAsString() {
@@ -58,7 +41,7 @@ public class DateHelper {
 		return cal.get(GregorianCalendar.DAY_OF_MONTH);
 	}
 
-	public static CharSequence getTimeAsString(long time) {
+	public static String getTimeAsString(long time) {
 		long hours = time/(60*60*1000);
 		long minutes = (time-(hours*60*60*1000))/(60*1000);
 		
@@ -74,17 +57,10 @@ public class DateHelper {
 		return sb.toString();
 	}
 
-	public static String getDayAsString(long timestamp) {
-		Date date = new Date(timestamp);
-		GregorianCalendar cal = new GregorianCalendar();
-		cal.setTime(date);
-		return getDayOfWeekAsString(cal.get(GregorianCalendar.DAY_OF_WEEK));
-	}
-
 	private static String getDayOfWeekAsString(int day) {
 		switch (day) {
 		case 1:
-			return "Montag";
+			return "Sonntag";
 		default:
 			break;
 		}
@@ -100,13 +76,17 @@ public class DateHelper {
 		return cal.getTime();
 	}
 
-	public static Date convertToDate(long time) {
-		return new Date(time);
-	}
-
 	public static String getDateByWeekOfYearAsString(int dayOfWeek,
 			int weekOfYear, int year) {
 		return getDateAsString(getDateByWeekOfYear(dayOfWeek, weekOfYear, year)).toString();
+	}
+
+	public static String getDayOfWeekByDateAsString(String date) {
+		GregorianCalendar cal = new GregorianCalendar();
+		cal.set(GregorianCalendar.DAY_OF_MONTH, Integer.parseInt(date.substring(0, 2)));
+		cal.set(GregorianCalendar.MONTH, Integer.parseInt(date.substring(3, 5)));
+		cal.set(GregorianCalendar.YEAR, Integer.parseInt(date.substring(6)));
+		return getDayOfWeekAsString(cal.get(GregorianCalendar.DAY_OF_WEEK));
 	}
 
 }

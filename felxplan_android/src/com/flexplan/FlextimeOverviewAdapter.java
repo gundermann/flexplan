@@ -34,7 +34,7 @@ public class FlextimeOverviewAdapter extends ArrayAdapter<FlextimeDay> {
 		startTv = (TextView) rowView.findViewById(R.id.flextime_start);
 		endTv = (TextView) rowView.findViewById(R.id.flextime_end);
 		FlextimeDay currentDay = getItem(position);
-		dayTv.setText(DateHelper.getDayAsString(currentDay.getDate()));
+		dayTv.setText(DateHelper.getDayOfWeekByDateAsString(currentDay.getDate()));
 		startTv.setText(DateHelper.getTimeAsString(currentDay.getStartTime()));
 		endTv.setText(DateHelper.getTimeAsString(currentDay.getEndTime()));
 		

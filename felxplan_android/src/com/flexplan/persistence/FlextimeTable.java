@@ -52,9 +52,4 @@ public class FlextimeTable {
 	public static String getTimeTo() {
 		return TABLE_NAME + "." + TIME_TO;
 	}
-
-	public static String[] whereDate(long date) {
-		String[] where = {DATE+"="+date};
-		return where;
-	}
 }

@@ -42,12 +42,7 @@ public class BreakTimeTable {
 		return selection;
 	}
 
-	public static String[] getWhereDate(long date) {
-		String[] where = {DATE + "=" + date};
-		return where;
-	}
-
-	public static ContentValues getContentValues(WorkBreak workBreak, long date) {
+	public static ContentValues getContentValues(WorkBreak workBreak, String date) {
 		ContentValues values = new ContentValues();
 		values.put(TIME_FROM, workBreak.getStartTime());
 		values.put(TIME_TO, workBreak.getEndTime());
