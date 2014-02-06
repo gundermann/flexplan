@@ -145,6 +145,7 @@ public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
 	public void discard() {
 		((FlexplanApplication) getApplication()).getDbHelper().delete(
 				currentFlextimeDay);
+		super.onBackPressed();
 	}
 
 }
