@@ -1,6 +1,5 @@
 package com.flexplan.common;
 
-import java.util.Date;
 import java.util.List;
 
 import com.flexplan.common.business.FlextimeDay;
@@ -20,7 +19,7 @@ public class Factory {
 	}
 	
 
-	public FlextimeDay createFlextimeDay(Date date, long startTime, long endTime, List<WorkBreak> breaks){
+	public FlextimeDay createFlextimeDay(String date, long startTime, long endTime, List<WorkBreak> breaks){
 		FlextimeDay flextimeDay = new FlextimeDayImpl(date, startTime, endTime);
 		
 		for(WorkBreak workBreak : breaks){
@@ -31,6 +30,6 @@ public class Factory {
 	}
 
 	public FlextimeDay createFreeDayOfWeek(int dayOfWeek, int weekOfYear, int year) {
-		return new FlextimeDayImpl(DateHelper.getDateByWeekOfYear(dayOfWeek, weekOfYear, year), 0, 0);
+		return new FlextimeDayImpl(DateHelper.getDateByWeekOfYearAsString(dayOfWeek, weekOfYear, year), 0, 0);
 	}
 }

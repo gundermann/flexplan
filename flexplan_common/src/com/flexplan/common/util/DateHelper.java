@@ -10,8 +10,12 @@ public class DateHelper {
 	public static final long DAY_START = 0;
 	public static final long DAY_END = 24 * 60 * 60 * 1000;
 
-	public static CharSequence getDateAsString(long time) {
+	public static CharSequence getLongAsString(long time) {
 		Date date = new Date(time);
+		return getDateAsString(date);
+	}
+	
+	public static CharSequence getDateAsString(Date date) {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy",
 				Locale.GERMAN);
 		return formatter.format(date);
@@ -36,7 +40,7 @@ public class DateHelper {
 
 	public static String getCurrentDateAsString() {
 		GregorianCalendar cal = new GregorianCalendar(getCurrentYear(), getCurrentMonth(), getCurrentDayOfMonth());
-		return getDateAsString(cal.getTimeInMillis()).toString();
+		return getDateAsString(cal.getTime()).toString();
 	}
 
 	public static int getCurrentYear() {
@@ -93,8 +97,16 @@ public class DateHelper {
 		cal.set(GregorianCalendar.YEAR, year);
 		cal.set(GregorianCalendar.WEEK_OF_YEAR, weekOfYear);
 		cal.set(GregorianCalendar.DAY_OF_WEEK, dayOfWeek);
-		Date date = new Date(cal.get(GregorianCalendar.DATE));
-		return date;
+		return cal.getTime();
+	}
+
+	public static Date convertToDate(long time) {
+		return new Date(time);
+	}
+
+	public static String getDateByWeekOfYearAsString(int dayOfWeek,
+			int weekOfYear, int year) {
+		return getDateAsString(getDateByWeekOfYear(dayOfWeek, weekOfYear, year)).toString();
 	}
 
 }
