@@ -80,8 +80,8 @@ public class DateHelper {
 			int weekOfYear, int year) {
 		GregorianCalendar cal = new GregorianCalendar();
 		cal.set(GregorianCalendar.YEAR, year);
-		cal.set(GregorianCalendar.WEEK_OF_YEAR, weekOfYear);
 		cal.set(GregorianCalendar.DAY_OF_WEEK, dayOfWeek);
+		cal.set(GregorianCalendar.WEEK_OF_YEAR, weekOfYear);
 		return getDateAsString(cal.getTime());
 	}
 
