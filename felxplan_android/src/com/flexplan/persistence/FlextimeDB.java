@@ -15,4 +15,10 @@ public interface FlextimeDB {
 	void insertWorkBreaks(FlextimeDay currentFlextimeDay);
 
 	void delete(FlextimeDay flextimeDay);
+
+	boolean isDateInDB(String newDate);
+
+	long getStartTimeOfDay(String newDate);
+
+	long getEndTimeOfDay(String newDate);
 }

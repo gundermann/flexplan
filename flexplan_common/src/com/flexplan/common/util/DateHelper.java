@@ -94,4 +94,10 @@ public class DateHelper {
 		return getDayOfWeekAsString(cal.get(GregorianCalendar.DAY_OF_WEEK));
 	}
 
+	public static String getDateAsString(int day, int month, int year) {
+		GregorianCalendar cal = new GregorianCalendar();
+		cal.set(year, month, day);
+		return getDateAsString(cal.getTime());
+	}
+
 }

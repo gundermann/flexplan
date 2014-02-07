@@ -3,21 +3,21 @@ package com.flexplan.util;
 import android.widget.CalendarView;
 import android.widget.CalendarView.OnDateChangeListener;
 
-import com.flexplan.DateFieldProvider;
+import com.flexplan.FlextimeDaySetup;
 
 public class DateChangedListener implements OnDateChangeListener {
 
-	private DateFieldProvider dateFieldProvider;
+	private FlextimeDaySetup setup;
 
-	public DateChangedListener(DateFieldProvider dateFieldProvider) {
-		this.dateFieldProvider = dateFieldProvider;
+	public DateChangedListener(FlextimeDaySetup setup) {
+		this.setup = setup;
 	}
 
 
 	@Override
 	public void onSelectedDayChange(CalendarView paramCalendarView,
-			int day, int month, int year) {
-		dateFieldProvider.updateDateField(day, month, year);
+			int year, int month, int day) {
+		setup.updateDate(day, month, year);
 	}
 
 }

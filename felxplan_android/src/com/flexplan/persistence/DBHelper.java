@@ -113,13 +113,13 @@ public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 		FlextimeDay day;
 		for (int i = 2; i <= 7; i++) {
 			day = findFlextimeDay(i, weekOfYear, year);
-			if(day != null){
+			if (day != null) {
 				week.add(day);
 			}
 		}
 		// ist der Sonntag der deutschen Woche
 		day = findFlextimeDay(1, weekOfYear, year);
-		if(day != null){
+		if (day != null) {
 			week.add(day);
 		}
 		return week;
@@ -176,6 +176,32 @@ public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 	public void delete(FlextimeDay flextimeDay) {
 		getWritableDatabase().delete(FlextimeTable.TABLE_NAME,
 				getWhere(FlextimeTable.DATE, flextimeDay.getDate()), null);
+	}
+
+	@Override
+	public boolean isDateInDB(String newDate) {
+		return getReadableDatabase().query(FlextimeTable.TABLE_NAME,
+				FlextimeTable.selectAll(),
+				getWhere(FlextimeTable.DATE, newDate), null, null, null, null)
+				.moveToFirst();
+	}
+
+	@Override
+	public long getStartTimeOfDay(String newDate) {
+		Cursor c = getReadableDatabase().query(FlextimeTable.TABLE_NAME,
+				FlextimeTable.selectTimeFrom(),
+				getWhere(FlextimeTable.DATE, newDate), null, null, null, null);
+		c.moveToFirst();
+		return c.getLong(0);
+	}
+
+	@Override
+	public long getEndTimeOfDay(String newDate) {
+		Cursor c = getReadableDatabase().query(FlextimeTable.TABLE_NAME,
+				FlextimeTable.selectTimeTo(),
+				getWhere(FlextimeTable.DATE, newDate), null, null, null, null);
+		c.moveToFirst();
+		return c.getLong(0);
 	}
 
 }

@@ -9,5 +9,7 @@ public interface FlextimeDaySetup {
 	void saveFlextimeDay();
 
 	void updateTime(long startTime, long endTime);
+	
+	void updateDate(int day, int month, int year);
 
 }

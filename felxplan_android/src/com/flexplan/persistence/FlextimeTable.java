@@ -52,4 +52,14 @@ public class FlextimeTable {
 	public static String getTimeTo() {
 		return TABLE_NAME + "." + TIME_TO;
 	}
+
+	public static String[] selectTimeFrom() {
+		String[] selection = { TIME_FROM};
+		return selection;
+	}
+	
+	public static String[] selectTimeTo() {
+		String[] selection = { TIME_TO};
+		return selection;
+	}
 }

@@ -13,10 +13,12 @@ import com.flexplan.common.business.WorkBreak;
 import com.flexplan.common.util.DateHelper;
 import com.flexplan.util.AbstractActivityExtraProvider;
 import com.flexplan.util.DateChangedListener;
+import com.flexplan.util.OverwriteDialog;
+import com.flexplan.util.OverwriteProvider;
 import com.flexplan.util.SaveOrDiscardDialog;
 
 public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
-		implements FlextimeDaySetup, DateFieldProvider, SaveDiscardProvider {
+		implements FlextimeDaySetup, SaveDiscardProvider, OverwriteProvider {
 
 	private static final String TAG = null;
 	private FlextimeDay currentFlextimeDay;
@@ -27,25 +29,24 @@ public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setupFlextimeDay();
+		if (getIntent().getExtras() != null
+				&& getIntent().getExtras().getString("date") != null) {
+		} else {
+			setupFlextimeDay(DateHelper.getCurrentDateAsString(),
+					DateHelper.DAY_START, DateHelper.DAY_END);
+		}
 	}
 
-	private void setupFlextimeDay() {
-		if (currentFlextimeDay == null
-				|| currentFlextimeDay.getDate() != getDate()) {
-			currentFlextimeDay = Factory.getInstance().createFlextimeDay(
-					getDate(), DateHelper.DAY_START, DateHelper.DAY_END,
-					new ArrayList<WorkBreak>());
-		}
+	private void setupFlextimeDay(String newDate, long startTime, long endTime) {
+		currentFlextimeDay = Factory.getInstance().createFlextimeDay(newDate,
+				startTime, endTime, new ArrayList<WorkBreak>());
+		updateDateTv();
+		updateTimeTv();
 	}
 
 	@Override
 	public void saveFlextimeDay() {
-		currentFlextimeDay.setDate(getDate());
-	}
-
-	private String getDate() {
-		return DateHelper.getLongAsString(date.getCalendarView().getDate());
+		save();
 	}
 
 	@Override
@@ -64,12 +65,6 @@ public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
 				new DateChangedListener(this));
 		dateTv = (TextView) findViewById(R.id.day_tv);
 		timeRangeTV = (TextView) findViewById(R.id.time_range_tv);
-		updateDateField(0, 0, 0);
-	}
-
-	@Override
-	public void updateDateField(int dayOfMonth, int month, int year) {
-		dateTv.setText(getDate());
 	}
 
 	@Override
@@ -105,7 +100,7 @@ public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
 	@Override
 	public Bundle getExtras() {
 		Bundle extra = new Bundle();
-		extra.putString("date", getDate());
+		extra.putString("date", currentFlextimeDay.getDate());
 		return extra;
 	}
 
@@ -116,26 +111,25 @@ public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
 	}
 
 	@Override
-	public void updateTimeFields() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(DateHelper.getTimeAsString(currentFlextimeDay.getStartTime()))
-				.append(" - ")
-				.append(DateHelper.getTimeAsString(currentFlextimeDay
-						.getEndTime()));
-		timeRangeTV.setText(sb.toString());
-	}
-
-	@Override
 	public void updateTime(long startTime, long endTime) {
-		currentFlextimeDay.setStartTime(startTime);
-		currentFlextimeDay.setEndTime(endTime);
-		updateTimeFields();
-
+		setupFlextimeDay(currentFlextimeDay.getDate(), startTime, endTime);
 	}
 
 	@Override
 	public void save() {
-		saveFlextimeDay();
+		if (((FlexplanApplication) getApplication()).getDbHelper().isDateInDB(
+				currentFlextimeDay.getDate())) {
+			OverwriteDialog.newInstance(this).show(getSupportFragmentManager(),
+					TAG);
+		} else {
+			overwriteOrSave();
+		}
+	}
+
+	@Override
+	public void overwriteOrSave() {
+		((FlexplanApplication) getApplication()).getDbHelper().delete(
+				currentFlextimeDay);
 		((FlexplanApplication) getApplication()).getDbHelper()
 				.insertOrUpdateFlextimeDay(currentFlextimeDay);
 		super.onBackPressed();
@@ -146,6 +140,34 @@ public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
 		((FlexplanApplication) getApplication()).getDbHelper().delete(
 				currentFlextimeDay);
 		super.onBackPressed();
+	}
+
+	@Override
+	public void updateDate(int day, int month, int year) {
+		String newDate = DateHelper.getDateAsString(day, month, year);
+		long startTime = DateHelper.DAY_START;
+		long endTime = DateHelper.DAY_END;
+		if (((FlexplanApplication) getApplication()).getDbHelper().isDateInDB(
+				newDate)) {
+			startTime = ((FlexplanApplication) getApplication()).getDbHelper()
+					.getStartTimeOfDay(newDate);
+			endTime = ((FlexplanApplication) getApplication()).getDbHelper()
+					.getEndTimeOfDay(newDate);
+		}
+		setupFlextimeDay(newDate, startTime, endTime);
+	}
+
+	private void updateTimeTv() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(DateHelper.getTimeAsString(currentFlextimeDay.getStartTime()))
+				.append(" - ")
+				.append(DateHelper.getTimeAsString(currentFlextimeDay
+						.getEndTime()));
+		timeRangeTV.setText(sb.toString());
+	}
+
+	private void updateDateTv() {
+		dateTv.setText(currentFlextimeDay.getDate());
 	}
 
 }
