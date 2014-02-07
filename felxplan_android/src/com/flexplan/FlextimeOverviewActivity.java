@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.flexplan.common.business.FlextimeDay;
+import com.flexplan.common.util.DateHelper;
 import com.flexplan.persistence.FlextimeDB;
 import com.flexplan.util.AbstractActivity;
 import com.flexplan.util.WeekChangeListener;
@@ -28,6 +29,10 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 	private ImageButton prevWeekBt;
 
 	private ImageButton nextWeekBt;
+	
+	private TextView hoursThisWeekTv;
+
+	private ListView flextimeWeekList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +53,19 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 	}
 
 	private void updateListView() {
-		ListView flextimeWeekList = (ListView) findViewById(R.id.flextime_overview);
+	
 		flextimeWeekList.setAdapter(new FlextimeOverviewAdapter(
 				getApplicationContext(), getCurrentWeekDays()));
+		updateHours();
+	}
+
+	private void updateHours() {
+		long hours = 0;
+		for(FlextimeDay day : getCurrentWeekDays()){
+			hours += day.getLenght();
+		}
+		hoursThisWeekTv.setText(DateHelper.getTimeAsString(hours));
+		//TODO validate against duty-hours
 	}
 
 	private List<FlextimeDay> getCurrentWeekDays() {
@@ -78,6 +93,8 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 	@Override
 	protected void initElements() {
 		week = (TextView) findViewById(R.id.week);
+		hoursThisWeekTv = (TextView) findViewById(R.id.hours_this_week);
+		flextimeWeekList = (ListView) findViewById(R.id.flextime_overview);
 		prevWeekBt = (ImageButton) findViewById(R.id.prev_week);
 		nextWeekBt = (ImageButton) findViewById(R.id.next_week);
 		prevWeekBt.setOnClickListener(new WeekChangeListener(this, -1));
