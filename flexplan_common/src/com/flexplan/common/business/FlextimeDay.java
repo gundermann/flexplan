@@ -24,4 +24,6 @@ public interface FlextimeDay {
 	List<WorkBreak> getWorkBreaks();
 
 	void setDate(String date);
+
+	long getLenght();
 }

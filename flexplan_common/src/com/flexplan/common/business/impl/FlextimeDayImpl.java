@@ -87,6 +87,11 @@ public class FlextimeDayImpl implements FlextimeDay{
 	public void setDate(String date) {
 		this.date = date;
 	}
+
+	@Override
+	public long getLenght() {
+		return endTime-startTime-getTimeForBreaks();
+	}
 	
 
 }
