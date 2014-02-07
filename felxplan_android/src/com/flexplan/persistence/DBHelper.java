@@ -110,11 +110,18 @@ public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 
 	public List<FlextimeDay> getCurrentWeekDays(int weekOfYear, int year) {
 		List<FlextimeDay> week = new ArrayList<FlextimeDay>();
+		FlextimeDay day;
 		for (int i = 2; i <= 7; i++) {
-			week.add(findFlextimeDay(i, weekOfYear, year));
+			day = findFlextimeDay(i, weekOfYear, year);
+			if(day != null){
+				week.add(day);
+			}
 		}
 		// ist der Sonntag der deutschen Woche
-		week.add(findFlextimeDay(1, weekOfYear, year));
+		day = findFlextimeDay(1, weekOfYear, year);
+		if(day != null){
+			week.add(day);
+		}
 		return week;
 	}
 
@@ -126,9 +133,6 @@ public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 				null, null, null, null);
 		FlextimeDay day = loadFlextimeDays(c).get(0);
 		c.close();
-		if (day == null)
-			day = Factory.getInstance()
-					.createFreeDayOfWeek(i, weekOfYear, year);
 		return day;
 	}
 
