@@ -20,5 +20,6 @@
     <string name="save_or_discard">Möchten Sie die neuen Pausen wirklich verwerfen?</string>
     <string name="title_flextime_day_setup">Datum festlegen</string>
     <string name="hours_this_week">Wochenstunden:</string>
+    <string name="no_results">Keine Einträge</string>
 
 </resources>
