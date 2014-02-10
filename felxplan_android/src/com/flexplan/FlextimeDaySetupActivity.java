@@ -32,8 +32,8 @@ public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
 		if (getIntent().getExtras() != null
 				&& getIntent().getExtras().getString("date") != null) {
 		} else {
-			setupFlextimeDay(DateHelper.getCurrentDateAsString(),
-					DateHelper.DAY_START, DateHelper.DAY_END);
+			updateDate(DateHelper.getCurrentDayOfMonth(),
+					DateHelper.getCurrentMonth(), DateHelper.getCurrentYear());
 		}
 	}
 
