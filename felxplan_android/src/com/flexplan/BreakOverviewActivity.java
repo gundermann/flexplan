@@ -37,7 +37,6 @@ public class BreakOverviewActivity extends AbstractActivityWithExtraInput
 	@Override
 	public void onBackPressed() {
 		SaveOrDiscardDialog.newInstance(this).show(getSupportFragmentManager(), TAG);
-		super.onBackPressed();
 	}
 
 	@Override
