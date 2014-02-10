@@ -31,6 +31,10 @@ public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
 		super.onCreate(savedInstanceState);
 		if (getIntent().getExtras() != null
 				&& getIntent().getExtras().getString("date") != null) {
+			String dateString = getIntent().getExtras().getString("date");
+			updateDate(Integer.valueOf(dateString.substring(0, 2)),
+					Integer.valueOf(dateString.substring(3, 5)),
+					Integer.valueOf(dateString.substring(6)));
 		} else {
 			updateDate(DateHelper.getCurrentDayOfMonth(),
 					DateHelper.getCurrentMonth(), DateHelper.getCurrentYear());
@@ -145,6 +149,7 @@ public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
 	@Override
 	public void updateDate(int day, int month, int year) {
 		String newDate = DateHelper.getDateAsString(day, month, year);
+		date.getCalendarView().setDate(DateHelper.convertDateStringToLong(day, month, year));
 		long startTime = DateHelper.DAY_START;
 		long endTime = DateHelper.DAY_END;
 		if (((FlexplanApplication) getApplication()).getDbHelper().isDateInDB(

@@ -100,4 +100,10 @@ public class DateHelper {
 		return getDateAsString(cal.getTime());
 	}
 
+	public static long convertDateStringToLong(int day, int month, int year) {
+		GregorianCalendar cal = new GregorianCalendar();
+		cal.set(year, month, day);
+		return cal.getTimeInMillis();
+	}
+
 }

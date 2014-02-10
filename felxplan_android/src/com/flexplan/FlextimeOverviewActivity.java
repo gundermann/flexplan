@@ -56,6 +56,7 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 		flextimeWeekList.setAdapter(new FlextimeOverviewAdapter(
 				getApplicationContext(), getCurrentWeekDays()));
 		flextimeWeekList.setEmptyView(findViewById(R.id.empty));
+		flextimeWeekList.setOnItemClickListener(new OnFlextimeDayClickListener(this));
 		updateHours();
 	}
 
