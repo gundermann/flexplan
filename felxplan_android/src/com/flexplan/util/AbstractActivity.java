@@ -1,18 +1,23 @@
 package com.flexplan.util;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 
 public abstract class AbstractActivity extends FragmentActivity {
 
 	protected static String TAG;
+	protected SharedPreferences prefs;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		TAG = this.getClass().getSimpleName();
+		prefs = PreferenceManager
+				.getDefaultSharedPreferences(getApplicationContext());
 		setup();
 
 		initElements();
@@ -35,8 +40,13 @@ public abstract class AbstractActivity extends FragmentActivity {
 
 	protected abstract void setContentView();
 
+	@Deprecated
 	protected void startNextActivity(Intent intent) {
 		startActivity(intent);
+	}
+	
+	protected void startNextActivity(Class<? extends AbstractActivity> activity){
+		startActivity(new Intent(getApplicationContext(), activity));
 	}
 
 }

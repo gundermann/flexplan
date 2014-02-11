@@ -4,6 +4,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageButton;
@@ -29,7 +30,7 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 	private ImageButton prevWeekBt;
 
 	private ImageButton nextWeekBt;
-	
+
 	private TextView hoursThisWeekTv;
 
 	private ListView flextimeWeekList;
@@ -41,7 +42,7 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 		setupWeek();
 		updateWeekView();
 	}
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -56,17 +57,23 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 		flextimeWeekList.setAdapter(new FlextimeOverviewAdapter(
 				getApplicationContext(), getCurrentWeekDays()));
 		flextimeWeekList.setEmptyView(findViewById(R.id.empty));
-		flextimeWeekList.setOnItemClickListener(new OnFlextimeDayClickListener(this));
+		flextimeWeekList.setOnItemClickListener(new OnFlextimeDayClickListener(
+				this));
 		updateHours();
 	}
 
 	private void updateHours() {
 		long hours = 0;
-		for(FlextimeDay day : getCurrentWeekDays()){
+		for (FlextimeDay day : getCurrentWeekDays()) {
 			hours += day.getLenght();
 		}
 		hoursThisWeekTv.setText(DateHelper.getTimeAsString(hours));
-		//TODO validate against duty-hours
+		
+		if(hours < DateHelper.getHoursAsLong(prefs.getString("hours_per_week", "0"))){
+			hoursThisWeekTv.setTextColor(Color.RED);
+		}else{
+			hoursThisWeekTv.setTextColor(Color.GREEN);
+		}
 	}
 
 	private List<FlextimeDay> getCurrentWeekDays() {
@@ -127,6 +134,10 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 		case R.id.setup_flextime_day:
 			startNextActivity(new Intent(getApplicationContext(),
 					FlextimeDaySetupActivity.class));
+			break;
+		case R.id.preferences:
+			startNextActivity(new Intent(getApplicationContext(),
+					SettingsActivity.class));
 			break;
 		default:
 			break;

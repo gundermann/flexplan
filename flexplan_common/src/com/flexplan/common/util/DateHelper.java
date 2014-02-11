@@ -106,4 +106,8 @@ public class DateHelper {
 		return cal.getTimeInMillis();
 	}
 
+	public static long getHoursAsLong(String string) {
+		return Long.parseLong(string) * 60 * 60 * 1000;
+	}
+
 }

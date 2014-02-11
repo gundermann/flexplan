@@ -5,5 +5,9 @@
         android:icon="@android:drawable/ic_menu_today"
         android:title="@string/add_flextime"></item>
     
+    <item android:id="@+id/preferences"
+        android:showAsAction="ifRoom"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:title="@string/preferences"></item>
 
 </menu>

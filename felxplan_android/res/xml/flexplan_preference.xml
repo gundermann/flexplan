@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
     <EditTextPreference 
-        android:key="default_breaktime"
-        android:title="@string/pref_default_breaktime"
+        android:key="breaktime"
+        android:title="@string/pref_breaktime"
+        />
+    
+     <EditTextPreference 
+        android:key="starttime"
+        android:title="@string/pref_starttime"
+        />
+    
+      <EditTextPreference 
+        android:key="endtime"
+        android:title="@string/pref_endtime"
+        />
+      
+      <EditTextPreference 
+        android:key="hours_per_week"
+        android:title="@string/pref_hours_per_week"
         />
     
 

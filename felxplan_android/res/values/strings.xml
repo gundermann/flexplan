@@ -21,6 +21,10 @@
     <string name="title_flextime_day_setup">Datum festlegen</string>
     <string name="hours_this_week">Wochenstunden:</string>
     <string name="no_results">Keine Einträge</string>
-    <string name="pref_default_breaktime">Standardzeit für Pausen</string>
+    <string name="pref_breaktime">Standardzeit für Pausen</string>
+    <string name="preferences">Einstellungen</string>
+    <string name="pref_starttime">Standardzeit für Begin des Arbeitstages</string>
+    <string name="pref_endtime">Standardzeit für Ende des Arbeitstages</string>
+    <string name="pref_hours_per_week">Zu absolvierende Wochenstunden</string>
 
 </resources>
