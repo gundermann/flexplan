@@ -110,4 +110,8 @@ public class DateHelper {
 		return Long.parseLong(string) * 60 * 60 * 1000;
 	}
 
+	public static long getMinutesAsLong(String string) {
+		return Long.parseLong(string) * 60 * 1000;
+	}
+
 }

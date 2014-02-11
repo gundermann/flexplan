@@ -66,6 +66,9 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 		long hours = 0;
 		for (FlextimeDay day : getCurrentWeekDays()) {
 			hours += day.getLenght();
+			if(day.getWorkBreaks().isEmpty()){
+				hours -= DateHelper.getMinutesAsLong(prefs.getString("breaktime", "0"));
+			}
 		}
 		hoursThisWeekTv.setText(DateHelper.getTimeAsString(hours));
 		
