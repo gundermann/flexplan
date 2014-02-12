@@ -96,13 +96,13 @@ public class DateHelper {
 
 	public static String getDateAsString(int day, int month, int year) {
 		GregorianCalendar cal = new GregorianCalendar();
-		cal.set(year, month, day);
+		cal.set(year, month-1, day);
 		return getDateAsString(cal.getTime());
 	}
 
 	public static long convertDateStringToLong(int day, int month, int year) {
 		GregorianCalendar cal = new GregorianCalendar();
-		cal.set(year, month, day);
+		cal.set(year, month-1, day);
 		return cal.getTimeInMillis();
 	}
 
