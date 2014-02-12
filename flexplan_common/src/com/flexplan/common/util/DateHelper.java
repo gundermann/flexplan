@@ -107,6 +107,9 @@ public class DateHelper {
 	}
 
 	public static long getHoursAsLong(String string) {
+		if(string.contains(":")){
+			return getHoursAsLong(string.substring(0,1)) + getMinutesAsLong(string.substring(3));
+		}
 		return Long.parseLong(string) * 60 * 60 * 1000;
 	}
 

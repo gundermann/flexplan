@@ -1,24 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
-    <EditTextPreference 
+
+    <com.flexplan.util.TimePreference
         android:key="breaktime"
-        android:title="@string/pref_breaktime"
-        />
-    
-     <EditTextPreference 
+        android:title="@string/pref_breaktime" />
+    <com.flexplan.util.TimePreference
         android:key="starttime"
-        android:title="@string/pref_starttime"
-        />
-    
-      <EditTextPreference 
+        android:title="@string/pref_starttime" />
+    <com.flexplan.util.TimePreference
         android:key="endtime"
-        android:title="@string/pref_endtime"
-        />
-      
-      <EditTextPreference 
+        android:title="@string/pref_endtime" />
+    <com.flexplan.util.TimePreference
         android:key="hours_per_week"
-        android:title="@string/pref_hours_per_week"
-        />
-    
+        android:title="@string/pref_hours_per_week" />
 
 </PreferenceScreen>

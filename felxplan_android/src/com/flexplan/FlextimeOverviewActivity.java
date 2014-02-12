@@ -67,12 +67,12 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 		for (FlextimeDay day : getCurrentWeekDays()) {
 			hours += day.getLenght();
 			if(day.getWorkBreaks().isEmpty()){
-				hours -= DateHelper.getMinutesAsLong(prefs.getString("breaktime", "0"));
+				hours -= prefs.getLong("breaktime", 0);
 			}
 		}
 		hoursThisWeekTv.setText(DateHelper.getTimeAsString(hours));
 		
-		if(hours < DateHelper.getHoursAsLong(prefs.getString("hours_per_week", "0"))){
+		if(hours < prefs.getLong("hours_per_week", 0)){
 			hoursThisWeekTv.setTextColor(Color.RED);
 		}else{
 			hoursThisWeekTv.setTextColor(Color.GREEN);
