@@ -96,25 +96,49 @@ public class DateHelper {
 
 	public static String getDateAsString(int day, int month, int year) {
 		GregorianCalendar cal = new GregorianCalendar();
-		cal.set(year, month-1, day);
+		cal.set(year, month - 1, day);
 		return getDateAsString(cal.getTime());
 	}
 
 	public static long convertDateStringToLong(int day, int month, int year) {
 		GregorianCalendar cal = new GregorianCalendar();
-		cal.set(year, month-1, day);
+		cal.set(year, month - 1, day);
 		return cal.getTimeInMillis();
 	}
 
 	public static long getHoursAsLong(String string) {
-		if(string.contains(":")){
-			return getHoursAsLong(string.substring(0,1)) + getMinutesAsLong(string.substring(3));
+		if (string.contains(":")) {
+			return getHoursAsLong(string.substring(0, 1))
+					+ getMinutesAsLong(string.substring(3));
 		}
 		return Long.parseLong(string) * 60 * 60 * 1000;
 	}
 
 	public static long getMinutesAsLong(String string) {
 		return Long.parseLong(string) * 60 * 1000;
+	}
+
+	public static int convertHoursLongToInt(long value) {
+		return (int) (value / (1000 * 60 * 60));
+	}
+
+	public static Integer convertMinutesLongToInt(long value) {
+		return (int) ((value / (1000 * 60)) % 60);
+	}
+
+	public static long convertDateStringToLong(String dateString) {
+		return convertDateStringToLong(
+				Integer.valueOf(dateString.substring(0, 2)),
+				Integer.valueOf(dateString.substring(3, 5)),
+				Integer.valueOf(dateString.substring(6)));
+	}
+
+	public static int convertHoursToLong(Integer currentHour) {
+		return currentHour * 60 * 60 * 1000;
+	}
+
+	public static int convertMinutesToLong(Integer currentMinute) {
+		return currentMinute * 60 * 1000;
 	}
 
 }
