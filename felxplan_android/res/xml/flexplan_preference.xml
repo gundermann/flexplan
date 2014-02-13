@@ -10,7 +10,7 @@
     <com.flexplan.util.TimePreference
         android:key="endtime"
         android:title="@string/pref_endtime" />
-    <com.flexplan.util.TimePreference
+    <com.flexplan.util.BigTimePreference
         android:key="hours_per_week"
         android:title="@string/pref_hours_per_week" />
 
