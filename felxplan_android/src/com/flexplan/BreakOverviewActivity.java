@@ -27,6 +27,7 @@ public class BreakOverviewActivity extends AbstractActivityWithExtraInput
 	private void updateList() {
 		breakListView.setAdapter(new BreakListAdapter(getApplicationContext(),
 				currentFlextimeDay.getWorkBreaks()));
+		breakListView.setEmptyView(findViewById(R.id.empty));
 	}
 
 	@Override
