@@ -13,11 +13,11 @@ public class DateChangedListener implements OnDateChangeListener {
 		this.setup = setup;
 	}
 
-
 	@Override
-	public void onSelectedDayChange(CalendarView paramCalendarView,
-			int year, int month, int day) {
-		setup.updateDate(day, month, year);
+	public void onSelectedDayChange(CalendarView paramCalendarView, int year,
+			int month, int day) {
+		// January is 0
+		setup.updateDate(day, month + 1, year);
 	}
 
 }

@@ -96,7 +96,7 @@ public class DateHelper {
 
 	public static String getDateAsString(int day, int month, int year) {
 		GregorianCalendar cal = new GregorianCalendar();
-		cal.set(year, month - 1, day);
+		cal.set(year, month-1, day);
 		return getDateAsString(cal.getTime());
 	}
 
