@@ -9,7 +9,7 @@ import android.view.Menu;
 
 public abstract class AbstractActivity extends FragmentActivity {
 
-	protected static String TAG;
+	public static String TAG;
 	protected SharedPreferences prefs;
 
 	@Override

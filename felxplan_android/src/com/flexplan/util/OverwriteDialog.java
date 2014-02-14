@@ -21,7 +21,6 @@ public class OverwriteDialog extends AbstractDialog {
 
 	@Override
 	protected void instantiateViews(View view) {
-		
 	}
 
 	@Override

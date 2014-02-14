@@ -17,7 +17,7 @@ import com.flexplan.persistence.FlextimeDB;
 import com.flexplan.util.AbstractActivity;
 import com.flexplan.util.WeekChangeListener;
 
-public class FlextimeOverviewActivity extends AbstractActivity {
+public class FlextimeOverviewActivity extends AbstractActivity implements DeleteProvider{
 
 	private int currentWeek;
 
@@ -59,6 +59,9 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 		flextimeWeekList.setEmptyView(findViewById(R.id.empty));
 		flextimeWeekList.setOnItemClickListener(new OnFlextimeDayClickListener(
 				this));
+		flextimeWeekList
+				.setOnItemLongClickListener(new OnFlextimeDayLongClickListener(
+						this));
 		updateHours();
 	}
 
@@ -66,15 +69,15 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 		long hours = 0;
 		for (FlextimeDay day : getCurrentWeekDays()) {
 			hours += day.getLenght();
-			if(day.getWorkBreaks().isEmpty()){
+			if (day.getWorkBreaks().isEmpty()) {
 				hours -= prefs.getLong("breaktime", 0);
 			}
 		}
 		hoursThisWeekTv.setText(DateHelper.getTimeAsString(hours));
-		
-		if(hours < prefs.getLong("hours_per_week", 0)){
+
+		if (hours < prefs.getLong("hours_per_week", 0)) {
 			hoursThisWeekTv.setTextColor(Color.RED);
-		}else{
+		} else {
 			hoursThisWeekTv.setTextColor(Color.GREEN);
 		}
 	}
@@ -146,6 +149,12 @@ public class FlextimeOverviewActivity extends AbstractActivity {
 			break;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void delete(FlextimeDay day) {
+		((FlexplanApplication) getApplication()).getDbHelper().delete(day);
+		updateListView();
 	}
 
 }

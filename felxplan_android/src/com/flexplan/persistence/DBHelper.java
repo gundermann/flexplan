@@ -156,15 +156,21 @@ public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 	}
 
 	@Override
-	public void insertWorkBreaks(FlextimeDay currentFlextimeDay) {
+	public boolean insertWorkBreaks(FlextimeDay currentFlextimeDay) {
 		cleanWorkBreaks(currentFlextimeDay);
+		long counter = 0;
 		for (WorkBreak workBreak : currentFlextimeDay.getWorkBreaks()) {
-			getWritableDatabase().insert(
+			counter++;
+			long result = getWritableDatabase().insert(
 					BreakTimeTable.TABLE_NAME,
 					null,
 					BreakTimeTable.getContentValues(workBreak,
 							currentFlextimeDay.getDate()));
+			if(result < 0){
+				counter--;
+			}
 		}
+		return counter == currentFlextimeDay.getWorkBreaks().size();
 	}
 
 	private void cleanWorkBreaks(FlextimeDay flextimeDay) {
@@ -173,9 +179,13 @@ public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 	}
 
 	@Override
-	public void delete(FlextimeDay flextimeDay) {
-		getWritableDatabase().delete(FlextimeTable.TABLE_NAME,
+	public boolean delete(FlextimeDay flextimeDay) {
+		getWritableDatabase().delete(BreakTimeTable.TABLE_NAME,
+				getWhere(BreakTimeTable.DATE, flextimeDay.getDate()), null);
+
+		int result = getWritableDatabase().delete(FlextimeTable.TABLE_NAME,
 				getWhere(FlextimeTable.DATE, flextimeDay.getDate()), null);
+		return result > 0;
 	}
 
 	@Override

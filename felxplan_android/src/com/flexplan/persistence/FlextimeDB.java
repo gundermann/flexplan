@@ -12,9 +12,9 @@ public interface FlextimeDB {
 
 	List<FlextimeDay> getCurrentWeekDays(int weekOfYear, int year);
 
-	void insertWorkBreaks(FlextimeDay currentFlextimeDay);
+	boolean insertWorkBreaks(FlextimeDay currentFlextimeDay);
 
-	void delete(FlextimeDay flextimeDay);
+	boolean delete(FlextimeDay flextimeDay);
 
 	boolean isDateInDB(String newDate);
 
