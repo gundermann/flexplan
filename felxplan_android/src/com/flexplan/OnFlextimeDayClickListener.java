@@ -25,5 +25,4 @@ public class OnFlextimeDayClickListener implements OnItemClickListener {
 		intent.putExtra("date", day.getDate());
 		context.startActivity(intent);
 	}
-
 }

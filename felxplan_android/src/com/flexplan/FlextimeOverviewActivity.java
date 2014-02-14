@@ -17,7 +17,8 @@ import com.flexplan.persistence.FlextimeDB;
 import com.flexplan.util.AbstractActivity;
 import com.flexplan.util.WeekChangeListener;
 
-public class FlextimeOverviewActivity extends AbstractActivity implements DeleteProvider{
+public class FlextimeOverviewActivity extends AbstractActivity implements
+		DeleteProvider {
 
 	private int currentWeek;
 
@@ -124,7 +125,15 @@ public class FlextimeOverviewActivity extends AbstractActivity implements Delete
 	}
 
 	public void setCurrentWeek(int newWeek) {
-		currentWeek = newWeek;
+		if (newWeek < 1) {
+			currentWeek = 52;
+			currentYear--;
+		} else if (newWeek > 52) {
+			currentWeek = 1;
+			currentYear++;
+		} else {
+			currentWeek = newWeek;
+		}
 		updateWeekView();
 		updateListView();
 	}
