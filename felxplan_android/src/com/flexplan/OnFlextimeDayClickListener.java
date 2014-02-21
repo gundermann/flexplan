@@ -1,28 +1,27 @@
 package com.flexplan;
 
 
-import com.flexplan.common.business.FlextimeDay;
-
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
+import com.flexplan.common.business.FlextimeDay;
+
 public class OnFlextimeDayClickListener implements OnItemClickListener {
 
-	private Context context;
+	private AbstractFlextimeActivity activity;
 
-	public OnFlextimeDayClickListener(Activity callingActivity) {
-		context = callingActivity;
+	public OnFlextimeDayClickListener(AbstractFlextimeActivity callingActivity) {
+		activity = callingActivity;
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> adapterView, View view, int position, long arg3) {
 		FlextimeDay day = (FlextimeDay) adapterView.getAdapter().getItem(position);
-		Intent intent = new Intent(context, FlextimeDaySetupActivity.class);
-		intent.putExtra("date", day.getDate());
-		context.startActivity(intent);
+		activity.setFlextimeDay(day);
+		activity.updateCache();
+		Intent intent = new Intent(activity, FlextimeDaySetupActivity.class);
+		activity.startActivity(intent);
 	}
 }

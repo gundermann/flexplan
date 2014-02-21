@@ -3,7 +3,7 @@ package com.flexplan.test;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.flexplan.BreakViewActivity;
+import com.flexplan.BreakOverviewActivity;
 import com.flexplan.FlextimeDaySetupActivity;
 import com.flexplan.FlextimeOverviewActivity;
 import com.flexplan.FlextimeTimeSetupDialog;
@@ -71,7 +71,7 @@ public class FlextimeTimeSetupTest extends
 		Button viewToTouch = (Button) activity.findViewById(showBreaksBtId);
 		int viewIdToCheck = com.flexplan.R.id.add_break_button;
 		String valueToVerify = activity.getText(com.flexplan.R.string.add_break).toString();
-		testStartNextActivity(BreakViewActivity.class, viewToTouch, viewIdToCheck, valueToVerify);
+		testStartNextActivity(BreakOverviewActivity.class, viewToTouch, viewIdToCheck, valueToVerify);
 	}
 	
 	public void testStartOverviewActivity() throws Exception{

@@ -3,15 +3,15 @@ package com.flexplan.test.support;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.mock;
 import com.flexplan.FlexplanApplication;
-import com.flexplan.persistence.FlextimeDB;
+import com.flexplan.persistence.FlextimeDBHelper;
 
 public class FlexplanAppTestSupport {
 
 	public static FlexplanApplication createMockApp() {
 		FlexplanApplication app = mock(FlexplanApplication.class);
-		FlextimeDB db = FlextimeDBTestSupport.createFlextimeDB();
+		FlextimeDBHelper db = FlextimeDBTestSupport.createFlextimeDB();
 		
-		when(app.getDbHelper()).thenReturn(db);
+		when(app.getFlextimeDB()).thenReturn(db);
 		
 		return app;
 	}

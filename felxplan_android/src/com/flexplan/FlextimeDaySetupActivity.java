@@ -11,14 +11,14 @@ import com.flexplan.common.Factory;
 import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.common.business.WorkBreak;
 import com.flexplan.common.util.DateHelper;
-import com.flexplan.util.AbstractActivityExtraProvider;
+import com.flexplan.util.AbstractActivity;
 import com.flexplan.util.DateChangedListener;
 import com.flexplan.util.OverwriteDialog;
 import com.flexplan.util.OverwriteProvider;
 import com.flexplan.util.SaveOrDiscardDialog;
 
-public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
-		implements FlextimeDaySetup, SaveDiscardProvider, OverwriteProvider {
+public class FlextimeDaySetupActivity extends AbstractActivity implements
+		FlextimeDaySetup, SaveDiscardProvider, OverwriteProvider {
 
 	private static final String TAG = null;
 	private FlextimeDay currentFlextimeDay;
@@ -29,25 +29,43 @@ public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if (getIntent().getExtras() != null
-				&& getIntent().getExtras().getString("date") != null) {
-			String dateString = getIntent().getExtras().getString("date");
-			date.getCalendarView().setDate(
-					DateHelper.convertDateStringToLong(dateString));
-			updateDate(Integer.valueOf(dateString.substring(0, 2)),
-					Integer.valueOf(dateString.substring(3, 5)),
-					Integer.valueOf(dateString.substring(6)));
-		} else {
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if (!existsCacheData()) {
 			updateDate(DateHelper.getCurrentDayOfMonth(),
 					DateHelper.getCurrentMonth(), DateHelper.getCurrentYear());
 		}
 	}
 
+	@Override
+	protected void onStop() {
+		((FlexplanApplication) getApplication()).getCacheDB().cleanup();
+		super.onStop();
+	}
+
+	private boolean existsCacheData() {
+		if (((FlexplanApplication) getApplication()).existsCacheData()) {
+			String dateString = ((FlexplanApplication) getApplication())
+					.getCacheDB().getCachedFlextimeDay().getDate();
+			date.getCalendarView().setDate(
+					DateHelper.convertDateStringToLong(dateString));
+			updateDate(Integer.valueOf(dateString.substring(0, 2)),
+					Integer.valueOf(dateString.substring(3, 5)),
+					Integer.valueOf(dateString.substring(6)));
+			return true;
+		}
+		return false;
+	}
+
 	private void setupFlextimeDay(String newDate, long startTime, long endTime) {
-		currentFlextimeDay = Factory.getInstance().createFlextimeDay(newDate,
-				startTime, endTime, new ArrayList<WorkBreak>());
+			currentFlextimeDay = Factory.getInstance().createFlextimeDay(
+					newDate, startTime, endTime, new ArrayList<WorkBreak>());
 		updateDateTv();
 		updateTimeTv();
+		updateCache();
 	}
 
 	@Override
@@ -90,7 +108,7 @@ public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
 			break;
 		}
 		case R.id.show_breaks: {
-			startNextActivitWithExtras(BreakOverviewActivity.class);
+			startNextActivity(BreakOverviewActivity.class);
 			break;
 		}
 		case R.id.abort: {
@@ -101,13 +119,6 @@ public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
 			break;
 		}
 		return super.onOptionsItemSelected(item);
-	}
-
-	@Override
-	public Bundle getExtras() {
-		Bundle extra = new Bundle();
-		extra.putString("date", currentFlextimeDay.getDate());
-		return extra;
 	}
 
 	@Override
@@ -123,8 +134,8 @@ public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
 
 	@Override
 	public void save() {
-		if (((FlexplanApplication) getApplication()).getDbHelper().isDateInDB(
-				currentFlextimeDay.getDate())) {
+		if (((FlexplanApplication) getApplication()).getFlextimeDB()
+				.isDateInDB(currentFlextimeDay.getDate())) {
 			OverwriteDialog.newInstance(this).show(getSupportFragmentManager(),
 					TAG);
 		} else {
@@ -134,17 +145,16 @@ public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
 
 	@Override
 	public void overwriteOrSave() {
-		((FlexplanApplication) getApplication()).getDbHelper().delete(
+		((FlexplanApplication) getApplication()).getFlextimeDB().delete(
 				currentFlextimeDay);
-		((FlexplanApplication) getApplication()).getDbHelper()
+		((FlexplanApplication) getApplication()).getFlextimeDB()
 				.insertOrUpdateFlextimeDay(currentFlextimeDay);
 		super.onBackPressed();
 	}
 
 	@Override
 	public void discard() {
-		// ((FlexplanApplication) getApplication()).getDbHelper().delete(
-		// currentFlextimeDay);
+		((FlexplanApplication) getApplication()).getCacheDB().cleanup();
 		super.onBackPressed();
 	}
 
@@ -153,11 +163,18 @@ public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
 		String newDate = DateHelper.getDateAsString(day, month, year);
 		long startTime = DateHelper.DAY_START;
 		long endTime = DateHelper.DAY_END;
-		if (((FlexplanApplication) getApplication()).getDbHelper().isDateInDB(
-				newDate)) {
-			startTime = ((FlexplanApplication) getApplication()).getDbHelper()
+		if (((FlexplanApplication) getApplication()).isDateCached(newDate)) {
+			startTime = ((FlexplanApplication) getApplication()).getCacheDB()
 					.getStartTimeOfDay(newDate);
-			endTime = ((FlexplanApplication) getApplication()).getDbHelper()
+			endTime = ((FlexplanApplication) getApplication()).getCacheDB()
+					.getEndTimeOfDay(newDate);
+		}
+
+		else if (((FlexplanApplication) getApplication()).getFlextimeDB()
+				.isDateInDB(newDate)) {
+			startTime = ((FlexplanApplication) getApplication())
+					.getFlextimeDB().getStartTimeOfDay(newDate);
+			endTime = ((FlexplanApplication) getApplication()).getFlextimeDB()
 					.getEndTimeOfDay(newDate);
 		}
 		setupFlextimeDay(newDate, startTime, endTime);
@@ -174,6 +191,12 @@ public class FlextimeDaySetupActivity extends AbstractActivityExtraProvider
 
 	private void updateDateTv() {
 		dateTv.setText(currentFlextimeDay.getDate());
+	}
+
+	@Override
+	public void updateCache() {
+		((FlexplanApplication) getApplication()).getCacheDB()
+				.insertOrUpdateFlextimeDay(currentFlextimeDay);
 	}
 
 }

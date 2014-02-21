@@ -1,7 +1,5 @@
 package com.flexplan;
 
-import java.util.ArrayList;
-
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -9,11 +7,11 @@ import android.widget.ListView;
 import com.flexplan.common.Factory;
 import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.common.business.WorkBreak;
-import com.flexplan.util.AbstractActivityWithExtraInput;
+import com.flexplan.util.AbstractActivity;
 import com.flexplan.util.SaveOrDiscardDialog;
 
-public class BreakOverviewActivity extends AbstractActivityWithExtraInput
-		implements BreakSetup, SaveDiscardProvider {
+public class BreakOverviewActivity extends AbstractActivity implements
+		BreakSetup, SaveDiscardProvider {
 
 	private FlextimeDay currentFlextimeDay;
 	private ListView breakListView;
@@ -21,7 +19,14 @@ public class BreakOverviewActivity extends AbstractActivityWithExtraInput
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		loadBreak();
 		updateList();
+	}
+
+	private void loadBreak() {
+		currentFlextimeDay = ((FlexplanApplication) getApplication())
+				.getCacheDB().getCachedFlextimeDay();
+		this.setTitle(getTitle() + " - " + currentFlextimeDay.getDate());
 	}
 
 	private void updateList() {
@@ -34,10 +39,11 @@ public class BreakOverviewActivity extends AbstractActivityWithExtraInput
 	protected void setContentView() {
 		setContentView(R.layout.activity_break_view);
 	}
-	
+
 	@Override
 	public void onBackPressed() {
-		SaveOrDiscardDialog.newInstance(this).show(getSupportFragmentManager(), TAG);
+		SaveOrDiscardDialog.newInstance(this).show(getSupportFragmentManager(),
+				TAG);
 	}
 
 	@Override
@@ -59,21 +65,9 @@ public class BreakOverviewActivity extends AbstractActivityWithExtraInput
 		return super.onOptionsItemSelected(item);
 	}
 
-
 	@Override
 	protected void initElements() {
 		breakListView = (ListView) findViewById(R.id.breakList);
-		this.setTitle(getTitle() + " - "
-				+ currentFlextimeDay.getDate());
-	}
-
-	@Override
-	protected void setupExtras() {
-		String date = getIntent().getExtras().getString("date");
-		long startTime = getIntent().getExtras().getLong("startTime");
-		long endTime = getIntent().getExtras().getLong("endTime");
-		currentFlextimeDay = Factory.getInstance().createFlextimeDay(date,
-				startTime, endTime, new ArrayList<WorkBreak>());
 	}
 
 	@Override
@@ -91,8 +85,8 @@ public class BreakOverviewActivity extends AbstractActivityWithExtraInput
 
 	@Override
 	public void save() {
-		((FlexplanApplication) getApplication()).getDbHelper()
-		.insertWorkBreaks(currentFlextimeDay);
+		((FlexplanApplication) getApplication()).getCacheDB().insertWorkBreaks(
+				currentFlextimeDay);
 		super.onBackPressed();
 	}
 

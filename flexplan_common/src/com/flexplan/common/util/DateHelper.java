@@ -33,7 +33,7 @@ public class DateHelper {
 
 	public static int getCurrentMonth() {
 		GregorianCalendar cal = new GregorianCalendar();
-		return cal.get(GregorianCalendar.MONTH);
+		return cal.get(GregorianCalendar.MONTH)+1;
 	}
 
 	public static int getCurrentDayOfMonth() {

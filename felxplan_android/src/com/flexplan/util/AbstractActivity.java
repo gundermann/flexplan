@@ -36,6 +36,7 @@ public abstract class AbstractActivity extends FragmentActivity {
 
 	abstract protected int getMenu();
 
+	//TODO Annotation Framework
 	abstract protected void initElements();
 
 	protected abstract void setContentView();

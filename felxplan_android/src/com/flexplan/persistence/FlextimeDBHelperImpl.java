@@ -13,15 +13,15 @@ import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.common.business.WorkBreak;
 import com.flexplan.common.util.DateHelper;
 
-public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
+public class FlextimeDBHelperImpl extends SQLiteOpenHelper implements FlextimeDBHelper {
 
 	private static final int VERSION = 2;
 
 	private static final String NAME = "flextime.db";
 
-	private static final String TAG = DBHelper.class.getSimpleName();
+	private static final String TAG = FlextimeDBHelperImpl.class.getSimpleName();
 
-	public DBHelper(com.flexplan.FlexplanApplication app) {
+	public FlextimeDBHelperImpl(com.flexplan.FlexplanApplication app) {
 		super(app, NAME, null, VERSION);
 	}
 

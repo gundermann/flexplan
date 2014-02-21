@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.flexplan.common.business.FlextimeDay;
 
-public interface FlextimeDB {
+public interface FlextimeDBHelper {
 
 	void insertOrUpdateFlextimeDay(FlextimeDay flextimeDay);
 	

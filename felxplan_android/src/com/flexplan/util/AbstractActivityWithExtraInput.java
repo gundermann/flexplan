@@ -1,5 +1,6 @@
 package com.flexplan.util;
 
+@Deprecated
 public abstract class AbstractActivityWithExtraInput extends AbstractActivity {
 
 	@Override

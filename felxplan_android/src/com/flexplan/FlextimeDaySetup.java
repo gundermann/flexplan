@@ -11,5 +11,7 @@ public interface FlextimeDaySetup {
 	void updateTime(long startTime, long endTime);
 	
 	void updateDate(int day, int month, int year);
+	
+	void updateCache();
 
 }

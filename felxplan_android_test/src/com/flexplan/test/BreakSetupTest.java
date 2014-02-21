@@ -3,13 +3,13 @@ package com.flexplan.test;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.flexplan.BreakSetupActivity;
-import com.flexplan.BreakViewActivity;
+import com.flexplan.BreakSetupDialog;
+import com.flexplan.BreakOverviewActivity;
 
 public class BreakSetupTest extends
-		AbstractActivityInstumentaionTest<BreakSetupActivity> {
+		AbstractActivityInstumentaionTest<BreakSetupDialog> {
 
-	private BreakSetupActivity activity;
+	private BreakSetupDialog activity;
 	private int timeFromTvId = com.flexplan.R.id.timeFrom_tv;
 	private int timeFromTpId = com.flexplan.R.id.timeFrom;
 	private int timeToTvId = com.flexplan.R.id.timeTo_tv;
@@ -18,7 +18,7 @@ public class BreakSetupTest extends
 	private int saveBreakBtId = com.flexplan.R.id.save_break_button;
 
 	public BreakSetupTest() {
-		super(BreakSetupActivity.class);
+		super(BreakSetupDialog.class);
 	}
 
 	@Override
@@ -60,14 +60,14 @@ public class BreakSetupTest extends
 		Button viewToTouch = (Button) activity.findViewById(saveBreakBtId);
 		int viewIdToCheck = com.flexplan.R.id.save_flextimeday_button;
 		String valueToVerify = activity.getText(com.flexplan.R.string.save).toString();
-		testStartNextActivity(BreakViewActivity.class, viewToTouch, viewIdToCheck, valueToVerify);
+		testStartNextActivity(BreakOverviewActivity.class, viewToTouch, viewIdToCheck, valueToVerify);
 	}
 	
 	public void testStartBreakViewActivityByAbort() throws Exception{
 		Button viewToTouch = (Button) activity.findViewById(abortBtId);
 		int viewIdToCheck = com.flexplan.R.id.save_break_button;
 		String valueToVerify = activity.getText(com.flexplan.R.string.save).toString();
-		testStartNextActivity(BreakViewActivity.class, viewToTouch, viewIdToCheck, valueToVerify);
+		testStartNextActivity(BreakOverviewActivity.class, viewToTouch, viewIdToCheck, valueToVerify);
 	}
 	
 }

@@ -13,20 +13,16 @@ import android.widget.TextView;
 
 import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.common.util.DateHelper;
-import com.flexplan.persistence.FlextimeDB;
-import com.flexplan.util.AbstractActivity;
 import com.flexplan.util.WeekChangeListener;
 
-public class FlextimeOverviewActivity extends AbstractActivity implements
-		DeleteProvider {
+public class FlextimeOverviewActivity extends AbstractFlextimeActivity
+		implements DeleteProvider {
 
 	private int currentWeek;
 
 	private int currentYear;
 
 	private TextView week;
-
-	private FlextimeDB dbHelper;
 
 	private ImageButton prevWeekBt;
 
@@ -84,14 +80,8 @@ public class FlextimeOverviewActivity extends AbstractActivity implements
 	}
 
 	private List<FlextimeDay> getCurrentWeekDays() {
-		if (dbHelper == null) {
-			setDbHelper(((FlexplanApplication) getApplication()).getDbHelper());
-		}
-		return dbHelper.getCurrentWeekDays(currentWeek, currentYear);
-	}
-
-	public void setDbHelper(FlextimeDB dbHelper) {
-		this.dbHelper = dbHelper;
+		return getFelxtimeDbHelper().getCurrentWeekDays(currentWeek,
+				currentYear);
 	}
 
 	private void setupWeek() {
@@ -162,7 +152,7 @@ public class FlextimeOverviewActivity extends AbstractActivity implements
 
 	@Override
 	public void delete(FlextimeDay day) {
-		((FlexplanApplication) getApplication()).getDbHelper().delete(day);
+		((FlexplanApplication) getApplication()).getFlextimeDB().delete(day);
 		updateListView();
 	}
 

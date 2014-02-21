@@ -7,18 +7,18 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.flexplan.BreakSetupActivity;
-import com.flexplan.BreakViewActivity;
+import com.flexplan.BreakSetupDialog;
+import com.flexplan.BreakOverviewActivity;
 
 public class BreakViewTest extends
-		AbstractActivityInstumentaionTest<BreakViewActivity> {
+		AbstractActivityInstumentaionTest<BreakOverviewActivity> {
 
-	private BreakViewActivity activity;
+	private BreakOverviewActivity activity;
 	private int breakLvId = com.flexplan.R.id.breakList;
 	private int setupBreakBtId = com.flexplan.R.id.add_break_button;
 
 	public BreakViewTest() {
-		super(BreakViewActivity.class);
+		super(BreakOverviewActivity.class);
 	}
 
 	@Override
@@ -28,7 +28,7 @@ public class BreakViewTest extends
 				.getTargetContext().getCacheDir().getPath());
 		GregorianCalendar cal = new GregorianCalendar();
 		Intent intent = new Intent(getInstrumentation().getContext(),
-				BreakViewActivity.class);
+				BreakOverviewActivity.class);
 		intent.putExtra("date", cal.get(GregorianCalendar.DATE));
 		intent.putExtra("startTime", 0L);
 		intent.putExtra("endTime", 24 * 60 * 60 * 1000);
@@ -53,7 +53,7 @@ public class BreakViewTest extends
 		int viewIdToCheck = com.flexplan.R.id.save_break_button;
 		String valueToVerify = activity.getText(com.flexplan.R.string.save)
 				.toString();
-		testStartNextActivity(BreakSetupActivity.class, viewToTouch,
+		testStartNextActivity(BreakSetupDialog.class, viewToTouch,
 				viewIdToCheck, valueToVerify);
 	}
 
