@@ -81,7 +81,7 @@ public class FlextimeOverviewActivity extends AbstractFlextimeActivity
 	}
 
 	private List<FlextimeDay> getCurrentWeekDays() {
-		return getFelxtimeDbHelper().getCurrentWeekDays(currentWeek,
+		return getFlextimeDbHelper().getCurrentWeekDays(currentWeek,
 				currentYear);
 	}
 

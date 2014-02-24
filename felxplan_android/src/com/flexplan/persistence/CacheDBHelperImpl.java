@@ -42,33 +42,31 @@ public class CacheDBHelperImpl extends SQLiteOpenHelper implements
 
 	@Override
 	public void insertOrUpdateFlextimeDay(FlextimeDay flextimeDay) {
-		SQLiteDatabase db = getWritableDatabase();
 		if (isEmpty()) {
-			db.insert(FlextimeTable.TABLE_NAME, null,
+			getReadableDatabase().insert(FlextimeTable.TABLE_NAME, null,
 					FlextimeTable.getContentValues(flextimeDay));
 		} else {
-			db.update(FlextimeTable.TABLE_NAME,
+			getReadableDatabase().update(FlextimeTable.TABLE_NAME,
 					FlextimeTable.getContentValues(flextimeDay),
 					getWhere(FlextimeTable.DATE, flextimeDay.getDate()), null);
 		}
-		db.close();
 	}
 
-	// @Override
-	// public SQLiteDatabase getReadableDatabase() {
-	// if (super.getReadableDatabase().isOpen()) {
-	// super.getReadableDatabase().close();
-	// }
-	// return super.getReadableDatabase();
-	// }
+	 @Override
+	 public SQLiteDatabase getReadableDatabase() {
+	 if (super.getReadableDatabase().isOpen()) {
+	 super.getReadableDatabase().close();
+	 }
+	 return super.getReadableDatabase();
+	 }
 
-	// @Override
-	// public SQLiteDatabase getWritableDatabase() {
-	// if (super.getWritableDatabase().isOpen()) {
-	// super.getWritableDatabase().close();
-	// }
-	// return super.getWritableDatabase();
-	// }
+	@Override
+	public SQLiteDatabase getWritableDatabase() {
+		if (super.getWritableDatabase().isOpen()) {
+			super.getWritableDatabase().close();
+		}
+		return super.getWritableDatabase();
+	}
 
 	protected String getWhere(String column, Object value) {
 		String[] columns = new String[] { column };
@@ -91,39 +89,37 @@ public class CacheDBHelperImpl extends SQLiteOpenHelper implements
 
 	@Override
 	public void insertWorkBreaks(FlextimeDay currentFlextimeDay) {
-		SQLiteDatabase db = getWritableDatabase();
+		cleanupBreaks();
 		for (WorkBreak workBreak : currentFlextimeDay.getWorkBreaks()) {
-			db.insertOrThrow(BreakTimeTable.TABLE_NAME, BreakTimeTable.ID,
+			getWritableDatabase().insertOrThrow(BreakTimeTable.TABLE_NAME, BreakTimeTable.ID,
 					BreakTimeTable.getContentValues(workBreak,
 							currentFlextimeDay.getDate()));
 		}
-		db.close();
+	}
+
+	private void cleanupBreaks() {
+		getWritableDatabase().delete(BreakTimeTable.TABLE_NAME, null, null);		
 	}
 
 	@Override
 	public long getStartTimeOfDay(String newDate) {
-		SQLiteDatabase db = getReadableDatabase();
-
-		Cursor c = db.query(FlextimeTable.TABLE_NAME,
+		Cursor c = getReadableDatabase().query(FlextimeTable.TABLE_NAME,
 				FlextimeTable.selectTimeFrom(),
 				getWhere(FlextimeTable.DATE, newDate), null, null, null, null);
 		c.moveToFirst();
 		long result = c.getLong(0);
 		c.close();
-		db.close();
 		return result;
 	}
 
 	@Override
 	public long getEndTimeOfDay(String newDate) {
-		SQLiteDatabase db = getReadableDatabase();
-		Cursor c = db.query(FlextimeTable.TABLE_NAME,
+		Cursor c = getReadableDatabase().query(FlextimeTable.TABLE_NAME,
 				FlextimeTable.selectTimeTo(),
 				getWhere(FlextimeTable.DATE, newDate), null, null, null, null);
 		c.moveToFirst();
 		long result = c.getLong(0);
 		c.close();
-		db.close();
 		return result;
 	}
 
@@ -147,10 +143,8 @@ public class CacheDBHelperImpl extends SQLiteOpenHelper implements
 
 	@Override
 	public void cleanup() {
-		SQLiteDatabase db = getWritableDatabase();
-		db.delete(FlextimeTable.TABLE_NAME, null, null);
-		db.delete(BreakTimeTable.TABLE_NAME, null, null);
-		db.close();
+		getWritableDatabase().delete(FlextimeTable.TABLE_NAME, null, null);
+		cleanupBreaks();
 	}
 
 	@Override
@@ -166,7 +160,7 @@ public class CacheDBHelperImpl extends SQLiteOpenHelper implements
 				getWorkBreaksForFlextimeDay(date));
 	}
 
-	private List<WorkBreak> getWorkBreaksForFlextimeDay(String date) {
+	public List<WorkBreak> getWorkBreaksForFlextimeDay(String date) {
 		List<WorkBreak> workBreaks = new ArrayList<WorkBreak>();
 		Cursor c = getReadableDatabase().query(BreakTimeTable.TABLE_NAME,
 				BreakTimeTable.selectTime(),

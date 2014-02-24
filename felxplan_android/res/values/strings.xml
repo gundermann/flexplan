@@ -18,7 +18,10 @@
     <string name="abort">Abbrechen</string>
     <string name="discard">Verwerfen</string>
     <string name="ask_delete">Wollen sie den Tag wirklich löschen?</string>
-    <string name="save_or_discard">Möchten Sie die neuen Pausen wirklich verwerfen?</string>
+    <string name="save_or_discard_breaks">Möchten Sie die neuen Pausen wirklich verwerfen?</string>
+    <string name="override_cached_breaks">Sollen die Pausen wirklich überschrieben werden?</string>
+    <string name="save_or_discard_day">Möchten Sie die aktuelle Einstellung wirklich verwerfen?</string>
+    <string name="override_day">Soll die Einstellung für diesen Tag wirklich überschrieben werden?</string>
     <string name="title_flextime_day_setup">Datum festlegen</string>
     <string name="hours_this_week">Wochenstunden:</string>
     <string name="no_results">Keine Einträge</string>

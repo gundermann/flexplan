@@ -1,6 +1,9 @@
 package com.flexplan.persistence;
 
+import java.util.List;
+
 import com.flexplan.common.business.FlextimeDay;
+import com.flexplan.common.business.WorkBreak;
 
 public interface CacheDBHelper {
 
@@ -19,5 +22,7 @@ public interface CacheDBHelper {
 	void cleanup();
 
 	FlextimeDay getCachedFlextimeDay();
+
+	List<WorkBreak> getWorkBreaksForFlextimeDay(String newDate);
 
 }

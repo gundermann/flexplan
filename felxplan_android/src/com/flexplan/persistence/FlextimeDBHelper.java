@@ -21,4 +21,6 @@ public interface FlextimeDBHelper {
 	long getStartTimeOfDay(String newDate);
 
 	long getEndTimeOfDay(String newDate);
+
+	FlextimeDay getFlextimeDay(FlextimeDay cachedFlextimeDay);
 }

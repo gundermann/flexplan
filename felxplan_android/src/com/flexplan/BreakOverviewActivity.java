@@ -7,11 +7,12 @@ import android.widget.ListView;
 import com.flexplan.common.Factory;
 import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.common.business.WorkBreak;
-import com.flexplan.util.AbstractActivity;
+import com.flexplan.util.OverwriteDialog;
+import com.flexplan.util.OverwriteProvider;
 import com.flexplan.util.SaveOrDiscardDialog;
 
-public class BreakOverviewActivity extends AbstractActivity implements
-		BreakSetup, SaveDiscardProvider {
+public class BreakOverviewActivity extends AbstractFlextimeActivity implements
+		BreakSetup, SaveDiscardProvider, OverwriteProvider {
 
 	private FlextimeDay currentFlextimeDay;
 	private ListView breakListView;
@@ -42,8 +43,8 @@ public class BreakOverviewActivity extends AbstractActivity implements
 
 	@Override
 	public void onBackPressed() {
-		SaveOrDiscardDialog.newInstance(this).show(getSupportFragmentManager(),
-				TAG);
+			SaveOrDiscardDialog.newInstance(this).show(
+					getSupportFragmentManager(), TAG);
 	}
 
 	@Override
@@ -85,13 +86,38 @@ public class BreakOverviewActivity extends AbstractActivity implements
 
 	@Override
 	public void save() {
-		((FlexplanApplication) getApplication()).getCacheDB().insertWorkBreaks(
-				currentFlextimeDay);
-		super.onBackPressed();
+		if (isChangeOfBreaks())
+			OverwriteDialog.newInstance(this).show(getSupportFragmentManager(), TAG);
+		else {
+			overwriteOrSave();
+		}
+	}
+
+	private boolean isChangeOfBreaks() {
+		FlextimeDay cachedFlextimeDay = getCacheDbHelper()
+				.getCachedFlextimeDay();
+		return cachedFlextimeDay.getWorkBreaks().equals(
+				currentFlextimeDay.getWorkBreaks());
 	}
 
 	@Override
 	public void discard() {
 		super.onBackPressed();
+	}
+
+	@Override
+	public void overwriteOrSave() {
+		getCacheDbHelper().insertWorkBreaks(currentFlextimeDay);	
+		super.onBackPressed();
+	}
+
+	@Override
+	public String getOverwirteMessage() {
+		return getString(R.string.override_cached_breaks);
+	}
+
+	@Override
+	public String getSaveDiscardMessage() {
+		return getString(R.string.save_or_discard_breaks);
 	}
 }

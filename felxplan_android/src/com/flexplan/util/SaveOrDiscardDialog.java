@@ -26,7 +26,7 @@ public class SaveOrDiscardDialog extends AbstractDialog{
 	protected Dialog buildDialog(View view) {
 		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(
 				getActivity());
-		dialogBuilder.setMessage(R.string.save_or_discard);
+		dialogBuilder.setMessage(provider.getSaveDiscardMessage());
 		dialogBuilder.setPositiveButton(R.string.save, new SaveListener(provider));
 		dialogBuilder.setNegativeButton(R.string.discard, new DiscardListener(provider));
 	return dialogBuilder.create();	

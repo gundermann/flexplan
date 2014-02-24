@@ -1,7 +1,5 @@
 package com.flexplan.util;
 
-import com.flexplan.R;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.support.v4.app.DialogFragment;
@@ -27,7 +25,7 @@ public class OverwriteDialog extends AbstractDialog {
 	protected Dialog buildDialog(View view) {
 		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(
 				getActivity());
-		dialogBuilder.setMessage(R.string.save_or_discard);
+		dialogBuilder.setMessage(provider.getOverwirteMessage());
 		dialogBuilder.setPositiveButton(android.R.string.ok, new OverwriteListener(provider));
 		dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 	return dialogBuilder.create();	

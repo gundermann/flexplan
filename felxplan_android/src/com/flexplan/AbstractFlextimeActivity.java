@@ -36,7 +36,7 @@ abstract public class AbstractFlextimeActivity extends AbstractActivity {
 		currentFlextimeDay = flextimeDay;
 	}
 
-	protected FlextimeDBHelper getFelxtimeDbHelper() {
+	protected FlextimeDBHelper getFlextimeDbHelper() {
 		return felxtimeDbHelper;
 	}
 

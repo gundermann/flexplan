@@ -1,7 +1,5 @@
 package com.flexplan;
 
-import java.util.ArrayList;
-
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.DatePicker;
@@ -9,16 +7,14 @@ import android.widget.TextView;
 
 import com.flexplan.common.Factory;
 import com.flexplan.common.business.FlextimeDay;
-import com.flexplan.common.business.WorkBreak;
 import com.flexplan.common.util.DateHelper;
-import com.flexplan.util.AbstractActivity;
 import com.flexplan.util.DateChangedListener;
 import com.flexplan.util.OverwriteDialog;
 import com.flexplan.util.OverwriteProvider;
 import com.flexplan.util.SaveOrDiscardDialog;
 
-public class FlextimeDaySetupActivity extends AbstractActivity implements
-		FlextimeDaySetup, SaveDiscardProvider, OverwriteProvider {
+public class FlextimeDaySetupActivity extends AbstractFlextimeActivity
+		implements FlextimeDaySetup, SaveDiscardProvider, OverwriteProvider {
 
 	private static final String TAG = null;
 	private FlextimeDay currentFlextimeDay;
@@ -55,8 +51,9 @@ public class FlextimeDaySetupActivity extends AbstractActivity implements
 	}
 
 	private void setupFlextimeDay(String newDate, long startTime, long endTime) {
-			currentFlextimeDay = Factory.getInstance().createFlextimeDay(
-					newDate, startTime, endTime, new ArrayList<WorkBreak>());
+		currentFlextimeDay = Factory.getInstance().createFlextimeDay(newDate,
+				startTime, endTime,
+				getCacheDbHelper().getWorkBreaksForFlextimeDay(newDate));
 		updateDateTv();
 		updateTimeTv();
 		updateCache();
@@ -191,6 +188,16 @@ public class FlextimeDaySetupActivity extends AbstractActivity implements
 	public void updateCache() {
 		((FlexplanApplication) getApplication()).getCacheDB()
 				.insertOrUpdateFlextimeDay(currentFlextimeDay);
+	}
+
+	@Override
+	public String getOverwirteMessage() {
+		return getString(R.string.override_day);
+	}
+
+	@Override
+	public String getSaveDiscardMessage() {
+		return getString(R.string.save_or_discard_day);
 	}
 
 }
