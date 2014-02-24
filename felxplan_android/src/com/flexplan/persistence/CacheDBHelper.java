@@ -11,7 +11,7 @@ public interface CacheDBHelper {
 
 	long getEndTimeOfDay(String newDate);
 
-	void insertWorkBreaks(FlextimeDay currentFlextimeDay);
+	void updateWorkBreaks(FlextimeDay currentFlextimeDay);
 
 	void insertOrUpdateFlextimeDay(FlextimeDay flextimeDay);
 

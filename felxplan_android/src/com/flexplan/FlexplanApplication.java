@@ -11,8 +11,7 @@ public class FlexplanApplication extends Application {
 
 	private FlextimeDBHelperImpl flextimeDbHelper;
 	private CacheDBHelperImpl cacheDbHelper;
-	
-	
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -20,22 +19,17 @@ public class FlexplanApplication extends Application {
 		cacheDbHelper = new CacheDBHelperImpl(this);
 	}
 
-
 	public FlextimeDBHelper getFlextimeDB() {
 		return flextimeDbHelper;
 	}
-
 
 	public CacheDBHelper getCacheDB() {
 		return cacheDbHelper;
 	}
 
-
 	public boolean isDateCached(String newDate) {
-		// TODO Auto-generated method stub
-		return false;
+		return cacheDbHelper.getCachedDate().equals(newDate);
 	}
-
 
 	public boolean existsCacheData() {
 		return !getCacheDB().isEmpty();

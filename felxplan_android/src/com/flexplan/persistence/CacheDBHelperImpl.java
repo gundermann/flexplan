@@ -42,7 +42,8 @@ public class CacheDBHelperImpl extends SQLiteOpenHelper implements
 
 	@Override
 	public void insertOrUpdateFlextimeDay(FlextimeDay flextimeDay) {
-		if (isEmpty()) {
+		if (isEmpty() || !getCachedDate().equals(flextimeDay)) {
+			cleanup();
 			getReadableDatabase().insert(FlextimeTable.TABLE_NAME, null,
 					FlextimeTable.getContentValues(flextimeDay));
 		} else {
@@ -50,6 +51,7 @@ public class CacheDBHelperImpl extends SQLiteOpenHelper implements
 					FlextimeTable.getContentValues(flextimeDay),
 					getWhere(FlextimeTable.DATE, flextimeDay.getDate()), null);
 		}
+		updateWorkBreaks(flextimeDay);
 	}
 
 	 @Override
@@ -88,7 +90,7 @@ public class CacheDBHelperImpl extends SQLiteOpenHelper implements
 	}
 
 	@Override
-	public void insertWorkBreaks(FlextimeDay currentFlextimeDay) {
+	public void updateWorkBreaks(FlextimeDay currentFlextimeDay) {
 		cleanupBreaks();
 		for (WorkBreak workBreak : currentFlextimeDay.getWorkBreaks()) {
 			getWritableDatabase().insertOrThrow(BreakTimeTable.TABLE_NAME, BreakTimeTable.ID,

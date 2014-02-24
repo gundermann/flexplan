@@ -14,7 +14,6 @@ import com.flexplan.util.SaveOrDiscardDialog;
 public class BreakOverviewActivity extends AbstractFlextimeActivity implements
 		BreakSetup, SaveDiscardProvider, OverwriteProvider {
 
-	private FlextimeDay currentFlextimeDay;
 	private ListView breakListView;
 
 	@Override
@@ -107,7 +106,7 @@ public class BreakOverviewActivity extends AbstractFlextimeActivity implements
 
 	@Override
 	public void overwriteOrSave() {
-		getCacheDbHelper().insertWorkBreaks(currentFlextimeDay);	
+		getCacheDbHelper().updateWorkBreaks(currentFlextimeDay);	
 		super.onBackPressed();
 	}
 

@@ -17,7 +17,6 @@ public class FlextimeDaySetupActivity extends AbstractFlextimeActivity
 		implements FlextimeDaySetup, SaveDiscardProvider, OverwriteProvider {
 
 	private static final String TAG = null;
-	private FlextimeDay currentFlextimeDay;
 	private DatePicker date;
 	private TextView dateTv;
 	private TextView timeRangeTV;
@@ -182,12 +181,6 @@ public class FlextimeDaySetupActivity extends AbstractFlextimeActivity
 
 	private void updateDateTv() {
 		dateTv.setText(currentFlextimeDay.getDate());
-	}
-
-	@Override
-	public void updateCache() {
-		((FlexplanApplication) getApplication()).getCacheDB()
-				.insertOrUpdateFlextimeDay(currentFlextimeDay);
 	}
 
 	@Override
