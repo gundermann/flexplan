@@ -40,12 +40,6 @@ public class FlextimeDaySetupActivity extends AbstractActivity implements
 		}
 	}
 
-	@Override
-	protected void onStop() {
-		((FlexplanApplication) getApplication()).getCacheDB().cleanup();
-		super.onStop();
-	}
-
 	private boolean existsCacheData() {
 		if (((FlexplanApplication) getApplication()).existsCacheData()) {
 			String dateString = ((FlexplanApplication) getApplication())

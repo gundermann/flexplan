@@ -43,6 +43,7 @@ public class FlextimeOverviewActivity extends AbstractFlextimeActivity
 	@Override
 	protected void onResume() {
 		super.onResume();
+		getCacheDbHelper().cleanup();
 		updateListView();
 	}
 

@@ -12,9 +12,10 @@ import com.flexplan.common.Factory;
 import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.common.business.WorkBreak;
 
-public class CacheDBHelperImpl extends SQLiteOpenHelper implements CacheDBHelper {
+public class CacheDBHelperImpl extends SQLiteOpenHelper implements
+		CacheDBHelper {
 
-	private static final int VERSION = 1;
+	private static final int VERSION = 2;
 
 	private static final String NAME = "cache.db";
 
@@ -41,26 +42,33 @@ public class CacheDBHelperImpl extends SQLiteOpenHelper implements CacheDBHelper
 
 	@Override
 	public void insertOrUpdateFlextimeDay(FlextimeDay flextimeDay) {
-		cleanup();
-		getWritableDatabase().insertOrThrow(FlextimeTable.TABLE_NAME, null,
-				FlextimeTable.getContentValues(flextimeDay));
+		SQLiteDatabase db = getWritableDatabase();
+		if (isEmpty()) {
+			db.insert(FlextimeTable.TABLE_NAME, null,
+					FlextimeTable.getContentValues(flextimeDay));
+		} else {
+			db.update(FlextimeTable.TABLE_NAME,
+					FlextimeTable.getContentValues(flextimeDay),
+					getWhere(FlextimeTable.DATE, flextimeDay.getDate()), null);
+		}
+		db.close();
 	}
 
-	@Override
-	public SQLiteDatabase getReadableDatabase() {
-		if (super.getReadableDatabase().isOpen()) {
-			super.getReadableDatabase().close();
-		}
-		return super.getReadableDatabase();
-	}
+	// @Override
+	// public SQLiteDatabase getReadableDatabase() {
+	// if (super.getReadableDatabase().isOpen()) {
+	// super.getReadableDatabase().close();
+	// }
+	// return super.getReadableDatabase();
+	// }
 
-	@Override
-	public SQLiteDatabase getWritableDatabase() {
-		if (super.getWritableDatabase().isOpen()) {
-			super.getWritableDatabase().close();
-		}
-		return super.getWritableDatabase();
-	}
+	// @Override
+	// public SQLiteDatabase getWritableDatabase() {
+	// if (super.getWritableDatabase().isOpen()) {
+	// super.getWritableDatabase().close();
+	// }
+	// return super.getWritableDatabase();
+	// }
 
 	protected String getWhere(String column, Object value) {
 		String[] columns = new String[] { column };
@@ -83,31 +91,40 @@ public class CacheDBHelperImpl extends SQLiteOpenHelper implements CacheDBHelper
 
 	@Override
 	public void insertWorkBreaks(FlextimeDay currentFlextimeDay) {
+		SQLiteDatabase db = getWritableDatabase();
 		for (WorkBreak workBreak : currentFlextimeDay.getWorkBreaks()) {
-			getWritableDatabase().insert(
-					BreakTimeTable.TABLE_NAME,
-					null,
+			db.insertOrThrow(BreakTimeTable.TABLE_NAME, BreakTimeTable.ID,
 					BreakTimeTable.getContentValues(workBreak,
 							currentFlextimeDay.getDate()));
 		}
+		db.close();
 	}
 
 	@Override
 	public long getStartTimeOfDay(String newDate) {
-		Cursor c = getReadableDatabase().query(FlextimeTable.TABLE_NAME,
+		SQLiteDatabase db = getReadableDatabase();
+
+		Cursor c = db.query(FlextimeTable.TABLE_NAME,
 				FlextimeTable.selectTimeFrom(),
 				getWhere(FlextimeTable.DATE, newDate), null, null, null, null);
 		c.moveToFirst();
-		return c.getLong(0);
+		long result = c.getLong(0);
+		c.close();
+		db.close();
+		return result;
 	}
 
 	@Override
 	public long getEndTimeOfDay(String newDate) {
-		Cursor c = getReadableDatabase().query(FlextimeTable.TABLE_NAME,
+		SQLiteDatabase db = getReadableDatabase();
+		Cursor c = db.query(FlextimeTable.TABLE_NAME,
 				FlextimeTable.selectTimeTo(),
 				getWhere(FlextimeTable.DATE, newDate), null, null, null, null);
 		c.moveToFirst();
-		return c.getLong(0);
+		long result = c.getLong(0);
+		c.close();
+		db.close();
+		return result;
 	}
 
 	@Override
@@ -130,8 +147,10 @@ public class CacheDBHelperImpl extends SQLiteOpenHelper implements CacheDBHelper
 
 	@Override
 	public void cleanup() {
-		getWritableDatabase().delete(FlextimeTable.TABLE_NAME, null, null);
-		getWritableDatabase().delete(BreakTimeTable.TABLE_NAME, null, null);
+		SQLiteDatabase db = getWritableDatabase();
+		db.delete(FlextimeTable.TABLE_NAME, null, null);
+		db.delete(BreakTimeTable.TABLE_NAME, null, null);
+		db.close();
 	}
 
 	@Override
@@ -143,10 +162,10 @@ public class CacheDBHelperImpl extends SQLiteOpenHelper implements CacheDBHelper
 		long timeFrom = c.getLong(1);
 		long timeTo = c.getLong(2);
 		c.close();
-		return Factory.getInstance().createFlextimeDay(date,
-				timeFrom, timeTo, getWorkBreaksForFlextimeDay(date));
+		return Factory.getInstance().createFlextimeDay(date, timeFrom, timeTo,
+				getWorkBreaksForFlextimeDay(date));
 	}
-	
+
 	private List<WorkBreak> getWorkBreaksForFlextimeDay(String date) {
 		List<WorkBreak> workBreaks = new ArrayList<WorkBreak>();
 		Cursor c = getReadableDatabase().query(BreakTimeTable.TABLE_NAME,
