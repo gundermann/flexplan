@@ -54,13 +54,13 @@ public class CacheDBHelperImpl extends SQLiteOpenHelper implements
 		updateWorkBreaks(flextimeDay);
 	}
 
-	 @Override
-	 public SQLiteDatabase getReadableDatabase() {
-	 if (super.getReadableDatabase().isOpen()) {
-	 super.getReadableDatabase().close();
-	 }
-	 return super.getReadableDatabase();
-	 }
+	@Override
+	public SQLiteDatabase getReadableDatabase() {
+		if (super.getReadableDatabase().isOpen()) {
+			super.getReadableDatabase().close();
+		}
+		return super.getReadableDatabase();
+	}
 
 	@Override
 	public SQLiteDatabase getWritableDatabase() {
@@ -93,14 +93,16 @@ public class CacheDBHelperImpl extends SQLiteOpenHelper implements
 	public void updateWorkBreaks(FlextimeDay currentFlextimeDay) {
 		cleanupBreaks();
 		for (WorkBreak workBreak : currentFlextimeDay.getWorkBreaks()) {
-			getWritableDatabase().insertOrThrow(BreakTimeTable.TABLE_NAME, BreakTimeTable.ID,
+			getWritableDatabase().insertOrThrow(
+					BreakTimeTable.TABLE_NAME,
+					BreakTimeTable.ID,
 					BreakTimeTable.getContentValues(workBreak,
 							currentFlextimeDay.getDate()));
 		}
 	}
 
 	private void cleanupBreaks() {
-		getWritableDatabase().delete(BreakTimeTable.TABLE_NAME, null, null);		
+		getWritableDatabase().delete(BreakTimeTable.TABLE_NAME, null, null);
 	}
 
 	@Override
@@ -139,8 +141,9 @@ public class CacheDBHelperImpl extends SQLiteOpenHelper implements
 	public String getCachedDate() {
 		Cursor c = getReadableDatabase().query(FlextimeTable.TABLE_NAME,
 				FlextimeTable.selectAll(), null, null, null, null, null);
-		c.moveToFirst();
-		return c.getString(0);
+		if (c.moveToFirst())
+			return c.getString(0);
+		return null;
 	}
 
 	@Override
