@@ -7,6 +7,7 @@ import android.widget.ListView;
 import com.flexplan.common.Factory;
 import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.common.business.WorkBreak;
+import com.flexplan.common.util.DateHelper;
 import com.flexplan.util.OverwriteDialog;
 import com.flexplan.util.OverwriteProvider;
 import com.flexplan.util.SaveOrDiscardDialog;
@@ -20,19 +21,13 @@ public class BreakOverviewActivity extends AbstractFlextimeActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		loadBreak();
-		updateList();
+		refreshLists();
 	}
 
 	private void loadBreak() {
 		currentFlextimeDay = ((FlexplanApplication) getApplication())
 				.getCacheDB().getCachedFlextimeDay();
 		this.setTitle(getTitle() + " - " + currentFlextimeDay.getDate());
-	}
-
-	private void updateList() {
-		breakListView.setAdapter(new BreakListAdapter(getApplicationContext(),
-				currentFlextimeDay.getWorkBreaks()));
-		breakListView.setEmptyView(findViewById(R.id.empty));
 	}
 
 	@Override
@@ -50,8 +45,7 @@ public class BreakOverviewActivity extends AbstractFlextimeActivity implements
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.add_break:
-			BreakSetupDialog.newInstance(this).show(
-					getSupportFragmentManager(), TAG);
+			initSettings(null);
 			break;
 		case R.id.save:
 			save();
@@ -73,14 +67,6 @@ public class BreakOverviewActivity extends AbstractFlextimeActivity implements
 	@Override
 	protected int getMenu() {
 		return R.menu.break_overview_menu;
-	}
-
-	@Override
-	public void addBreak(long startTime, long endTime) {
-		WorkBreak workbreak = Factory.getInstance().createWorkBreak(startTime,
-				endTime);
-		currentFlextimeDay.addBreak(workbreak);
-		updateList();
 	}
 
 	@Override
@@ -118,5 +104,30 @@ public class BreakOverviewActivity extends AbstractFlextimeActivity implements
 	@Override
 	public String getSaveDiscardMessage() {
 		return getString(R.string.save_or_discard_breaks);
+	}
+
+	public void refreshLists() {
+		breakListView.setAdapter(new BreakListAdapter(getApplicationContext(),
+				currentFlextimeDay.getWorkBreaks()));
+		breakListView.setOnItemClickListener(new OnBreakClickListener(this));
+		breakListView.setEmptyView(findViewById(R.id.empty));
+	}
+
+	@Override
+	public void refreshBreakTime(WorkBreak workbreak, long startTime, long endTime) {
+		if(workbreak == null){
+		workbreak = Factory.getInstance().createWorkBreak(DateHelper.DAY_START,
+				DateHelper.DAY_END);
+		currentFlextimeDay.addBreak(workbreak);
+		}
+		workbreak.setStartTime(startTime);
+		workbreak.setEndTime(endTime);
+		refreshLists();
+	}
+
+	@Override
+	public void initSettings(WorkBreak workbreak) {
+		BreakSetupDialog.newInstance(this, workbreak).show(
+				getSupportFragmentManager(), TAG);			
 	}
 }
