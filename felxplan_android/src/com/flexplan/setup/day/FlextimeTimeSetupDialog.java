@@ -1,4 +1,4 @@
-package com.flexplan;
+package com.flexplan.setup.day;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -7,7 +7,11 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.TimePicker;
 
+import com.flexplan.R;
+import com.flexplan.R.id;
+import com.flexplan.R.layout;
 import com.flexplan.common.util.DateHelper;
+import com.flexplan.setup.TimeSetup;
 import com.flexplan.util.AbstractDialog;
 import com.flexplan.util.SetTimeOnFlextimeDayListener;
 

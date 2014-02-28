@@ -1,4 +1,5 @@
-package com.flexplan;
+package com.flexplan.setup;
+
 
 
 import android.view.View;

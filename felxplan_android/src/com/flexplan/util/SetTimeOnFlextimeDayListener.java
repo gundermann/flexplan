@@ -3,8 +3,8 @@ package com.flexplan.util;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 
-import com.flexplan.FlextimeDaySetup;
-import com.flexplan.TimeSetup;
+import com.flexplan.setup.TimeSetup;
+import com.flexplan.setup.day.FlextimeDaySetup;
 
 public class SetTimeOnFlextimeDayListener implements OnClickListener {
 

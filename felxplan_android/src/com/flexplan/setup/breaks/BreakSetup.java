@@ -1,4 +1,4 @@
-package com.flexplan;
+package com.flexplan.setup.breaks;
 
 import com.flexplan.common.business.WorkBreak;
 

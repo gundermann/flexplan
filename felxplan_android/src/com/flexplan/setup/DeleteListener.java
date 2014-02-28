@@ -1,4 +1,4 @@
-package com.flexplan;
+package com.flexplan.setup;
 
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;

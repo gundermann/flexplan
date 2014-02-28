@@ -1,10 +1,12 @@
-package com.flexplan;
+package com.flexplan.setup;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface.OnClickListener;
 import android.view.View;
 
+import com.flexplan.R;
+import com.flexplan.R.string;
 import com.flexplan.util.AbstractDialog;
 
 public class DeleteDialog extends AbstractDialog{

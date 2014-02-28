@@ -5,7 +5,7 @@ import android.app.Dialog;
 import android.view.View;
 
 import com.flexplan.R;
-import com.flexplan.SaveDiscardProvider;
+import com.flexplan.setup.SaveDiscardProvider;
 
 public class SaveOrDiscardDialog extends AbstractDialog{
 

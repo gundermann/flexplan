@@ -1,17 +1,20 @@
-package com.flexplan;
+package com.flexplan.setup.breaks;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.widget.TimePicker;
 
+import com.flexplan.R;
+import com.flexplan.R.id;
+import com.flexplan.R.layout;
 import com.flexplan.common.business.WorkBreak;
 import com.flexplan.common.util.DateHelper;
+import com.flexplan.setup.TimeSetup;
+import com.flexplan.util.AbstractDialog;
 import com.flexplan.util.SaveBreakListener;
 
-public class BreakSetupDialog extends DialogFragment implements TimeSetup {
+public class BreakSetupDialog extends AbstractDialog implements TimeSetup {
 
 	private TimePicker timeFrom;
 	private TimePicker timeTo;
@@ -26,20 +29,13 @@ public class BreakSetupDialog extends DialogFragment implements TimeSetup {
 		return dialog;
 	}
 
-	@Override
-	public Dialog onCreateDialog(Bundle savedInstanceState) {
-		View view = getCurrentView();
-		instantiateViews(view);
-		return buildDialog(view);
-	}
-
-	private View getCurrentView() {
+	public View getCurrentView() {
 		View view = getActivity().getLayoutInflater().inflate(
 				R.layout.timerange_picker, null);
 		return view;
 	}
 
-	private void instantiateViews(View view) {
+	public void instantiateViews(View view) {
 		timeFrom = (TimePicker) view.findViewById(R.id.timeFrom);
 		timeTo = (TimePicker) view.findViewById(R.id.timeTo);
 		timeFrom.setIs24HourView(true);
@@ -56,7 +52,7 @@ public class BreakSetupDialog extends DialogFragment implements TimeSetup {
 		}
 	}
 
-	private Dialog buildDialog(View view) {
+	public Dialog buildDialog(View view) {
 		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(
 				getActivity());
 		dialogBuilder.setView(view);

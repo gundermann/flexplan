@@ -1,5 +1,6 @@
 package com.flexplan.util;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -46,7 +47,7 @@ public abstract class AbstractActivity extends FragmentActivity {
 		startActivity(intent);
 	}
 	
-	protected void startNextActivity(Class<? extends AbstractActivity> activity){
+	protected void startNextActivity(Class<? extends Activity> activity){
 		startActivity(new Intent(getApplicationContext(), activity));
 	}
 

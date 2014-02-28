@@ -15,7 +15,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.flexplan.FlextimeDaySetupActivity"
+            android:name="com.flexplan.setup.day.FlextimeDaySetupActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_flextime_day_setup"
             android:launchMode="singleTask"
@@ -31,17 +31,9 @@
             android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
-            android:name="com.flexplan.BreakSetupDialog"
+            android:name="com.flexplan.setup.breaks.BreakSetupDialog"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_break_setup"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/FullscreenTheme" >
-        </activity>
-        <activity
-            android:name="com.flexplan.FlextimeTimeSetupDialog"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_flextime_setup"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/FullscreenTheme" >

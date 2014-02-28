@@ -1,13 +1,22 @@
-package com.flexplan;
+package com.flexplan.setup.day;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+import com.flexplan.AbstractFlextimeActivity;
+import com.flexplan.BreakOverviewActivity;
+import com.flexplan.FlexplanApplication;
+import com.flexplan.R;
+import com.flexplan.R.id;
+import com.flexplan.R.layout;
+import com.flexplan.R.menu;
+import com.flexplan.R.string;
 import com.flexplan.common.Factory;
 import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.common.util.DateHelper;
+import com.flexplan.setup.SaveDiscardProvider;
 import com.flexplan.util.DateChangedListener;
 import com.flexplan.util.OverwriteDialog;
 import com.flexplan.util.OverwriteProvider;

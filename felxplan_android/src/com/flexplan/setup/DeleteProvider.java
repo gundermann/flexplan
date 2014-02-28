@@ -1,4 +1,4 @@
-package com.flexplan;
+package com.flexplan.setup;
 
 
 public interface DeleteProvider<T> {

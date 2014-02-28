@@ -3,7 +3,6 @@ package com.flexplan;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -13,6 +12,13 @@ import android.widget.TextView;
 
 import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.common.util.DateHelper;
+import com.flexplan.setup.ChangeProvider;
+import com.flexplan.setup.DeleteDialog;
+import com.flexplan.setup.DeleteListener;
+import com.flexplan.setup.DeleteProvider;
+import com.flexplan.setup.OnChangeClickListener;
+import com.flexplan.setup.OnDeleteLongClickListener;
+import com.flexplan.setup.day.FlextimeDaySetupActivity;
 import com.flexplan.util.WeekChangeListener;
 
 public class FlextimeOverviewActivity extends AbstractFlextimeActivity
@@ -59,7 +65,8 @@ public class FlextimeOverviewActivity extends AbstractFlextimeActivity
 				.setOnItemClickListener(new OnChangeClickListener<FlextimeDay>(
 						this));
 		flextimeWeekList
-				.setOnItemLongClickListener(new OnDeleteLongClickListener<FlextimeDay>(this));
+				.setOnItemLongClickListener(new OnDeleteLongClickListener<FlextimeDay>(
+						this));
 		updateHours();
 	}
 
@@ -138,12 +145,10 @@ public class FlextimeOverviewActivity extends AbstractFlextimeActivity
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.setup_flextime_day:
-			startNextActivity(new Intent(getApplicationContext(),
-					FlextimeDaySetupActivity.class));
+			startNextActivity(FlextimeDaySetupActivity.class);
 			break;
 		case R.id.preferences:
-			startNextActivity(new Intent(getApplicationContext(),
-					SettingsActivity.class));
+			startNextActivity(SettingsActivity.class);
 			break;
 		default:
 			break;
@@ -159,7 +164,8 @@ public class FlextimeOverviewActivity extends AbstractFlextimeActivity
 
 	@Override
 	public void initDelete(FlextimeDay flextimeDay) {
-		DeleteDialog.newInstance(new DeleteListener<FlextimeDay>(this, flextimeDay)).show(
+		DeleteDialog.newInstance(
+				new DeleteListener<FlextimeDay>(this, flextimeDay)).show(
 				getSupportFragmentManager(), TAG);
 	}
 

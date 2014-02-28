@@ -3,9 +3,9 @@ package com.flexplan.util;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 
-import com.flexplan.BreakSetup;
-import com.flexplan.BreakSetupDialog;
 import com.flexplan.common.business.WorkBreak;
+import com.flexplan.setup.breaks.BreakSetup;
+import com.flexplan.setup.breaks.BreakSetupDialog;
 
 public class SaveBreakListener implements OnClickListener {
 

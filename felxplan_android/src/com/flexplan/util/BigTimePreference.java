@@ -8,6 +8,8 @@ import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 
 import com.flexplan.R;
+import com.flexplan.R.id;
+import com.flexplan.R.layout;
 
 public class BigTimePreference extends TimePreference {
 

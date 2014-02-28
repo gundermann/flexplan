@@ -3,7 +3,7 @@ package com.flexplan.util;
 import android.widget.CalendarView;
 import android.widget.CalendarView.OnDateChangeListener;
 
-import com.flexplan.FlextimeDaySetup;
+import com.flexplan.setup.day.FlextimeDaySetup;
 
 public class DateChangedListener implements OnDateChangeListener {
 
