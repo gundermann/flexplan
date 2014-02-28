@@ -3,12 +3,12 @@ package com.flexplan;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 
-public class DeleteListener implements OnClickListener {
+public class DeleteListener<T> implements OnClickListener {
 
-	private DeleteProvider provider;
-	private Object object;
+	private DeleteProvider<T> provider;
+	private T object;
 
-	public DeleteListener(DeleteProvider provider, Object o) {
+	public DeleteListener(DeleteProvider<T> provider, T o) {
 		this.provider = provider;
 		this.object = o;
 	}

@@ -16,7 +16,7 @@ import com.flexplan.common.util.DateHelper;
 import com.flexplan.util.WeekChangeListener;
 
 public class FlextimeOverviewActivity extends AbstractFlextimeActivity
-		implements DeleteProvider, ChangeProvider {
+		implements DeleteProvider<FlextimeDay>, ChangeProvider<FlextimeDay> {
 
 	private int currentWeek;
 
@@ -55,11 +55,11 @@ public class FlextimeOverviewActivity extends AbstractFlextimeActivity
 		flextimeWeekList.setAdapter(new FlextimeOverviewAdapter(
 				getApplicationContext(), getCurrentWeekDays()));
 		flextimeWeekList.setEmptyView(findViewById(R.id.empty));
-		flextimeWeekList.setOnItemClickListener(new OnChangeClickListener(
-				this));
 		flextimeWeekList
-				.setOnItemLongClickListener(new OnDeleteLongClickListener(
+				.setOnItemClickListener(new OnChangeClickListener<FlextimeDay>(
 						this));
+		flextimeWeekList
+				.setOnItemLongClickListener(new OnDeleteLongClickListener<FlextimeDay>(this));
 		updateHours();
 	}
 
@@ -152,20 +152,20 @@ public class FlextimeOverviewActivity extends AbstractFlextimeActivity
 	}
 
 	@Override
-	public void delete(Object o) {
-		((FlexplanApplication) getApplication()).getFlextimeDB().delete((FlextimeDay) o);
+	public void delete(FlextimeDay flextimeDay) {
+		getFlextimeDbHelper().delete(flextimeDay);
 		updateListView();
 	}
 
 	@Override
-	public void initDelete(Object o) {
-		DeleteDialog.newInstance(this, o).show(
+	public void initDelete(FlextimeDay flextimeDay) {
+		DeleteDialog.newInstance(new DeleteListener<FlextimeDay>(this, flextimeDay)).show(
 				getSupportFragmentManager(), TAG);
 	}
 
 	@Override
-	public void initChange(Object o) {
-		setFlextimeDay((FlextimeDay) o);
+	public void initChange(FlextimeDay flextimeDay) {
+		setFlextimeDay(flextimeDay);
 		updateCache();
 		startNextActivity(FlextimeDaySetupActivity.class);
 	}

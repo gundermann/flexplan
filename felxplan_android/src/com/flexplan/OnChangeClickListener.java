@@ -5,17 +5,17 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class OnChangeClickListener implements OnItemClickListener {
+public class OnChangeClickListener<T> implements OnItemClickListener {
 
-	private ChangeProvider changeProvider;
+	private ChangeProvider<T> changeProvider;
 
-	public OnChangeClickListener(ChangeProvider changeProvider) {
+	public OnChangeClickListener(ChangeProvider<T> changeProvider) {
 		this.changeProvider = changeProvider;
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> adapterView, View view, int position, long arg3) {
-		Object o = adapterView.getAdapter().getItem(position);
+		T o =  (T) adapterView.getAdapter().getItem(position);
 		changeProvider.initChange(o);
 	}
 }

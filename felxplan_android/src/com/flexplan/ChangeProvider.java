@@ -1,6 +1,6 @@
 package com.flexplan;
 
-public interface ChangeProvider {
+public interface ChangeProvider<T> {
 
-	void initChange(Object o);
+	void initChange(T o);
 }

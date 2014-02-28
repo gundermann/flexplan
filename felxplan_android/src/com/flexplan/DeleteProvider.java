@@ -1,9 +1,9 @@
 package com.flexplan;
 
 
-public interface DeleteProvider {
+public interface DeleteProvider<T> {
 
-	void delete(Object o);
+	void delete(T o);
 
-	void initDelete(Object o);
+	void initDelete(T o);
 }

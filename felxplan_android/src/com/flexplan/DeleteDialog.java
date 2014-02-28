@@ -2,16 +2,14 @@ package com.flexplan;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.support.v4.app.DialogFragment;
+import android.content.DialogInterface.OnClickListener;
 import android.view.View;
 
 import com.flexplan.util.AbstractDialog;
 
 public class DeleteDialog extends AbstractDialog{
 
-	
-	private DeleteProvider provider;
-	private Object object;
+	private OnClickListener listener;
 
 	@Override
 	protected void instantiateViews(View view) {
@@ -22,7 +20,7 @@ public class DeleteDialog extends AbstractDialog{
 		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(
 				getActivity());
 		dialogBuilder.setMessage(R.string.ask_delete);
-		dialogBuilder.setPositiveButton(android.R.string.ok, new DeleteListener(provider, object));
+		dialogBuilder.setPositiveButton(android.R.string.ok, listener);
 		dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 	return dialogBuilder.create();	
 	}
@@ -32,11 +30,9 @@ public class DeleteDialog extends AbstractDialog{
 		return null;
 	}
 
-	public static DialogFragment newInstance(DeleteProvider provider,
-			Object o) {
+	public static DeleteDialog newInstance(OnClickListener listener) {
 		DeleteDialog dialog = new DeleteDialog();
-		dialog.provider = provider;
-		dialog.object = o;
+		dialog.listener = listener;
 		return dialog;
 	}
 
