@@ -13,20 +13,16 @@ import android.widget.TextView;
 
 import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.common.util.DateHelper;
-import com.flexplan.persistence.FlextimeDB;
-import com.flexplan.util.AbstractActivity;
 import com.flexplan.util.WeekChangeListener;
 
-public class FlextimeOverviewActivity extends AbstractActivity implements
-		DeleteProvider {
+public class FlextimeOverviewActivity extends AbstractFlextimeActivity
+		implements DeleteProvider, ChangeProvider {
 
 	private int currentWeek;
 
 	private int currentYear;
 
 	private TextView week;
-
-	private FlextimeDB dbHelper;
 
 	private ImageButton prevWeekBt;
 
@@ -47,6 +43,7 @@ public class FlextimeOverviewActivity extends AbstractActivity implements
 	@Override
 	protected void onResume() {
 		super.onResume();
+		getCacheDbHelper().cleanup();
 		updateListView();
 	}
 
@@ -58,10 +55,10 @@ public class FlextimeOverviewActivity extends AbstractActivity implements
 		flextimeWeekList.setAdapter(new FlextimeOverviewAdapter(
 				getApplicationContext(), getCurrentWeekDays()));
 		flextimeWeekList.setEmptyView(findViewById(R.id.empty));
-		flextimeWeekList.setOnItemClickListener(new OnFlextimeDayClickListener(
+		flextimeWeekList.setOnItemClickListener(new OnChangeClickListener(
 				this));
 		flextimeWeekList
-				.setOnItemLongClickListener(new OnFlextimeDayLongClickListener(
+				.setOnItemLongClickListener(new OnDeleteLongClickListener(
 						this));
 		updateHours();
 	}
@@ -84,14 +81,8 @@ public class FlextimeOverviewActivity extends AbstractActivity implements
 	}
 
 	private List<FlextimeDay> getCurrentWeekDays() {
-		if (dbHelper == null) {
-			setDbHelper(((FlexplanApplication) getApplication()).getDbHelper());
-		}
-		return dbHelper.getCurrentWeekDays(currentWeek, currentYear);
-	}
-
-	public void setDbHelper(FlextimeDB dbHelper) {
-		this.dbHelper = dbHelper;
+		return getFlextimeDbHelper().getCurrentWeekDays(currentWeek,
+				currentYear);
 	}
 
 	private void setupWeek() {
@@ -161,9 +152,22 @@ public class FlextimeOverviewActivity extends AbstractActivity implements
 	}
 
 	@Override
-	public void delete(FlextimeDay day) {
-		((FlexplanApplication) getApplication()).getDbHelper().delete(day);
+	public void delete(Object o) {
+		((FlexplanApplication) getApplication()).getFlextimeDB().delete((FlextimeDay) o);
 		updateListView();
+	}
+
+	@Override
+	public void initDelete(Object o) {
+		DeleteDialog.newInstance(this, o).show(
+				getSupportFragmentManager(), TAG);
+	}
+
+	@Override
+	public void initChange(Object o) {
+		setFlextimeDay((FlextimeDay) o);
+		updateCache();
+		startNextActivity(FlextimeDaySetupActivity.class);
 	}
 
 }

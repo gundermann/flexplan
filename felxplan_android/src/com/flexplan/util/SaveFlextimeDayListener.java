@@ -4,15 +4,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.flexplan.FlextimeDaySetup;
-import com.flexplan.persistence.FlextimeDB;
+import com.flexplan.persistence.FlextimeDBHelper;
 
 public class SaveFlextimeDayListener implements OnClickListener {
 
 	
-	private FlextimeDB dbHelper;
+	private FlextimeDBHelper dbHelper;
 	private FlextimeDaySetup flextimeDaySetup;
 
-	public SaveFlextimeDayListener(FlextimeDaySetup flextimeDaySetup, FlextimeDB dbHelper) {
+	public SaveFlextimeDayListener(FlextimeDaySetup flextimeDaySetup, FlextimeDBHelper dbHelper) {
 		this.flextimeDaySetup = flextimeDaySetup;
 		this.dbHelper = dbHelper;
 	}

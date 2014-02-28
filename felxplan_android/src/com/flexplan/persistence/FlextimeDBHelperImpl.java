@@ -13,15 +13,15 @@ import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.common.business.WorkBreak;
 import com.flexplan.common.util.DateHelper;
 
-public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
+public class FlextimeDBHelperImpl extends SQLiteOpenHelper implements FlextimeDBHelper {
 
 	private static final int VERSION = 2;
 
 	private static final String NAME = "flextime.db";
 
-	private static final String TAG = DBHelper.class.getSimpleName();
+	private static final String TAG = FlextimeDBHelperImpl.class.getSimpleName();
 
-	public DBHelper(com.flexplan.FlexplanApplication app) {
+	public FlextimeDBHelperImpl(com.flexplan.FlexplanApplication app) {
 		super(app, NAME, null, VERSION);
 	}
 
@@ -44,6 +44,7 @@ public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 	public void insertOrUpdateFlextimeDay(FlextimeDay flextimeDay) {
 		getWritableDatabase().insertOrThrow(FlextimeTable.TABLE_NAME, null,
 				FlextimeTable.getContentValues(flextimeDay));
+		insertWorkBreaks(flextimeDay);
 	}
 
 	@Override
@@ -182,7 +183,6 @@ public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 	public boolean delete(FlextimeDay flextimeDay) {
 		getWritableDatabase().delete(BreakTimeTable.TABLE_NAME,
 				getWhere(BreakTimeTable.DATE, flextimeDay.getDate()), null);
-
 		int result = getWritableDatabase().delete(FlextimeTable.TABLE_NAME,
 				getWhere(FlextimeTable.DATE, flextimeDay.getDate()), null);
 		return result > 0;
@@ -212,6 +212,16 @@ public class DBHelper extends SQLiteOpenHelper implements FlextimeDB {
 				getWhere(FlextimeTable.DATE, newDate), null, null, null, null);
 		c.moveToFirst();
 		return c.getLong(0);
+	}
+
+	@Override
+	public FlextimeDay getFlextimeDay(FlextimeDay cachedFlextimeDay) {
+		for(FlextimeDay persistedFlextimeDay : getAllFlextimeDays()){
+			if(persistedFlextimeDay.getDate().equals(cachedFlextimeDay.getDate())){
+				return persistedFlextimeDay;
+			}
+		}
+		return null;
 	}
 
 }

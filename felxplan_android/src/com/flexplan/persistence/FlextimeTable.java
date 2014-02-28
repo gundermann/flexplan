@@ -15,7 +15,7 @@ public class FlextimeTable {
 		StringBuilder sb = new StringBuilder();
 
 		sb.append("create table ").append(TABLE_NAME).append(" (").append(DATE)
-				.append(" numeric primary key, ").append(TIME_FROM)
+				.append(" text primary key, ").append(TIME_FROM)
 				.append(" numeric, ").append(TIME_TO).append(" numeric);");
 		return sb.toString();
 	}

@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 
-
+@Deprecated
 public abstract class AbstractActivityExtraProvider extends AbstractActivity {
 
 	protected void startNextActivitWithExtras(

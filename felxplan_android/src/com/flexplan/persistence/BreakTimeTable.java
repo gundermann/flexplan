@@ -16,7 +16,7 @@ public class BreakTimeTable {
 		StringBuilder sb = new StringBuilder();
 
 		sb.append("create table ").append(TABLE_NAME).append(" (").append(ID)
-				.append(" integer primary key autoincrement, ").append(DATE)
+				.append(" integer primary key autoincrement not null, ").append(DATE)
 				.append(" numeric, ").append(TIME_FROM).append(" numeric, ").append(TIME_TO).append(" numeric);");
 		return sb.toString();
 	}

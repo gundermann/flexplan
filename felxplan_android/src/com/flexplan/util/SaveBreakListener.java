@@ -4,24 +4,25 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 
 import com.flexplan.BreakSetup;
-import com.flexplan.TimeSetup;
+import com.flexplan.BreakSetupDialog;
+import com.flexplan.common.business.WorkBreak;
 
 public class SaveBreakListener implements OnClickListener {
 
-	private TimeSetup breakTimeSetup;
-	private BreakSetup breakSetup;
+	private BreakSetupDialog breakSetupDialog;
+	private BreakSetup setup;
+	private WorkBreak workbreak;
 
-	public SaveBreakListener(TimeSetup breakSetupDialog,
-			BreakSetup breakSetup) {
-		this.breakTimeSetup = breakSetupDialog;
-		this.breakSetup = breakSetup;
+	public SaveBreakListener(
+			BreakSetupDialog breakSetupDialog, BreakSetup setup, WorkBreak workbreak) {
+		this.breakSetupDialog = breakSetupDialog;
+		this.setup = setup;
+		this.workbreak = workbreak;
 	}
 
 	@Override
-	public void onClick(DialogInterface dialog, int arg1) {
-		breakSetup.addBreak(breakTimeSetup.getCurrentStartTime(),
-				breakTimeSetup.getCurrentEndTime());
-		
+	public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+	setup.refreshBreakTime(workbreak, breakSetupDialog.getCurrentStartTime(), breakSetupDialog.getCurrentEndTime());
 	}
 
 }

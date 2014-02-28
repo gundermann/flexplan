@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.flexplan.common.business.FlextimeDay;
 
-public interface FlextimeDB {
+public interface FlextimeDBHelper {
 
 	void insertOrUpdateFlextimeDay(FlextimeDay flextimeDay);
 	
@@ -21,4 +21,6 @@ public interface FlextimeDB {
 	long getStartTimeOfDay(String newDate);
 
 	long getEndTimeOfDay(String newDate);
+
+	FlextimeDay getFlextimeDay(FlextimeDay cachedFlextimeDay);
 }

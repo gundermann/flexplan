@@ -5,14 +5,13 @@ import android.app.Dialog;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
 
-import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.util.AbstractDialog;
 
 public class DeleteDialog extends AbstractDialog{
 
 	
 	private DeleteProvider provider;
-	private FlextimeDay day;
+	private Object object;
 
 	@Override
 	protected void instantiateViews(View view) {
@@ -23,7 +22,7 @@ public class DeleteDialog extends AbstractDialog{
 		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(
 				getActivity());
 		dialogBuilder.setMessage(R.string.ask_delete);
-		dialogBuilder.setPositiveButton(android.R.string.ok, new DeleteListener(provider, day));
+		dialogBuilder.setPositiveButton(android.R.string.ok, new DeleteListener(provider, object));
 		dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 	return dialogBuilder.create();	
 	}
@@ -34,10 +33,10 @@ public class DeleteDialog extends AbstractDialog{
 	}
 
 	public static DialogFragment newInstance(DeleteProvider provider,
-			FlextimeDay day) {
+			Object o) {
 		DeleteDialog dialog = new DeleteDialog();
 		dialog.provider = provider;
-		dialog.day = day;
+		dialog.object = o;
 		return dialog;
 	}
 
