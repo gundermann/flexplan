@@ -58,7 +58,7 @@ public class FlextimeOverviewActivity extends AbstractFlextimeActivity
 		flextimeWeekList.setOnItemClickListener(new OnFlextimeDayClickListener(
 				this));
 		flextimeWeekList
-				.setOnItemLongClickListener(new OnFlextimeDayLongClickListener(
+				.setOnItemLongClickListener(new OnDeleteLongClickListener(
 						this));
 		updateHours();
 	}
@@ -152,9 +152,15 @@ public class FlextimeOverviewActivity extends AbstractFlextimeActivity
 	}
 
 	@Override
-	public void delete(FlextimeDay day) {
-		((FlexplanApplication) getApplication()).getFlextimeDB().delete(day);
+	public void delete(Object o) {
+		((FlexplanApplication) getApplication()).getFlextimeDB().delete((FlextimeDay) o);
 		updateListView();
+	}
+
+	@Override
+	public void initDelete(Object o) {
+		DeleteDialog.newInstance(this, o).show(
+				getSupportFragmentManager(), TAG);
 	}
 
 }
