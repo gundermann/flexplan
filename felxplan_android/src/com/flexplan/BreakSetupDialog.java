@@ -50,8 +50,8 @@ public class BreakSetupDialog extends DialogFragment implements TimeSetup {
 			timeTo.setCurrentHour(DateHelper.convertHoursLongToInt(workbreak
 					.getEndTime()));
 			timeFrom.setCurrentMinute(DateHelper
-					.convertHoursLongToInt(workbreak.getStartTime()));
-			timeTo.setCurrentMinute(DateHelper.convertHoursLongToInt(workbreak
+					.convertMinutesLongToInt(workbreak.getStartTime()));
+			timeTo.setCurrentMinute(DateHelper.convertMinutesLongToInt(workbreak
 					.getEndTime()));
 		}
 	}
