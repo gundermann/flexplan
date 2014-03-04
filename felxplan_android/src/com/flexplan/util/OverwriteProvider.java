@@ -1,7 +1,9 @@
 package com.flexplan.util;
 
-public interface OverwriteProvider {
+
+
+public interface OverwriteProvider{
+	
 	void overwriteOrSave();
 
-	String getOverwirteMessage();
 }

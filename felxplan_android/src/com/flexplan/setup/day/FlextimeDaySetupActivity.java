@@ -8,19 +8,16 @@ import android.widget.TextView;
 import com.flexplan.AbstractFlextimeActivity;
 import com.flexplan.BreakOverviewActivity;
 import com.flexplan.FlexplanApplication;
+import com.flexplan.ListenerFactory;
 import com.flexplan.R;
-import com.flexplan.R.id;
-import com.flexplan.R.layout;
-import com.flexplan.R.menu;
-import com.flexplan.R.string;
 import com.flexplan.common.Factory;
 import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.common.util.DateHelper;
 import com.flexplan.setup.SaveDiscardProvider;
 import com.flexplan.util.DateChangedListener;
-import com.flexplan.util.OverwriteDialog;
 import com.flexplan.util.OverwriteProvider;
 import com.flexplan.util.SaveOrDiscardDialog;
+import com.flexplan.util.SimpleDialog;
 
 public class FlextimeDaySetupActivity extends AbstractFlextimeActivity
 		implements FlextimeDaySetup, SaveDiscardProvider, OverwriteProvider {
@@ -135,8 +132,10 @@ public class FlextimeDaySetupActivity extends AbstractFlextimeActivity
 	public void save() {
 		if (((FlexplanApplication) getApplication()).getFlextimeDB()
 				.isDateInDB(currentFlextimeDay.getDate())) {
-			OverwriteDialog.newInstance(this).show(getSupportFragmentManager(),
-					TAG);
+			SimpleDialog.newInstance(
+					ListenerFactory.createOverrideListener(this),
+					getString(R.string.override_day)).show(
+					getSupportFragmentManager(), TAG);
 		} else {
 			overwriteOrSave();
 		}
@@ -190,11 +189,6 @@ public class FlextimeDaySetupActivity extends AbstractFlextimeActivity
 
 	private void updateDateTv() {
 		dateTv.setText(currentFlextimeDay.getDate());
-	}
-
-	@Override
-	public String getOverwirteMessage() {
-		return getString(R.string.override_day);
 	}
 
 	@Override

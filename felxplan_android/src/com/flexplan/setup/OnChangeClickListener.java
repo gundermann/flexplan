@@ -14,6 +14,7 @@ public class OnChangeClickListener<T> implements OnItemClickListener {
 		this.changeProvider = changeProvider;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void onItemClick(AdapterView<?> adapterView, View view, int position, long arg3) {
 		T o =  (T) adapterView.getAdapter().getItem(position);

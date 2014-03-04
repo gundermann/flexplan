@@ -28,7 +28,8 @@ public class FlexplanApplication extends Application {
 	}
 
 	public boolean isDateCached(String newDate) {
-		return cacheDbHelper.getCachedDate().equals(newDate);
+		return cacheDbHelper.getCachedDate() != null ? cacheDbHelper
+				.getCachedDate().equals(newDate) : false;
 	}
 
 	public boolean existsCacheData() {

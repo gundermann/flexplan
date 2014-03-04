@@ -13,12 +13,11 @@ import android.widget.TextView;
 import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.common.util.DateHelper;
 import com.flexplan.setup.ChangeProvider;
-import com.flexplan.setup.DeleteDialog;
-import com.flexplan.setup.DeleteListener;
-import com.flexplan.setup.DeleteProvider;
 import com.flexplan.setup.OnChangeClickListener;
 import com.flexplan.setup.OnDeleteLongClickListener;
 import com.flexplan.setup.day.FlextimeDaySetupActivity;
+import com.flexplan.util.DeleteProvider;
+import com.flexplan.util.SimpleDialog;
 import com.flexplan.util.WeekChangeListener;
 
 public class FlextimeOverviewActivity extends AbstractFlextimeActivity
@@ -61,12 +60,10 @@ public class FlextimeOverviewActivity extends AbstractFlextimeActivity
 		flextimeWeekList.setAdapter(new FlextimeOverviewAdapter(
 				getApplicationContext(), getCurrentWeekDays()));
 		flextimeWeekList.setEmptyView(findViewById(R.id.empty));
-		flextimeWeekList
-				.setOnItemClickListener(new OnChangeClickListener<FlextimeDay>(
-						this));
-		flextimeWeekList
-				.setOnItemLongClickListener(new OnDeleteLongClickListener<FlextimeDay>(
-						this));
+		flextimeWeekList.setOnItemClickListener(ListenerFactory
+				.createOnChangeFlextimeListener(this));
+		flextimeWeekList.setOnItemLongClickListener(ListenerFactory
+				.createDeleteFlextimeLongClickListener(this));
 		updateHours();
 	}
 
@@ -164,9 +161,12 @@ public class FlextimeOverviewActivity extends AbstractFlextimeActivity
 
 	@Override
 	public void initDelete(FlextimeDay flextimeDay) {
-		DeleteDialog.newInstance(
-				new DeleteListener<FlextimeDay>(this, flextimeDay)).show(
-				getSupportFragmentManager(), TAG);
+		SimpleDialog
+				.newInstance(
+						ListenerFactory.createFlextimeDeleteListener(this,
+								flextimeDay),
+						getString(R.string.ask_delete_break)).show(
+						getSupportFragmentManager(), TAG);
 	}
 
 	@Override

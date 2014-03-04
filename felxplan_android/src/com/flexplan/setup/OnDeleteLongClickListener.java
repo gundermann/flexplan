@@ -1,6 +1,8 @@
 package com.flexplan.setup;
 
 
+import com.flexplan.util.DeleteProvider;
+
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -13,6 +15,7 @@ public class OnDeleteLongClickListener<T> implements OnItemLongClickListener {
 		this.deleteProvider = deleteProvider;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public boolean onItemLongClick(AdapterView<?> adapterView, View view,
 			int position, long arg3) {
