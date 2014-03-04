@@ -33,7 +33,7 @@ public class DateHelper {
 
 	public static int getCurrentMonth() {
 		GregorianCalendar cal = new GregorianCalendar();
-		return cal.get(GregorianCalendar.MONTH)+1;
+		return cal.get(GregorianCalendar.MONTH) + 1;
 	}
 
 	public static int getCurrentDayOfMonth() {
@@ -89,14 +89,15 @@ public class DateHelper {
 		GregorianCalendar cal = new GregorianCalendar();
 		cal.set(GregorianCalendar.DAY_OF_MONTH,
 				Integer.parseInt(date.substring(0, 2)));
-		cal.set(GregorianCalendar.MONTH, Integer.parseInt(date.substring(3, 5)));
+		cal.set(GregorianCalendar.MONTH,
+				Integer.parseInt(date.substring(3, 5)) - 1);
 		cal.set(GregorianCalendar.YEAR, Integer.parseInt(date.substring(6)));
 		return getDayOfWeekAsString(cal.get(GregorianCalendar.DAY_OF_WEEK));
 	}
 
 	public static String getDateAsString(int day, int month, int year) {
 		GregorianCalendar cal = new GregorianCalendar();
-		cal.set(year, month-1, day);
+		cal.set(year, month - 1, day);
 		return getDateAsString(cal.getTime());
 	}
 
