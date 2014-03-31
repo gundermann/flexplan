@@ -11,7 +11,6 @@ import com.flexplan.common.util.DateHelper;
 import com.flexplan.setup.ChangeProvider;
 import com.flexplan.setup.SaveDiscardProvider;
 import com.flexplan.setup.breaks.BreakSetup;
-import com.flexplan.setup.breaks.BreakSetupDialog;
 import com.flexplan.util.DeleteProvider;
 import com.flexplan.util.OverwriteProvider;
 import com.flexplan.util.SaveOrDiscardDialog;
@@ -135,8 +134,8 @@ public class BreakOverviewActivity extends AbstractFlextimeActivity implements
 
 	@Override
 	public void initSettings(WorkBreak workbreak) {
-		BreakSetupDialog.newInstance(this, workbreak).show(
-				getSupportFragmentManager(), TAG);
+//		BreakSetupDialog.newInstance(this, workbreak).show(
+//				getSupportFragmentManager(), TAG);
 	}
 
 	@Override

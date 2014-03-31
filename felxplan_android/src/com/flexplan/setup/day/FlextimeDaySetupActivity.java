@@ -2,6 +2,7 @@ package com.flexplan.setup.day;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
@@ -20,12 +21,13 @@ import com.flexplan.util.SaveOrDiscardDialog;
 import com.flexplan.util.SimpleDialog;
 
 public class FlextimeDaySetupActivity extends AbstractFlextimeActivity
-		implements FlextimeDaySetup, SaveDiscardProvider, OverwriteProvider {
+		implements FlextimeDaySetup, SaveDiscardProvider, OverwriteProvider{
 
 	private static final String TAG = null;
 	private DatePicker date;
 	private TextView dateTv;
-	private TextView timeRangeTV;
+	private Button timeFromBT;
+	private Button timeToBT;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +62,7 @@ public class FlextimeDaySetupActivity extends AbstractFlextimeActivity
 				startTime, endTime,
 				getCacheDbHelper().getWorkBreaksForFlextimeDay(newDate));
 		updateDateTv();
-		updateTimeTv();
+		updateTimeBTs();
 		updateCache();
 	}
 
@@ -84,7 +86,10 @@ public class FlextimeDaySetupActivity extends AbstractFlextimeActivity
 		date.getCalendarView().setOnDateChangeListener(
 				new DateChangedListener(this));
 		dateTv = (TextView) findViewById(R.id.day_tv);
-		timeRangeTV = (TextView) findViewById(R.id.time_range_tv);
+		timeFromBT = (Button) findViewById(R.id.start_time);
+		timeFromBT.setOnClickListener(new StartTimeSetupListener(this));
+		timeToBT = (Button) findViewById(R.id.end_time);
+		timeToBT.setOnClickListener(new EndTimeSetupListener(this));
 	}
 
 	@Override
@@ -95,10 +100,6 @@ public class FlextimeDaySetupActivity extends AbstractFlextimeActivity
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.setup_time:
-			FlextimeTimeSetupDialog.newInstance(this).show(
-					getSupportFragmentManager(), TAG);
-			break;
 		case R.id.save: {
 			save();
 			break;
@@ -178,13 +179,12 @@ public class FlextimeDaySetupActivity extends AbstractFlextimeActivity
 		setupFlextimeDay(newDate, startTime, endTime);
 	}
 
-	private void updateTimeTv() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(DateHelper.getTimeAsString(currentFlextimeDay.getStartTime()))
-				.append(" - ")
-				.append(DateHelper.getTimeAsString(currentFlextimeDay
-						.getEndTime()));
-		timeRangeTV.setText(sb.toString());
+	private void updateTimeBTs() {
+		timeFromBT.setText(DateHelper.getTimeAsString(currentFlextimeDay
+				.getStartTime()));
+		timeToBT.setText(DateHelper.getTimeAsString(currentFlextimeDay
+				.getEndTime()));
+
 	}
 
 	private void updateDateTv() {
@@ -195,5 +195,4 @@ public class FlextimeDaySetupActivity extends AbstractFlextimeActivity
 	public String getSaveDiscardMessage() {
 		return getString(R.string.save_or_discard_day);
 	}
-
 }

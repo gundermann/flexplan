@@ -123,7 +123,7 @@ public class DateHelper {
 		return (int) (value / (1000 * 60 * 60));
 	}
 
-	public static Integer convertMinutesLongToInt(long value) {
+	public static int convertMinutesLongToInt(long value) {
 		return (int) ((value / (1000 * 60)) % 60);
 	}
 

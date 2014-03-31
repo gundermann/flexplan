@@ -9,10 +9,6 @@
         android:showAsAction="ifRoom"
         android:icon="@android:drawable/ic_menu_delete"
         />
-    <item android:id="@+id/setup_time"
-        android:title="@string/setup_time"
-        android:showAsAction="ifRoom"
-        android:icon="@android:drawable/ic_lock_idle_alarm"/>
     <item android:id="@+id/show_breaks"
         android:title="@string/break_overview"
         android:showAsAction="ifRoom"
