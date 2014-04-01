@@ -16,8 +16,7 @@ import com.flexplan.util.SaveOrDiscardDialog;
 import com.flexplan.util.SimpleDialog;
 
 public class BreakOverviewActivity extends AbstractFlextimeActivity implements
-		BreakSetup, SaveDiscardProvider, OverwriteProvider,
-		DeleteProvider<WorkBreak> {
+		BreakSetup {
 
 	private ListView breakListView;
 
@@ -117,8 +116,6 @@ public class BreakOverviewActivity extends AbstractFlextimeActivity implements
 	private void updateLists() {
 		breakListView.setAdapter(new BreakListAdapter(this,
 				currentFlextimeDay.getWorkBreaks(), this));
-		breakListView.setOnItemLongClickListener(ListenerFactory
-				.createDeleteBreakLongClickListener(this));
 		breakListView.setEmptyView(findViewById(R.id.empty));
 	}
 

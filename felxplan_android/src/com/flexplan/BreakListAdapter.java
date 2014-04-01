@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.ImageButton;
 
 import com.flexplan.common.business.WorkBreak;
 import com.flexplan.common.util.DateHelper;
@@ -22,8 +22,9 @@ public class BreakListAdapter extends ArrayAdapter<WorkBreak> {
 	private BreakSetup setup;
 	private Context context;
 
-	public BreakListAdapter(Context context, List<WorkBreak> breakList, BreakSetup setup) {
-		super(context, R.layout.break_list, R.id.break_time_sum, breakList);
+	public BreakListAdapter(Context context, List<WorkBreak> breakList,
+			BreakSetup setup) {
+		super(context, R.layout.break_list, breakList);
 		this.context = context;
 		this.breakList = breakList;
 		this.setup = setup;
@@ -47,10 +48,11 @@ public class BreakListAdapter extends ArrayAdapter<WorkBreak> {
 		Button timeTo = (Button) rowView.findViewById(R.id.break_time_to);
 		timeTo.setOnClickListener(new EndTimeSetupListener(context,
 				new BreakTimeSetup(workBreak, setup)));
-		TextView timeSum = (TextView) rowView.findViewById(R.id.break_time_sum);
+		ImageButton deleteBt = (ImageButton) rowView.findViewById(R.id.deleteBt);
+		deleteBt.setOnClickListener(ListenerFactory
+				.createDeleteClickListener(setup, workBreak));
 
 		timeFrom.setText(DateHelper.getTimeAsString(workBreak.getStartTime()));
 		timeTo.setText(DateHelper.getTimeAsString(workBreak.getEndTime()));
-		timeSum.setText(DateHelper.getTimeAsString(workBreak.getLength()));
 	}
 }

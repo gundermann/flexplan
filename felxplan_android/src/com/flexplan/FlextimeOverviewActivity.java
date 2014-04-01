@@ -61,7 +61,7 @@ public class FlextimeOverviewActivity extends AbstractFlextimeActivity
 		flextimeWeekList.setOnItemClickListener(ListenerFactory
 				.createOnChangeFlextimeListener(this));
 		flextimeWeekList.setOnItemLongClickListener(ListenerFactory
-				.createDeleteFlextimeLongClickListener(this));
+				.createDeleteClickListener(this));
 		updateHours();
 	}
 
@@ -163,7 +163,7 @@ public class FlextimeOverviewActivity extends AbstractFlextimeActivity
 				.newInstance(
 						ListenerFactory.createFlextimeDeleteListener(this,
 								flextimeDay),
-						getString(R.string.ask_delete_break)).show(
+						getString(R.string.ask_delete_day)).show(
 						getSupportFragmentManager(), TAG);
 	}
 
