@@ -2,13 +2,12 @@ package com.flexplan;
 
 import android.content.DialogInterface.OnClickListener;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
 
 import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.common.business.WorkBreak;
 import com.flexplan.setup.ChangeProvider;
 import com.flexplan.setup.OnChangeClickListener;
-import com.flexplan.setup.OnDeleteClickListener;
+import com.flexplan.setup.OnDeleteItemClickListener;
 import com.flexplan.setup.SaveDiscardProvider;
 import com.flexplan.util.DeleteListener;
 import com.flexplan.util.DeleteProvider;
@@ -54,13 +53,14 @@ public class ListenerFactory {
 		return new OnChangeClickListener<WorkBreak>(provider);
 	}
 
+	public static <T> OnDeleteItemClickListener<T> createDeleteClickListener(
+			DeleteProvider<T> provider) {
+		return new OnDeleteItemClickListener<T>(provider);
+	}
+	
 	public static <T> OnDeleteClickListener<T> createDeleteClickListener(
 			DeleteProvider<T> provider, T object) {
 		return new OnDeleteClickListener<T>(provider, object);
 	}
 
-	public static OnItemLongClickListener createDeleteClickListener(
-			FlextimeOverviewActivity provider) {
-		return new OnDeleteClickListener<FlextimeDay>(provider, null);
-	}
 }

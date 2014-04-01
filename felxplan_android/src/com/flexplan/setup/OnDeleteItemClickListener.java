@@ -1,30 +1,25 @@
 package com.flexplan.setup;
 
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 
 import com.flexplan.util.DeleteProvider;
 
-public class OnDeleteClickListener<T> implements OnItemLongClickListener,
-		OnItemClickListener, OnClickListener {
+public class OnDeleteItemClickListener<T> implements OnItemLongClickListener,
+		OnItemClickListener{
 
 	private DeleteProvider<T> deleteProvider;
-	private T object;
 
-	public OnDeleteClickListener(DeleteProvider<T> deleteProvider, T object) {
+	public OnDeleteItemClickListener(DeleteProvider<T> deleteProvider) {
 		this.deleteProvider = deleteProvider;
-		this.object = object;
 	}
 
 	@Override
 	public boolean onItemLongClick(AdapterView<?> adapterView, View view,
 			int position, long arg3) {
-		if(object == null){
-			object = (T) adapterView.getAdapter().getItem(position);
-		}
+		T object = (T) adapterView.getAdapter().getItem(position);
 		deleteProvider.initDelete(object);
 		return true;
 	}
@@ -32,12 +27,7 @@ public class OnDeleteClickListener<T> implements OnItemLongClickListener,
 	@Override
 	public void onItemClick(AdapterView<?> adapterView, View view,
 			int position, long arg3) {
-		deleteProvider.initDelete(object);
-
-	}
-
-	@Override
-	public void onClick(View v) {
+		T object = (T) adapterView.getAdapter().getItem(position);
 		deleteProvider.initDelete(object);
 	}
 
