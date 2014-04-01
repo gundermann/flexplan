@@ -1,7 +1,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/activity_style"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:fitsSystemWindows="true"
     tools:context=".FlextimeDaySetupActivity" >
 
@@ -44,10 +46,10 @@
                 android:layout_row="0" />
 
             <TextView
+                style="@style/TextSmall"
                 android:layout_column="0"
                 android:layout_row="1"
-                android:text="@string/timeTo"
-                style="@style/TextSmall" />
+                android:text="@string/timeTo" />
 
             <Button
                 android:id="@+id/end_time"

@@ -6,8 +6,6 @@
     android:fitsSystemWindows="true"
     style="@style/activity_style"
     tools:context=".FlextimeOverviewActivity" >
-    <!-- 
-     -->
 
     <LinearLayout
         android:layout_width="match_parent"

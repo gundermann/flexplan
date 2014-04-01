@@ -4,6 +4,7 @@ import com.flexplan.common.util.DateHelper;
 
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -13,17 +14,19 @@ import android.widget.TimePicker;
 public class StartTimeSetupListener implements OnClickListener,
 		OnTimeSetListener {
 
-	private FlextimeDaySetupActivity flextimeDaySetup;
+	private TimeSetup flextimeDaySetup;
+	private Context context;
 
-	public StartTimeSetupListener(FlextimeDaySetupActivity flextimeDaySetup) {
+	public StartTimeSetupListener(Context context, TimeSetup flextimeDaySetup) {
+		this.context = context;
 		this.flextimeDaySetup = flextimeDaySetup;
 	}
 
 	@Override
 	public void onClick(View view) {
 		long defaultTime = getTimeValues("starttime", flextimeDaySetup
-				.getFlextimeDay().getStartTime());
-		new TimePickerDialog(flextimeDaySetup, this,
+				.getStartTime());
+		new TimePickerDialog(context, this,
 				DateHelper.convertHoursLongToInt(defaultTime),
 				DateHelper.convertMinutesLongToInt(defaultTime), true).show();
 	}
@@ -31,7 +34,7 @@ public class StartTimeSetupListener implements OnClickListener,
 	private long getTimeValues(String pref, long settedTime) {
 		if (settedTime == DateHelper.DAY_START) {
 			SharedPreferences prefs = PreferenceManager
-					.getDefaultSharedPreferences(flextimeDaySetup);
+					.getDefaultSharedPreferences(context);
 			return prefs.getLong(pref, 0L);
 		} else {
 			return settedTime;
@@ -40,7 +43,7 @@ public class StartTimeSetupListener implements OnClickListener,
 
 	@Override
 	public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-		flextimeDaySetup.updateTime(view.getDrawingTime(), flextimeDaySetup
-				.getFlextimeDay().getEndTime());
+		flextimeDaySetup.setTime(DateHelper.convertHoursAndMinutesToLong(hourOfDay, minute), flextimeDaySetup
+				.getEndTime());
 	}
 }

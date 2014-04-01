@@ -87,9 +87,9 @@ public class FlextimeDaySetupActivity extends AbstractFlextimeActivity
 				new DateChangedListener(this));
 		dateTv = (TextView) findViewById(R.id.day_tv);
 		timeFromBT = (Button) findViewById(R.id.start_time);
-		timeFromBT.setOnClickListener(new StartTimeSetupListener(this));
+		timeFromBT.setOnClickListener(new StartTimeSetupListener(this, this));
 		timeToBT = (Button) findViewById(R.id.end_time);
-		timeToBT.setOnClickListener(new EndTimeSetupListener(this));
+		timeToBT.setOnClickListener(new EndTimeSetupListener(this, this));
 	}
 
 	@Override
@@ -122,11 +122,6 @@ public class FlextimeDaySetupActivity extends AbstractFlextimeActivity
 	public void onBackPressed() {
 		SaveOrDiscardDialog.newInstance(this).show(getSupportFragmentManager(),
 				TAG);
-	}
-
-	@Override
-	public void updateTime(long startTime, long endTime) {
-		setupFlextimeDay(currentFlextimeDay.getDate(), startTime, endTime);
 	}
 
 	@Override
@@ -194,5 +189,20 @@ public class FlextimeDaySetupActivity extends AbstractFlextimeActivity
 	@Override
 	public String getSaveDiscardMessage() {
 		return getString(R.string.save_or_discard_day);
+	}
+
+	@Override
+	public long getStartTime() {
+		return getCurrentFlextimeDay().getStartTime();
+	}
+
+	@Override
+	public long getEndTime() {
+		return getCurrentFlextimeDay().getEndTime();
+	}
+
+	@Override
+	public void setTime(long startTime, long endTime) {
+		setupFlextimeDay(currentFlextimeDay.getDate(), startTime, endTime);		
 	}
 }

@@ -13,8 +13,6 @@ import android.widget.TextView;
 import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.common.util.DateHelper;
 import com.flexplan.setup.ChangeProvider;
-import com.flexplan.setup.OnChangeClickListener;
-import com.flexplan.setup.OnDeleteLongClickListener;
 import com.flexplan.setup.day.FlextimeDaySetupActivity;
 import com.flexplan.util.DeleteProvider;
 import com.flexplan.util.SimpleDialog;

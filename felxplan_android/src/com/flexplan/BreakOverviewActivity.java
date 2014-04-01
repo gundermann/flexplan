@@ -8,7 +8,6 @@ import com.flexplan.common.Factory;
 import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.common.business.WorkBreak;
 import com.flexplan.common.util.DateHelper;
-import com.flexplan.setup.ChangeProvider;
 import com.flexplan.setup.SaveDiscardProvider;
 import com.flexplan.setup.breaks.BreakSetup;
 import com.flexplan.util.DeleteProvider;
@@ -18,7 +17,7 @@ import com.flexplan.util.SimpleDialog;
 
 public class BreakOverviewActivity extends AbstractFlextimeActivity implements
 		BreakSetup, SaveDiscardProvider, OverwriteProvider,
-		DeleteProvider<WorkBreak>, ChangeProvider<WorkBreak> {
+		DeleteProvider<WorkBreak> {
 
 	private ListView breakListView;
 
@@ -50,7 +49,7 @@ public class BreakOverviewActivity extends AbstractFlextimeActivity implements
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.add_break:
-			initSettings(null);
+			initNewBreak();
 			break;
 		case R.id.save:
 			save();
@@ -62,6 +61,12 @@ public class BreakOverviewActivity extends AbstractFlextimeActivity implements
 			break;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	private void initNewBreak() {
+		long startTime = DateHelper.getCurrentTime();
+		long endTime = startTime + prefs.getLong(SettingsActivity.BREAK_TIME, 0L);
+		refreshBreakTime(null, startTime, endTime);
 	}
 
 	@Override
@@ -110,10 +115,8 @@ public class BreakOverviewActivity extends AbstractFlextimeActivity implements
 	}
 
 	private void updateLists() {
-		breakListView.setAdapter(new BreakListAdapter(getApplicationContext(),
-				currentFlextimeDay.getWorkBreaks()));
-		breakListView.setOnItemClickListener(ListenerFactory
-				.createOnChangeBreakListener(this));
+		breakListView.setAdapter(new BreakListAdapter(this,
+				currentFlextimeDay.getWorkBreaks(), this));
 		breakListView.setOnItemLongClickListener(ListenerFactory
 				.createDeleteBreakLongClickListener(this));
 		breakListView.setEmptyView(findViewById(R.id.empty));
@@ -133,12 +136,6 @@ public class BreakOverviewActivity extends AbstractFlextimeActivity implements
 	}
 
 	@Override
-	public void initSettings(WorkBreak workbreak) {
-//		BreakSetupDialog.newInstance(this, workbreak).show(
-//				getSupportFragmentManager(), TAG);
-	}
-
-	@Override
 	public void delete(WorkBreak workbreak) {
 		currentFlextimeDay.deleteBreak(workbreak);
 		updateLists();
@@ -152,9 +149,5 @@ public class BreakOverviewActivity extends AbstractFlextimeActivity implements
 				getSupportFragmentManager(), TAG);
 	}
 
-	@Override
-	public void initChange(WorkBreak workbreak) {
-		initSettings(workbreak);
-	}
 
 }

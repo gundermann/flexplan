@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:orientation="horizontal" >
     
-    <TextView 
+    <Button 
         android:id="@+id/break_time_from"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
+        style="@style/TextSmall"
         android:gravity="left"/>
     
     <TextView 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/timeDivider"
-        android:layout_gravity="left"
+        style="@style/TextSmall"
+        android:layout_gravity="left|center_vertical"
         android:gravity="left"/>
     
-    <TextView 
+    <Button 
         android:id="@+id/break_time_to"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
+        style="@style/TextSmall"
         android:gravity="left"/>
     
     <TextView 
@@ -30,6 +33,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
+        style="@style/TextSmall"
         android:gravity="right"/>
 
 </LinearLayout>

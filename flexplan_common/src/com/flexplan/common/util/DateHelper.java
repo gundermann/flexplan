@@ -1,6 +1,7 @@
 package com.flexplan.common.util;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
@@ -140,6 +141,16 @@ public class DateHelper {
 
 	public static int convertMinutesToLong(Integer currentMinute) {
 		return currentMinute * 60 * 1000;
+	}
+
+	public static long getCurrentTime() {
+		Calendar cal = new GregorianCalendar();
+		return convertHoursAndMinutesToLong(cal.get(GregorianCalendar.HOUR),
+				GregorianCalendar.MINUTE);
+	}
+	
+	public static long convertHoursAndMinutesToLong(int hours, int minutes) {
+		return convertHoursToLong(hours) + convertMinutesToLong(minutes);
 	}
 
 }

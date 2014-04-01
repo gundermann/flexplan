@@ -1,9 +1,11 @@
 package com.flexplan.setup.day;
 
+import com.flexplan.SettingsActivity;
 import com.flexplan.common.util.DateHelper;
 
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -12,17 +14,19 @@ import android.widget.TimePicker;
 
 public class EndTimeSetupListener implements OnClickListener, OnTimeSetListener {
 
-	private FlextimeDaySetupActivity flextimeDaySetup;
+	private TimeSetup flextimeDaySetup;
+	private Context context;
 
-	public EndTimeSetupListener(FlextimeDaySetupActivity flextimeDaySetup) {
+	public EndTimeSetupListener(Context context, TimeSetup flextimeDaySetup) {
+		this.context = context;
 		this.flextimeDaySetup = flextimeDaySetup;
 	}
 
 	@Override
 	public void onClick(View view) {
-		long defaultTime = getTimeValues("endtime", flextimeDaySetup
-				.getFlextimeDay().getEndTime());
-		new TimePickerDialog(flextimeDaySetup, this,
+		long defaultTime = getTimeValues(SettingsActivity.END_TIME,
+				flextimeDaySetup.getEndTime());
+		new TimePickerDialog(context, this,
 				DateHelper.convertHoursLongToInt(defaultTime),
 				DateHelper.convertMinutesLongToInt(defaultTime), true).show();
 	}
@@ -30,7 +34,7 @@ public class EndTimeSetupListener implements OnClickListener, OnTimeSetListener 
 	private long getTimeValues(String pref, long settedTime) {
 		if (settedTime == DateHelper.DAY_END) {
 			SharedPreferences prefs = PreferenceManager
-					.getDefaultSharedPreferences(flextimeDaySetup);
+					.getDefaultSharedPreferences(context);
 			return prefs.getLong(pref, 0L);
 		} else {
 			return settedTime;
@@ -39,8 +43,7 @@ public class EndTimeSetupListener implements OnClickListener, OnTimeSetListener 
 
 	@Override
 	public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-		flextimeDaySetup.updateTime(flextimeDaySetup.getFlextimeDay()
-				.getStartTime(), view.getDrawingTime());
+		flextimeDaySetup.setTime(flextimeDaySetup.getStartTime(),
+				DateHelper.convertHoursAndMinutesToLong(hourOfDay, minute));
 	}
-
 }

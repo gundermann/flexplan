@@ -7,6 +7,4 @@ public interface BreakSetup {
 
 	void refreshBreakTime(WorkBreak workbreak, long startTime, long endTime);
 	
-	void initSettings(WorkBreak workbreak);
-	
 }
