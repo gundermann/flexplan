@@ -3,14 +3,12 @@
     style="@style/activity_style"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
     android:fitsSystemWindows="true"
     tools:context=".FlextimeDaySetupActivity" >
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginTop="?android:attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@drawable/background"
         android:orientation="vertical" >
 
