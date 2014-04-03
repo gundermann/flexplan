@@ -1,6 +1,7 @@
 package com.flexplan.setup.day;
 
 import com.flexplan.common.business.FlextimeDay;
+import com.flexplan.setup.TimeSetup;
 
 public interface FlextimeDaySetup extends TimeSetup{
 	

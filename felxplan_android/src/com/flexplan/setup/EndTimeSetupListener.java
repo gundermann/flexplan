@@ -1,4 +1,4 @@
-package com.flexplan.setup.day;
+package com.flexplan.setup;
 
 import com.flexplan.SettingsActivity;
 import com.flexplan.common.util.DateHelper;

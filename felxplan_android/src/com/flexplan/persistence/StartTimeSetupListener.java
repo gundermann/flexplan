@@ -1,6 +1,7 @@
-package com.flexplan.setup.day;
+package com.flexplan.persistence;
 
 import com.flexplan.common.util.DateHelper;
+import com.flexplan.setup.TimeSetup;
 
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;

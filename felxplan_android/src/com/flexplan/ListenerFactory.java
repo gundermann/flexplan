@@ -12,6 +12,7 @@ import com.flexplan.setup.SaveDiscardProvider;
 import com.flexplan.util.DeleteListener;
 import com.flexplan.util.DeleteProvider;
 import com.flexplan.util.DiscardListener;
+import com.flexplan.util.OnDeleteClickListener;
 import com.flexplan.util.OverwriteListener;
 import com.flexplan.util.OverwriteProvider;
 import com.flexplan.util.SaveListener;

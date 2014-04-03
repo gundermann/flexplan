@@ -1,9 +1,8 @@
-package com.flexplan;
+package com.flexplan.util;
 
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import com.flexplan.util.DeleteProvider;
 
 public class OnDeleteClickListener<T> implements OnClickListener{
 

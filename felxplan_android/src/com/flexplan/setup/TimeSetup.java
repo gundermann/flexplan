@@ -1,4 +1,4 @@
-package com.flexplan.setup.day;
+package com.flexplan.setup;
 
 public interface TimeSetup {
 

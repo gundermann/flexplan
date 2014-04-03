@@ -12,9 +12,10 @@ import android.widget.ImageButton;
 
 import com.flexplan.common.business.WorkBreak;
 import com.flexplan.common.util.DateHelper;
+import com.flexplan.persistence.StartTimeSetupListener;
+import com.flexplan.setup.EndTimeSetupListener;
 import com.flexplan.setup.breaks.BreakSetup;
-import com.flexplan.setup.day.EndTimeSetupListener;
-import com.flexplan.setup.day.StartTimeSetupListener;
+import com.flexplan.setup.breaks.BreakTimeSetup;
 
 public class BreakListAdapter extends ArrayAdapter<WorkBreak> {
 

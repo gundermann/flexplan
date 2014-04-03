@@ -1,8 +1,7 @@
-package com.flexplan;
+package com.flexplan.setup.breaks;
 
 import com.flexplan.common.business.WorkBreak;
-import com.flexplan.setup.breaks.BreakSetup;
-import com.flexplan.setup.day.TimeSetup;
+import com.flexplan.setup.TimeSetup;
 
 public class BreakTimeSetup implements TimeSetup {
 
