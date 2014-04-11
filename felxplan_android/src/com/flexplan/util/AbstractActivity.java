@@ -42,12 +42,7 @@ public abstract class AbstractActivity extends FragmentActivity {
 
 	protected abstract void setContentView();
 
-	@Deprecated
-	protected void startNextActivity(Intent intent) {
-		startActivity(intent);
-	}
-	
-	protected void startNextActivity(Class<? extends Activity> activity){
+	public void startNextActivity(Class<? extends Activity> activity){
 		startActivity(new Intent(getApplicationContext(), activity));
 	}
 

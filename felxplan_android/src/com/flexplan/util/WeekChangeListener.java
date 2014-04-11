@@ -1,25 +1,24 @@
 package com.flexplan.util;
 
-import com.flexplan.FlextimeOverviewActivity;
-
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.flexplan.FlextimeOverviewActivity;
+
 public class WeekChangeListener implements OnClickListener {
 
-	private FlextimeOverviewActivity flextimeOverviewActivity;
+	private FlextimeOverviewActivity flextimeOverview;
 	private int weekChange;
 
 	public WeekChangeListener(
-			FlextimeOverviewActivity flextimeOverviewActivity, int weekChange) {
-		this.flextimeOverviewActivity = flextimeOverviewActivity;
+			FlextimeOverviewActivity flextimeOverviewFragment, int weekChange) {
+		this.flextimeOverview = flextimeOverviewFragment;
 		this.weekChange = weekChange;
 	}
 
 	@Override
 	public void onClick(View view) {
-		flextimeOverviewActivity.setCurrentWeek(flextimeOverviewActivity
-				.getCurrentWeek() + weekChange);
+		flextimeOverview.switchToWeek(weekChange);
 	}
 
 }

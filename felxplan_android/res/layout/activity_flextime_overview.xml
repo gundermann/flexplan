@@ -1,85 +1,44 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/activity_style"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    style="@style/activity_style"
     tools:context=".FlextimeOverviewActivity" >
-
-    <LinearLayout
+ <RelativeLayout
+        android:id="@id/pagerLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@drawable/background"
-        android:orientation="vertical" >
+        android:orientation="horizontal" >
 
-        <LinearLayout
+        <android.support.v4.view.ViewPager
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@id/pager"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:layout_height="fill_parent" >
+        </android.support.v4.view.ViewPager>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
 
-            <ImageButton
-                android:id="@+id/prev_week"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.1"
-                android:src="@android:drawable/ic_media_previous" />
-
-            <TextView
-                android:id="@+id/week"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.8"
-                android:gravity="center"
-                android:textColor="#33b5e5"
-                android:textStyle="bold" />
-
-            <ImageButton
-                android:id="@+id/next_week"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.1"
-                android:src="@android:drawable/ic_media_next" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="vertical" >
-
-            <ListView
-                android:id="@+id/flextime_overview"
-                android:layout_width="match_parent"
-                android:layout_height="fill_parent" />
-
-            <TextView
-                android:id="@+id/empty"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="@string/no_results" />
-        </LinearLayout>
-
-        <LinearLayout
+        <ImageButton
+            android:id="@+id/prev_week"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:gravity="bottom|center_horizontal"
-            android:orientation="horizontal" >
+            android:src="@android:drawable/ic_media_previous" />
 
-            <TextView
-                style="@style/TextSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/hours_this_week" />
+        <ImageButton
+            android:id="@+id/next_week"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:src="@android:drawable/ic_media_next" />
+    </RelativeLayout>
 
-            <TextView
-                android:id="@+id/hours_this_week"
-                style="@style/TextSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-    </LinearLayout>
+   
 
 </FrameLayout>

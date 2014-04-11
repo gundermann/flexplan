@@ -60,9 +60,9 @@ public class FlextimeDaySetupActivity extends AbstractFlextimeActivity
 	}
 
 	private void setupFlextimeDay(String newDate, long startTime, long endTime) {
-		currentFlextimeDay = Factory.getInstance().createFlextimeDay(newDate,
+		app.setFlextimeDay(Factory.getInstance().createFlextimeDay(newDate,
 				startTime, endTime,
-				getCacheDbHelper().getWorkBreaksForFlextimeDay(newDate));
+				getCacheDbHelper().getWorkBreaksForFlextimeDay(newDate)));
 		updateDateTv();
 		updateTimeBTs();
 		updateCache();
@@ -76,10 +76,6 @@ public class FlextimeDaySetupActivity extends AbstractFlextimeActivity
 	@Override
 	protected void setContentView() {
 		setContentView(R.layout.activity_flextime_day_setup);
-	}
-
-	public FlextimeDay getFlextimeDay() {
-		return currentFlextimeDay;
 	}
 
 	@Override
@@ -128,8 +124,7 @@ public class FlextimeDaySetupActivity extends AbstractFlextimeActivity
 
 	@Override
 	public void save() {
-		if (((FlexplanApplication) getApplication()).getFlextimeDB()
-				.isDateInDB(currentFlextimeDay.getDate())) {
+		if (app.isDateInDB()) {
 			SimpleDialog.newInstance(
 					ListenerFactory.createOverrideListener(this),
 					getString(R.string.override_day)).show(
@@ -139,12 +134,11 @@ public class FlextimeDaySetupActivity extends AbstractFlextimeActivity
 		}
 	}
 
+	//FIXME
 	@Override
 	public void overwriteOrSave() {
-		((FlexplanApplication) getApplication()).getFlextimeDB().delete(
-				currentFlextimeDay);
-		((FlexplanApplication) getApplication()).getFlextimeDB()
-				.insertOrUpdateFlextimeDay(currentFlextimeDay);
+		app.deleteDay();
+		app.insertOrUpdateFlextimeDay();
 		super.onBackPressed();
 	}
 
@@ -166,26 +160,23 @@ public class FlextimeDaySetupActivity extends AbstractFlextimeActivity
 					.getEndTimeOfDay(newDate);
 		}
 
-		else if (((FlexplanApplication) getApplication()).getFlextimeDB()
-				.isDateInDB(newDate)) {
-			startTime = ((FlexplanApplication) getApplication())
-					.getFlextimeDB().getStartTimeOfDay(newDate);
-			endTime = ((FlexplanApplication) getApplication()).getFlextimeDB()
-					.getEndTimeOfDay(newDate);
+		else if (app.isDateInDB(newDate)) {
+			startTime = app.getStartTimeOfDay(newDate);
+			endTime = app.getEndTimeOfDay(newDate);
 		}
 		setupFlextimeDay(newDate, startTime, endTime);
 	}
 
 	private void updateTimeBTs() {
-		timeFromBT.setText(DateHelper.getTimeAsString(currentFlextimeDay
+		timeFromBT.setText(DateHelper.getTimeAsString(app.getcurrentDay()
 				.getStartTime()));
-		timeToBT.setText(DateHelper.getTimeAsString(currentFlextimeDay
+		timeToBT.setText(DateHelper.getTimeAsString(app.getcurrentDay()
 				.getEndTime()));
 
 	}
 
 	private void updateDateTv() {
-		dateTv.setText(currentFlextimeDay.getDate());
+		dateTv.setText(app.getcurrentDay().getDate());
 	}
 
 	@Override
@@ -195,16 +186,26 @@ public class FlextimeDaySetupActivity extends AbstractFlextimeActivity
 
 	@Override
 	public long getStartTime() {
-		return getCurrentFlextimeDay().getStartTime();
+		return app.getcurrentDay().getStartTime();
 	}
 
 	@Override
 	public long getEndTime() {
-		return getCurrentFlextimeDay().getEndTime();
+		return app.getcurrentDay().getEndTime();
 	}
 
 	@Override
 	public void setTime(long startTime, long endTime) {
-		setupFlextimeDay(currentFlextimeDay.getDate(), startTime, endTime);		
+		setupFlextimeDay(app.getcurrentDay().getDate(), startTime, endTime);		
+	}
+
+	@Override
+	public FlextimeDay getFlextimeDay() {
+		return app.getcurrentDay();
+	}
+
+	@Override
+	public void updateCache() {
+		app.updateCache();
 	}
 }

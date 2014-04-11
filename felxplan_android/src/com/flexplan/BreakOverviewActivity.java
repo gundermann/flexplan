@@ -8,10 +8,7 @@ import com.flexplan.common.Factory;
 import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.common.business.WorkBreak;
 import com.flexplan.common.util.DateHelper;
-import com.flexplan.setup.SaveDiscardProvider;
 import com.flexplan.setup.breaks.BreakSetup;
-import com.flexplan.util.DeleteProvider;
-import com.flexplan.util.OverwriteProvider;
 import com.flexplan.util.SaveOrDiscardDialog;
 import com.flexplan.util.SimpleDialog;
 
@@ -28,9 +25,7 @@ public class BreakOverviewActivity extends AbstractFlextimeActivity implements
 	}
 
 	private void loadBreak() {
-		currentFlextimeDay = ((FlexplanApplication) getApplication())
-				.getCacheDB().getCachedFlextimeDay();
-		this.setTitle(getTitle() + " - " + currentFlextimeDay.getDate());
+		this.setTitle(getTitle() + " - " + app.getcurrentDay().getDate());
 	}
 
 	@Override
@@ -94,7 +89,7 @@ public class BreakOverviewActivity extends AbstractFlextimeActivity implements
 		FlextimeDay cachedFlextimeDay = getCacheDbHelper()
 				.getCachedFlextimeDay();
 		return cachedFlextimeDay.getWorkBreaks().equals(
-				currentFlextimeDay.getWorkBreaks());
+				app.getcurrentDay().getWorkBreaks());
 	}
 
 	@Override
@@ -104,7 +99,7 @@ public class BreakOverviewActivity extends AbstractFlextimeActivity implements
 
 	@Override
 	public void overwriteOrSave() {
-		getCacheDbHelper().updateWorkBreaks(currentFlextimeDay);
+		getCacheDbHelper().updateWorkBreaks(app.getcurrentDay());
 		super.onBackPressed();
 	}
 
@@ -115,7 +110,7 @@ public class BreakOverviewActivity extends AbstractFlextimeActivity implements
 
 	private void updateLists() {
 		breakListView.setAdapter(new BreakListAdapter(this,
-				currentFlextimeDay.getWorkBreaks(), this));
+				app.getcurrentDay().getWorkBreaks(), this));
 		breakListView.setEmptyView(findViewById(R.id.empty));
 	}
 
@@ -125,7 +120,7 @@ public class BreakOverviewActivity extends AbstractFlextimeActivity implements
 		if (workbreak == null) {
 			workbreak = Factory.getInstance().createWorkBreak(
 					DateHelper.DAY_START, DateHelper.DAY_END);
-			currentFlextimeDay.addBreak(workbreak);
+			app.getcurrentDay().addBreak(workbreak);
 		}
 		workbreak.setStartTime(startTime);
 		workbreak.setEndTime(endTime);
@@ -134,7 +129,7 @@ public class BreakOverviewActivity extends AbstractFlextimeActivity implements
 
 	@Override
 	public void delete(WorkBreak workbreak) {
-		currentFlextimeDay.deleteBreak(workbreak);
+		app.getcurrentDay().deleteBreak(workbreak);
 		updateLists();
 	}
 

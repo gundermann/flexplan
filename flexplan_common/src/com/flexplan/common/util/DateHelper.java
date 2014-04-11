@@ -153,4 +153,5 @@ public class DateHelper {
 		return convertHoursToLong(hours) + convertMinutesToLong(minutes);
 	}
 
+
 }
