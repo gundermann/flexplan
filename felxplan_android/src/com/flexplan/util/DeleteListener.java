@@ -16,7 +16,7 @@ public class DeleteListener<T> implements OnClickListener {
 
 	@Override
 	public void onClick(DialogInterface dialog, int arg1) {
-		provider.initDelete(object);
+		provider.delete(object);
 	}
 
 }
