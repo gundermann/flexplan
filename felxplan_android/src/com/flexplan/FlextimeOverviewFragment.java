@@ -46,6 +46,11 @@ public class FlextimeOverviewFragment extends Fragment implements
 	}
 
 	@Override
+	public void onResume() {
+		super.onResume();
+		updateListView();
+	}
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
