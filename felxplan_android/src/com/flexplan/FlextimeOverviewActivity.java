@@ -36,6 +36,7 @@ public class FlextimeOverviewActivity extends AbstractFlextimeActivity
 	protected void onResume() {
 		super.onResume();
 		getCacheDbHelper().cleanup();
+		viewPager.setCurrentItem(actualWeek - 1);
 	}
 
 	@Override

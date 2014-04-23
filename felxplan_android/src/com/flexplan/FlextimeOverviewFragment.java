@@ -50,6 +50,7 @@ public class FlextimeOverviewFragment extends Fragment implements
 		super.onResume();
 		updateListView();
 	}
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
