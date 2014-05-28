@@ -13,5 +13,8 @@
     <com.flexplan.util.BigTimePreference
         android:key="hours_per_week"
         android:title="@string/pref_hours_per_week" />
+    <com.flexplan.util.BigTimePreference
+        android:key="days_per_week"
+        android:title="@string/pref_days_per_week" />
 
 </PreferenceScreen>

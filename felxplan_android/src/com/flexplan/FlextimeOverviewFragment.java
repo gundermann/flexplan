@@ -21,113 +21,114 @@ import com.flexplan.util.AbstractActivity;
 import com.flexplan.util.DeleteProvider;
 import com.flexplan.util.SimpleDialog;
 
-public class FlextimeOverviewFragment extends Fragment implements
-		DeleteProvider<FlextimeDay>, ChangeProvider<FlextimeDay> {
+public class FlextimeOverviewFragment extends Fragment implements DeleteProvider<FlextimeDay>,
+    ChangeProvider<FlextimeDay> {
 
-	private static final String TAG = FlextimeOverviewFragment.class.getSimpleName();
+  private static final String TAG = FlextimeOverviewFragment.class.getSimpleName();
 
-	private int currentWeek;
+  private int currentWeek;
 
-	private TextView week;
+  private TextView week;
 
-	private TextView hoursThisWeekTv;
+  private TextView hoursThisWeekTv;
 
-	private ListView flextimeWeekList;
+  private ListView flextimeWeekList;
 
-	private int currentYear;
+  private int currentYear;
 
-	protected SharedPreferences prefs;
+  protected SharedPreferences prefs;
 
-	public static Fragment newInstance(int currentWeek, int currentYear) {
-		FlextimeOverviewFragment fragment = new FlextimeOverviewFragment();
-		fragment.currentWeek = currentWeek;
-		fragment.currentYear = currentYear;
-		return fragment;
-	}
+  public static Fragment newInstance( int currentWeek, int currentYear ) {
+    FlextimeOverviewFragment fragment = new FlextimeOverviewFragment();
+    fragment.currentWeek = currentWeek;
+    fragment.currentYear = currentYear;
+    return fragment;
+  }
 
-	@Override
-	public void onResume() {
-		super.onResume();
-		updateListView();
-	}
-	
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-		View rootView = inflater.inflate(R.layout.fragement_flextime_overview,
-				container, false);
-		week = (TextView) rootView.findViewById(R.id.week);
-		hoursThisWeekTv = (TextView) rootView
-				.findViewById(R.id.hours_this_week);
-		flextimeWeekList = (ListView) rootView
-				.findViewById(R.id.flextime_overview);
-		flextimeWeekList.setEmptyView(rootView.findViewById(R.id.empty));
-		updateListView();
-		updateWeekView();
-		return rootView;
-	}
+  @Override
+  public void onResume() {
+    super.onResume();
+    updateListView();
+  }
 
-	private void updateWeekView() {
-		week.setText("KW " + currentWeek + " " + currentYear);
-	}
+  @Override
+  public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState ) {
+    prefs = PreferenceManager.getDefaultSharedPreferences( getActivity() );
+    View rootView = inflater.inflate( R.layout.fragement_flextime_overview, container, false );
+    week = (TextView) rootView.findViewById( R.id.week );
+    hoursThisWeekTv = (TextView) rootView.findViewById( R.id.hours_this_week );
+    flextimeWeekList = (ListView) rootView.findViewById( R.id.flextime_overview );
+    flextimeWeekList.setEmptyView( rootView.findViewById( R.id.empty ) );
+    updateListView();
+    updateWeekView();
+    return rootView;
+  }
 
-	private void updateListView() {
-		flextimeWeekList.setAdapter(new FlextimeOverviewAdapter(getActivity(),
-				getCurrentWeekDays()));
-		flextimeWeekList.setOnItemClickListener(ListenerFactory
-				.createOnChangeFlextimeListener(this));
-		flextimeWeekList.setOnItemLongClickListener(ListenerFactory
-				.createDeleteClickListener(this));
-		updateHours();
-	}
+  private void updateWeekView() {
+    week.setText( "KW " + currentWeek + " " + currentYear );
+  }
 
-	private void updateHours() {
-		long hours = 0;
-		for (FlextimeDay day : getCurrentWeekDays()) {
-			hours += day.getLenght();
-			if (day.getWorkBreaks().isEmpty()) {
-				hours -= prefs.getLong("breaktime", 0);
-			}
-		}
-		hoursThisWeekTv.setText(DateHelper.getTimeAsString(hours));
+  private void updateListView() {
+    flextimeWeekList.setAdapter( new FlextimeOverviewAdapter( getActivity(), getCurrentWeekDays() ) );
+    flextimeWeekList.setOnItemClickListener( ListenerFactory.createOnChangeFlextimeListener( this ) );
+    flextimeWeekList.setOnItemLongClickListener( ListenerFactory.createDeleteClickListener( this ) );
+    updateHours();
+  }
 
-		if (hours < prefs.getLong("hours_per_week", 0)) {
-			hoursThisWeekTv.setTextColor(Color.RED);
-		} else {
-			hoursThisWeekTv.setTextColor(Color.GREEN);
-		}
-	}
+  private void updateHours() {
+    long hours = 0;
+    for ( FlextimeDay day : getCurrentWeekDays() ) {
+      hours += getWorkingHoursOnDay( day );
+    }
+    hoursThisWeekTv.setText( DateHelper.getTimeAsString( hours ) );
 
-	private List<FlextimeDay> getCurrentWeekDays() {
-		return getApp().getCurrentWeekDays(currentWeek, currentYear);
-	}
+    if ( hours < prefs.getLong( SettingsActivity.HOURS_PER_WEEK, 0 ) ) {
+      hoursThisWeekTv.setTextColor( Color.RED );
+    }
+    else {
+      hoursThisWeekTv.setTextColor( Color.GREEN );
+    }
+  }
 
-	@Override
-	public void delete(FlextimeDay flextimeDay) {
-		getApp().delete(flextimeDay);
-		updateListView();
-	}
+  private long getWorkingHoursOnDay( FlextimeDay day ) {
+    long hours = 0;
+    if ( day.isHoliday() ) {
+      hours = prefs.getLong( SettingsActivity.HOURS_PER_WEEK, 40 ) / prefs.getLong( SettingsActivity.DAYS_PER_WEEK, 5 );
+    }
+    else {
+      hours = day.getLenght();
+      if ( day.getWorkBreaks().isEmpty() ) {
+        hours -= prefs.getLong( SettingsActivity.BREAK_TIME, 0 );
+      }
+    }
+    return hours;
+  }
 
-	private FlexplanApplication getApp() {
-		return ((FlexplanApplication) getActivity().getApplication());
-	}
+  private List<FlextimeDay> getCurrentWeekDays() {
+    return getApp().getCurrentWeekDays( currentWeek, currentYear );
+  }
 
-	@Override
-	public void initDelete(FlextimeDay flextimeDay) {
-		SimpleDialog
-				.newInstance(
-						ListenerFactory.createFlextimeDeleteListener(this,
-								flextimeDay),
-						getString(R.string.ask_delete_day)).show(
-						getActivity().getSupportFragmentManager(), TAG);
-	}
+  @Override
+  public void delete( FlextimeDay flextimeDay ) {
+    getApp().delete( flextimeDay );
+    updateListView();
+  }
 
-	@Override
-	public void initChange(FlextimeDay flextimeDay) {
-		getApp().setFlextimeDay(flextimeDay);
-		getApp().updateCache();
-		((AbstractActivity) getActivity()).startNextActivity(FlextimeDaySetupActivity.class);
-	}
+  private FlexplanApplication getApp() {
+    return ( (FlexplanApplication) getActivity().getApplication() );
+  }
+
+  @Override
+  public void initDelete( FlextimeDay flextimeDay ) {
+    SimpleDialog.newInstance( ListenerFactory.createFlextimeDeleteListener( this, flextimeDay ),
+        getString( R.string.ask_delete_day ) ).show( getActivity().getSupportFragmentManager(), TAG );
+  }
+
+  @Override
+  public void initChange( FlextimeDay flextimeDay ) {
+    getApp().setFlextimeDay( flextimeDay );
+    getApp().updateCache();
+    ( (AbstractActivity) getActivity() ).startNextActivity( FlextimeDaySetupActivity.class );
+  }
 
 }

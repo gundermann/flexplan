@@ -2,83 +2,89 @@ package com.flexplan;
 
 import java.util.List;
 
+import android.app.Application;
+
 import com.flexplan.common.business.FlextimeDay;
 import com.flexplan.persistence.CacheDBHelper;
 import com.flexplan.persistence.CacheDBHelperImpl;
-import com.flexplan.persistence.FlextimeDBHelperImpl;
 import com.flexplan.persistence.FlextimeDBHelper;
-
-import android.app.Application;
+import com.flexplan.persistence.FlextimeDBHelperImpl;
 
 public class FlexplanApplication extends Application {
 
-	private FlextimeDBHelperImpl flextimeDbHelper;
-	private CacheDBHelperImpl cacheDbHelper;
-	private FlextimeDay currentFlextimeDay;
+  private FlextimeDBHelperImpl flextimeDbHelper;
 
-	private FlextimeDBHelper getFlextimeDB() {
-		if (flextimeDbHelper == null)
-			flextimeDbHelper = new FlextimeDBHelperImpl(this);
-		return flextimeDbHelper;
-	}
+  private CacheDBHelperImpl cacheDbHelper;
 
-	public FlextimeDay getcurrentDay() {
-		return currentFlextimeDay;
-	}
+  private FlextimeDay currentFlextimeDay;
 
-	public CacheDBHelper getCacheDB() {
-		if (cacheDbHelper == null)
-			cacheDbHelper = new CacheDBHelperImpl(this);
-		return cacheDbHelper;
-	}
+  private FlextimeDBHelper getFlextimeDB() {
+    if ( flextimeDbHelper == null )
+      flextimeDbHelper = new FlextimeDBHelperImpl( this );
+    return flextimeDbHelper;
+  }
 
-	public boolean isDateCached(String newDate) {
-		return cacheDbHelper.getCachedDate() != null ? cacheDbHelper
-				.getCachedDate().equals(newDate) : false;
-	}
+  public FlextimeDay getcurrentDay() {
+    return currentFlextimeDay;
+  }
 
-	public boolean existsCacheData() {
-		return !getCacheDB().isEmpty();
-	}
+  public CacheDBHelper getCacheDB() {
+    if ( cacheDbHelper == null )
+      cacheDbHelper = new CacheDBHelperImpl( this );
+    return cacheDbHelper;
+  }
 
-	public List<FlextimeDay> getCurrentWeekDays(int currentWeek, int currentYear) {
-		return getFlextimeDB().getCurrentWeekDays(currentWeek, currentYear);
-	}
+  public boolean isDateCached( String newDate ) {
+    return cacheDbHelper.getCachedDate() != null ? cacheDbHelper.getCachedDate().equals( newDate ) : false;
+  }
 
-	public void delete(FlextimeDay flextimeDay) {
-		getFlextimeDB().delete(flextimeDay);
-	}
-	
-	public void updateCache() {
-		getCacheDB().insertOrUpdateFlextimeDay(currentFlextimeDay);
-	}
+  public boolean existsCacheData() {
+    return !getCacheDB().isEmpty();
+  }
 
-	public void setFlextimeDay(FlextimeDay flextimeDay) {
-		this.currentFlextimeDay = flextimeDay;
-	}
+  public List<FlextimeDay> getCurrentWeekDays( int currentWeek, int currentYear ) {
+    return getFlextimeDB().getCurrentWeekDays( currentWeek, currentYear );
+  }
 
-	public boolean isDateInDB() {
-		return getFlextimeDB().isDateInDB(currentFlextimeDay.getDate());
-	}
+  public void delete( FlextimeDay flextimeDay ) {
+    getFlextimeDB().delete( flextimeDay );
+  }
 
-	public void deleteDay() {
-		getFlextimeDB().delete(currentFlextimeDay);
-	}
+  public void updateCache() {
+    getCacheDB().insertOrUpdateFlextimeDay( currentFlextimeDay );
+  }
 
-	public void insertOrUpdateFlextimeDay() {
-		getFlextimeDB().insertOrUpdateFlextimeDay(currentFlextimeDay);
-	}
+  public void setFlextimeDay( FlextimeDay flextimeDay ) {
+    this.currentFlextimeDay = flextimeDay;
+  }
 
-	public boolean isDateInDB(String newDate) {
-		return getFlextimeDB().isDateInDB(newDate);
-	}
+  public boolean isDateInDB() {
+    return getFlextimeDB().isDateInDB( currentFlextimeDay.getDate() );
+  }
 
-	public long getStartTimeOfDay(String newDate) {
-		return getFlextimeDB().getStartTimeOfDay(newDate);
-	}
+  public void deleteDay() {
+    getFlextimeDB().delete( currentFlextimeDay );
+  }
 
-	public long getEndTimeOfDay(String newDate) {
-		return getFlextimeDB().getEndTimeOfDay(newDate);
-	}
+  public void insertOrUpdateFlextimeDay() {
+    getFlextimeDB().insertOrUpdateFlextimeDay( currentFlextimeDay );
+    getCacheDB().cleanup();
+  }
+
+  public boolean isDateInDB( String newDate ) {
+    return getFlextimeDB().isDateInDB( newDate );
+  }
+
+  public long getStartTimeOfDay( String newDate ) {
+    return getFlextimeDB().getStartTimeOfDay( newDate );
+  }
+
+  public long getEndTimeOfDay( String newDate ) {
+    return getFlextimeDB().getEndTimeOfDay( newDate );
+  }
+
+  public boolean isHoliday( String newDate ) {
+    return getFlextimeDB().isHoliday( newDate );
+  }
 
 }

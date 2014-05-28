@@ -28,5 +28,6 @@
     <string name="no_results">Keine Einträge</string>
     <string name="clock_devider">:</string>
     <string name="deleteBreakDiscription">Pause löschen</string>
+    <string name="holiday">Urlaub</string>
 
 </resources>

@@ -7,22 +7,24 @@ import com.flexplan.common.business.WorkBreak;
 
 public interface CacheDBHelper {
 
-	long getStartTimeOfDay(String newDate);
+  long getStartTimeOfDay( String newDate );
 
-	long getEndTimeOfDay(String newDate);
+  long getEndTimeOfDay( String newDate );
 
-	void updateWorkBreaks(FlextimeDay currentFlextimeDay);
+  void updateWorkBreaks( FlextimeDay currentFlextimeDay );
 
-	void insertOrUpdateFlextimeDay(FlextimeDay flextimeDay);
+  void insertOrUpdateFlextimeDay( FlextimeDay flextimeDay );
 
-	boolean isEmpty();
+  boolean isEmpty();
 
-	String getCachedDate();
+  String getCachedDate();
 
-	void cleanup();
+  void cleanup();
 
-	FlextimeDay getCachedFlextimeDay();
+  FlextimeDay getCachedFlextimeDay();
 
-	List<WorkBreak> getWorkBreaksForFlextimeDay(String newDate);
+  List<WorkBreak> getWorkBreaksForFlextimeDay( String newDate );
+
+  boolean isHoliday( String newDate );
 
 }

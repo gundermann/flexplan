@@ -6,5 +6,5 @@
     <string name="pref_starttime">Standardzeit für Begin des Arbeitstages</string>
     <string name="pref_endtime">Standardzeit für Ende des Arbeitstages</string>
     <string name="pref_hours_per_week">Zu absolvierende Wochenstunden</string>
-
+	<string name="pref_days_per_week">Wöchentl. Arbeitstage</string>
 </resources>

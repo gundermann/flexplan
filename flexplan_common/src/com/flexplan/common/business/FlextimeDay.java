@@ -2,28 +2,29 @@ package com.flexplan.common.business;
 
 import java.util.List;
 
-
 public interface FlextimeDay {
 
-	String getDate();
+  String getDate();
 
-	long getStartTime();
+  long getStartTime();
 
-	long getEndTime();
+  long getEndTime();
 
-	long getTimeForBreaks();
+  long getTimeForBreaks();
 
-	void setStartTime(long time);
+  void setStartTime( long time );
 
-	void setEndTime(long time);
+  void setEndTime( long time );
 
-	void addBreak(WorkBreak workbreak);
+  void addBreak( WorkBreak workbreak );
 
-	void deleteBreak(WorkBreak workbreak);
+  void deleteBreak( WorkBreak workbreak );
 
-	List<WorkBreak> getWorkBreaks();
+  List<WorkBreak> getWorkBreaks();
 
-	void setDate(String date);
+  void setDate( String date );
 
-	long getLenght();
+  long getLenght();
+
+  boolean isHoliday();
 }

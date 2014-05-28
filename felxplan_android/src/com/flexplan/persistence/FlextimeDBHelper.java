@@ -6,21 +6,23 @@ import com.flexplan.common.business.FlextimeDay;
 
 public interface FlextimeDBHelper {
 
-	void insertOrUpdateFlextimeDay(FlextimeDay flextimeDay);
-	
-	List<FlextimeDay> getAllFlextimeDays();
+  void insertOrUpdateFlextimeDay( FlextimeDay flextimeDay );
 
-	List<FlextimeDay> getCurrentWeekDays(int weekOfYear, int year);
+  List<FlextimeDay> getAllFlextimeDays();
 
-	boolean insertWorkBreaks(FlextimeDay currentFlextimeDay);
+  List<FlextimeDay> getCurrentWeekDays( int weekOfYear, int year );
 
-	boolean delete(FlextimeDay flextimeDay);
+  boolean insertWorkBreaks( FlextimeDay currentFlextimeDay );
 
-	boolean isDateInDB(String newDate);
+  boolean delete( FlextimeDay flextimeDay );
 
-	long getStartTimeOfDay(String newDate);
+  boolean isDateInDB( String newDate );
 
-	long getEndTimeOfDay(String newDate);
+  long getStartTimeOfDay( String newDate );
 
-	FlextimeDay getFlextimeDay(FlextimeDay cachedFlextimeDay);
+  long getEndTimeOfDay( String newDate );
+
+  FlextimeDay getFlextimeDay( FlextimeDay cachedFlextimeDay );
+
+  boolean isHoliday( String newDate );
 }
