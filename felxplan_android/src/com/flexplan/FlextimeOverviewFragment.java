@@ -93,7 +93,7 @@ public class FlextimeOverviewFragment extends Fragment implements DeleteProvider
   private long getWorkingHoursOnDay( FlextimeDay day ) {
     long hours = 0;
     if ( day.isHoliday() ) {
-      hours = prefs.getLong( SettingsActivity.HOURS_PER_WEEK, 40 ) / prefs.getLong( SettingsActivity.DAYS_PER_WEEK, 5 );
+      hours = prefs.getLong( SettingsActivity.HOURS_PER_WEEK, 40 ) / prefs.getInt( SettingsActivity.DAYS_PER_WEEK, 5 );
     }
     else {
       hours = day.getLenght();
